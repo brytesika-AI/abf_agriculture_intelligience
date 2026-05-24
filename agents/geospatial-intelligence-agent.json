@@ -1,0 +1,148 @@
+{
+  "agent_id": "abfagri-geospatial-intelligence-v1",
+  "name": "Geospatial Intelligence Agent",
+  "version": "1.0.0",
+  "description": "Orchestrates live satellite data pulls from Google Earth Engine and Microsoft Planetary Computer. Computes NDVI anomaly, soil moisture deviation, precipitation anomaly, and land surface temperature per field boundary. Feeds structured geospatial context into the abfAgri consequence model pipeline.",
+  "model": {
+    "provider": "cloudflare-workers-ai",
+    "model_id": "@cf/meta/llama-3.1-8b-instruct",
+    "local_ollama": "llama3.1:8b",
+    "temperature": 0.1,
+    "max_tokens": 768
+  },
+  "system_prompt": "You are abfAgri's geospatial intelligence orchestrator. You coordinate satellite data retrieval from Google Earth Engine and Microsoft Planetary Computer, interpret vegetation indices and soil/weather anomalies in the context of SADC agricultural systems, and package geospatial intelligence as structured inputs for the consequence model agent. Flag stress conditions clearly. Do not interpolate beyond data confidence bounds.",
+  "data_sources": {
+    "google_earth_engine": {
+      "datasets": [
+        {
+          "name": "Sentinel-2 MSI Level-2A",
+          "collection": "COPERNICUS/S2_SR_HARMONIZED",
+          "update_frequency": "5 days",
+          "indices_computed": ["NDVI", "EVI", "NDRE", "LAI", "NDWI"],
+          "resolution_m": 10,
+          "use_case": "Primary crop health and vegetation stress monitoring"
+        },
+        {
+          "name": "Landsat 8/9 OLI",
+          "collection": "LANDSAT/LC09/C02/T1_L2",
+          "update_frequency": "16 days",
+          "indices_computed": ["NDVI", "NBR", "LST"],
+          "resolution_m": 30,
+          "use_case": "Historical baseline and longer-term trend analysis"
+        },
+        {
+          "name": "MODIS Terra Land Surface Temperature",
+          "collection": "MODIS/061/MOD11A1",
+          "update_frequency": "daily",
+          "resolution_m": 1000,
+          "use_case": "Canopy temperature stress detection"
+        },
+        {
+          "name": "CHIRPS Precipitation",
+          "collection": "UCSB-CHG/CHIRPS/DAILY",
+          "update_frequency": "daily",
+          "resolution_m": 5566,
+          "use_case": "Rainfall anomaly and drought stress monitoring"
+        },
+        {
+          "name": "SMAP Soil Moisture",
+          "collection": "NASA/SMAP/SPL3SMP_E/006",
+          "update_frequency": "2-3 days",
+          "resolution_m": 9000,
+          "use_case": "Root zone soil moisture — irrigation and water stress assessment"
+        }
+      ],
+      "api_endpoint": "https://earthengine.googleapis.com/v1",
+      "auth": "service_account_json"
+    },
+    "microsoft_planetary_computer": {
+      "datasets": [
+        {
+          "name": "Sentinel-1 SAR GRD",
+          "collection": "sentinel-1-grd",
+          "update_frequency": "6-12 days",
+          "use_case": "Soil moisture estimation (cloud-penetrating), flood detection"
+        },
+        {
+          "name": "Copernicus DEM GLO-30",
+          "collection": "cop-dem-glo-30",
+          "update_frequency": "static",
+          "use_case": "Elevation, slope, aspect — runoff and erosion risk modelling"
+        },
+        {
+          "name": "ESA WorldCover",
+          "collection": "esa-worldcover",
+          "update_frequency": "annual",
+          "use_case": "Land use classification, field boundary validation"
+        },
+        {
+          "name": "MODIS TERRA Surface Reflectance",
+          "collection": "modis-09Q1-061",
+          "update_frequency": "8 days",
+          "use_case": "Regional crop health monitoring at 250m resolution"
+        }
+      ],
+      "api_endpoint": "https://planetarycomputer.microsoft.com/api/stac/v1",
+      "auth": "planetary_computer_token"
+    }
+  },
+  "field_boundary_engine": {
+    "description": "Automatic field delineation from Sentinel-2 imagery using NDVI gradient detection",
+    "min_field_size_ha": 0.5,
+    "supported_input_formats": ["geojson", "kml", "lat_lon_radius", "farm_id"],
+    "output_format": "geojson"
+  },
+  "outputs": {
+    "ndvi_profile": {
+      "current_value": "float 0.0-1.0",
+      "seasonal_baseline": "float — 5-year same-date average",
+      "anomaly_pct": "float — % deviation from baseline",
+      "trend_7d": "float — NDVI change over last 7 days",
+      "trend_classification": ["declining_rapidly", "declining", "stable", "recovering", "healthy"],
+      "data_source": "string",
+      "acquisition_date": "ISO8601"
+    },
+    "soil_moisture_profile": {
+      "current_mm": "float",
+      "field_capacity_mm": "float",
+      "anomaly_pct": "float",
+      "drought_stress_flag": "boolean",
+      "data_source": "string"
+    },
+    "precipitation_analysis": {
+      "last_30d_mm": "float",
+      "seasonal_average_mm": "float",
+      "deficit_mm": "float",
+      "forecast_72h_mm": "float",
+      "optimal_application_window": "boolean — true if no rain forecast for 48h"
+    },
+    "temperature_stress": {
+      "canopy_temp_celsius": "float",
+      "heat_stress_flag": "boolean",
+      "frost_risk_flag": "boolean"
+    },
+    "composite_stress_score": {
+      "score": "float 0.0-10.0",
+      "classification": ["none", "low", "moderate", "high", "critical"],
+      "primary_stressor": "string"
+    },
+    "territory_heatmap": {
+      "description": "Aggregated stress data for sales territory dashboards",
+      "granularity": ["province", "district", "ward"],
+      "metrics": ["avg_ndvi", "pct_fields_stressed", "dominant_condition", "affected_area_ha"]
+    }
+  },
+  "sadc_coverage": {
+    "countries_active": ["ZA", "ZW", "ZM", "MZ", "TZ", "BW", "NA", "MW", "AO", "CD", "SZ", "LS", "MG", "MU", "KM", "SC"],
+    "total_monitored_fields": 4287,
+    "update_cycle_hours": 3,
+    "offline_cache_hours": 72
+  },
+  "alert_thresholds": {
+    "ndvi_critical": 0.30,
+    "ndvi_warning": 0.45,
+    "soil_moisture_critical_pct_below_field_capacity": 40,
+    "soil_moisture_warning_pct_below_field_capacity": 25,
+    "precipitation_deficit_critical_mm_30d": 60
+  }
+}

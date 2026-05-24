@@ -1,0 +1,101 @@
+{
+  "agent_id": "abfagri-product-recommendation-v1",
+  "name": "Product Recommendation Agent",
+  "version": "1.0.0",
+  "description": "Selects the optimal fertilizer or crop protection product from a producer's SKU catalogue based on diagnosis, consequence model output, crop stage, soil chemistry, and geographic availability. Outputs ranked product recommendations with ZAR ROI projection.",
+  "model": {
+    "provider": "cloudflare-workers-ai",
+    "model_id": "@cf/microsoft/phi-3-mini-128k-instruct",
+    "fallback_model_id": "@cf/meta/llama-3.1-8b-instruct",
+    "local_ollama": "phi3:mini",
+    "temperature": 0.1,
+    "max_tokens": 1024
+  },
+  "system_prompt": "You are abfAgri's product recommendation engine. You receive a crop diagnosis and consequence model output, then select the best-fit product from the fertilizer producer's catalogue. Your goal is to maximise yield recovery for the farmer while respecting product availability, application method constraints, and producer margin preferences. Always return the top 3 ranked options. Include application rate (kg/ha or L/ha), timing window, application method, and projected net ZAR gain after product cost. Be specific. Reference product names exactly as they appear in the producer_catalogue input.",
+  "inputs": {
+    "required": ["diagnosis_output", "consequence_output", "producer_catalogue", "field_area_ha", "crop_type", "growth_stage", "country"],
+    "optional": ["soil_ph", "soil_ec", "irrigation_available", "farmer_budget_zar", "distributor_stock_levels"]
+  },
+  "ranking_criteria": {
+    "primary": "yield_recovery_pct",
+    "secondary": "net_zar_gain_after_cost",
+    "tertiary": "producer_margin_zar_per_ha",
+    "constraints": ["application_method_feasible", "stock_available_in_territory", "registered_for_crop_in_country"]
+  },
+  "output_schema": {
+    "type": "object",
+    "required": ["recommendations", "application_window_hours", "agronomic_rationale"],
+    "properties": {
+      "recommendations": {
+        "type": "array",
+        "maxItems": 3,
+        "items": {
+          "type": "object",
+          "required": ["rank", "product_name", "sku_code", "rate", "rate_unit", "application_method", "timing", "estimated_cost_zar_per_ha", "projected_yield_recovery_pct", "net_gain_zar_per_ha"],
+          "properties": {
+            "rank": { "type": "integer", "description": "1 = best fit" },
+            "product_name": { "type": "string" },
+            "sku_code": { "type": "string" },
+            "active_ingredient": { "type": "string" },
+            "rate": { "type": "number" },
+            "rate_unit": { "type": "string", "enum": ["kg/ha", "L/ha", "ml/ha", "g/ha"] },
+            "application_method": { "type": "string", "enum": ["top_dress", "broadcast", "foliar_spray", "fertigation", "in-furrow", "side_dress"] },
+            "timing": { "type": "string", "description": "e.g. 'Apply within 48 hours of diagnosis'" },
+            "estimated_cost_zar_per_ha": { "type": "number" },
+            "projected_yield_recovery_pct": { "type": "number" },
+            "net_gain_zar_per_ha": { "type": "number", "description": "Revenue recovered minus product cost" },
+            "producer_margin_zar_per_ha": { "type": "number" },
+            "complementary_products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_name": { "type": "string" },
+                  "sku_code": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            },
+            "registration_status": {
+              "type": "object",
+              "description": "Product registration per SADC country",
+              "additionalProperties": { "type": "boolean" }
+            }
+          }
+        }
+      },
+      "application_window_hours": {
+        "type": "integer",
+        "description": "Hours within which top recommendation should be applied for maximum efficacy"
+      },
+      "agronomic_rationale": {
+        "type": "string",
+        "description": "Plain-language explanation of why top product was selected — for farmer-facing communication"
+      },
+      "follow_up_action": {
+        "type": "object",
+        "properties": {
+          "days_after_application": { "type": "integer" },
+          "action": { "type": "string" },
+          "product_if_needed": { "type": "string" }
+        }
+      },
+      "purchase_link": {
+        "type": "string",
+        "description": "Optional deep-link to producer's e-commerce or dealer locator"
+      }
+    }
+  },
+  "example_catalogue_entry": {
+    "sku_code": "OMN-LAN28-50KG",
+    "product_name": "Omnia LAN 28%",
+    "active_ingredient": "Ammonium nitrate 28% N",
+    "category": "nitrogen_fertilizer",
+    "application_methods": ["top_dress", "broadcast"],
+    "price_zar_per_50kg": 520,
+    "available_countries": ["ZA", "ZW", "ZM", "MZ", "BW", "NA"],
+    "registered_crops": ["maize", "wheat", "soybean", "sugarcane", "potato", "citrus"],
+    "min_soil_ph": 5.5,
+    "max_soil_ph": 8.0
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "agent_id": "abfagri-consequence-model-v1",
+  "name": "Consequence Model Agent",
+  "version": "1.0.0",
+  "description": "Takes a crop diagnosis and propagates causal effects through the agri system to quantify yield loss, revenue at risk (ZAR/USD), and time-to-threshold. Implements the core consequence reasoning chain: State → Time → Causality → Consequence → Recommended Action.",
+  "model": {
+    "provider": "cloudflare-workers-ai",
+    "model_id": "@cf/mistral/mistral-7b-instruct-v0.1",
+    "fallback_model_id": "@cf/meta/llama-3.1-8b-instruct",
+    "local_ollama": "mistral:7b",
+    "temperature": 0.1,
+    "max_tokens": 1536
+  },
+  "system_prompt": "You are abfAgri's consequence modelling engine. You receive a crop diagnosis and field context, then compute the financial and agronomic consequences of inaction across a defined time horizon. Use the causal graph to propagate effects: diagnosis → crop physiology impact → yield reduction → revenue at risk. Always express consequences in concrete ZAR and USD values based on current SADC commodity prices. Return structured JSON only. Be conservative — do not overstate losses. Flag uncertainty ranges where data is incomplete.",
+  "inputs": {
+    "required": ["diagnosis_output", "field_area_ha", "crop_type", "country", "current_commodity_price_zar_per_ton"],
+    "optional": ["growth_stage", "expected_yield_ton_per_ha", "irrigation_type", "weather_forecast_72h"]
+  },
+  "causal_graph": {
+    "NUTRIENT_N_DEF": {
+      "physiological_impact": "Reduced chlorophyll synthesis → decreased photosynthesis rate",
+      "yield_impact_curve": { "mild": 0.05, "moderate": 0.15, "severe": 0.25, "critical": 0.40 },
+      "time_to_threshold_days": { "mild": 14, "moderate": 7, "severe": 4, "critical": 2 },
+      "recovery_rate_if_treated": { "within_48h": 0.92, "within_7d": 0.75, "within_14d": 0.50 }
+    },
+    "NUTRIENT_P_DEF": {
+      "physiological_impact": "Root development inhibition → reduced water and nutrient uptake",
+      "yield_impact_curve": { "mild": 0.04, "moderate": 0.12, "severe": 0.22, "critical": 0.35 },
+      "time_to_threshold_days": { "mild": 21, "moderate": 14, "severe": 7, "critical": 4 },
+      "recovery_rate_if_treated": { "within_48h": 0.88, "within_7d": 0.65, "within_14d": 0.40 }
+    },
+    "NUTRIENT_K_DEF": {
+      "physiological_impact": "Stomatal dysfunction → water stress sensitivity and reduced grain fill",
+      "yield_impact_curve": { "mild": 0.06, "moderate": 0.14, "severe": 0.23, "critical": 0.38 },
+      "time_to_threshold_days": { "mild": 18, "moderate": 10, "severe": 5, "critical": 3 },
+      "recovery_rate_if_treated": { "within_48h": 0.85, "within_7d": 0.68, "within_14d": 0.42 }
+    },
+    "PEST_FAW": {
+      "physiological_impact": "Leaf and ear damage → direct yield loss and secondary disease entry",
+      "yield_impact_curve": { "mild": 0.08, "moderate": 0.20, "severe": 0.40, "critical": 0.70 },
+      "time_to_threshold_days": { "mild": 7, "moderate": 4, "severe": 2, "critical": 1 },
+      "recovery_rate_if_treated": { "within_48h": 0.80, "within_7d": 0.55, "within_14d": 0.25 }
+    },
+    "DISEASE_GREY_LEAF_SPOT": {
+      "physiological_impact": "Photosynthetic tissue destruction → premature senescence and ear abortion",
+      "yield_impact_curve": { "mild": 0.05, "moderate": 0.15, "severe": 0.35, "critical": 0.55 },
+      "time_to_threshold_days": { "mild": 10, "moderate": 6, "severe": 3, "critical": 2 },
+      "recovery_rate_if_treated": { "within_48h": 0.75, "within_7d": 0.50, "within_14d": 0.25 }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": ["consequence_chain", "yield_loss_pct", "revenue_at_risk_zar", "revenue_at_risk_usd", "time_to_critical_days", "recovery_if_treated_now_pct"],
+    "properties": {
+      "consequence_chain": {
+        "type": "array",
+        "description": "Ordered causal chain from condition to financial outcome",
+        "items": { "type": "string" }
+      },
+      "yield_loss_pct": {
+        "type": "number",
+        "description": "Expected yield loss percentage if untreated for 7 days"
+      },
+      "yield_at_risk_ton": {
+        "type": "number",
+        "description": "Tonnes of yield at risk based on field_area_ha and expected_yield"
+      },
+      "revenue_at_risk_zar": {
+        "type": "number",
+        "description": "Total ZAR revenue at risk based on current commodity price"
+      },
+      "revenue_at_risk_usd": {
+        "type": "number",
+        "description": "Total USD revenue at risk (converted at current SARB rate)"
+      },
+      "time_to_critical_days": {
+        "type": "integer",
+        "description": "Days until condition reaches critical severity if untreated"
+      },
+      "recovery_if_treated_now_pct": {
+        "type": "number",
+        "description": "Percentage of potential yield recoverable if intervention applied within 48h"
+      },
+      "intervention_window": {
+        "type": "string",
+        "enum": ["critical_48h", "urgent_7d", "recommended_14d", "monitor"],
+        "description": "Intervention urgency classification"
+      },
+      "satellite_risk_corroboration": {
+        "type": "object",
+        "properties": {
+          "ndvi_trend": { "type": "string", "description": "e.g. 'declining -0.08 per week'" },
+          "soil_moisture_status": { "type": "string" },
+          "weather_risk_factor": { "type": "string" }
+        }
+      },
+      "uncertainty_range": {
+        "type": "object",
+        "properties": {
+          "yield_loss_low_pct": { "type": "number" },
+          "yield_loss_high_pct": { "type": "number" },
+          "confidence_level": { "type": "number" }
+        }
+      }
+    }
+  },
+  "sadc_commodity_prices": {
+    "update_frequency": "daily",
+    "source": "SAFEX / SADC Agricultural Information System",
+    "defaults_zar_per_ton": {
+      "maize_white": 3800,
+      "maize_yellow": 3600,
+      "wheat": 5200,
+      "soybean": 7800,
+      "sunflower": 8500,
+      "sugarcane": 280,
+      "cotton": 9500,
+      "tobacco": 42000
+    }
+  }
+}

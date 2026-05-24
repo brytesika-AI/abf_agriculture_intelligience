@@ -1,0 +1,104 @@
+{
+  "agent_id": "abfagri-crop-diagnosis-v1",
+  "name": "Crop Diagnosis Agent",
+  "version": "1.0.0",
+  "description": "Analyses field photos and satellite vegetation indices to identify crop stress, nutrient deficiencies, pests, and diseases across 40+ SADC crop varieties.",
+  "model": {
+    "provider": "cloudflare-workers-ai",
+    "model_id": "@cf/meta/llama-3.1-8b-instruct",
+    "fallback_model_id": "@cf/mistral/mistral-7b-instruct-v0.1",
+    "local_ollama": "llama3.1:8b",
+    "temperature": 0.2,
+    "max_tokens": 1024
+  },
+  "system_prompt": "You are abfAgri's crop diagnosis specialist. You analyse agricultural field photos and satellite NDVI data for SADC farms. Your role is to identify crop stress conditions, nutrient deficiencies, pest infestations, and diseases with high precision. Always return structured JSON. Be specific about severity, confidence, and causal chain. Reference crop stage if provided. Do not hallucinate conditions not visible in the provided data.",
+  "inputs": {
+    "required": ["image_base64", "crop_type", "country", "province_or_district"],
+    "optional": ["ndvi_value", "soil_moisture_pct", "growth_stage", "previous_diagnoses"]
+  },
+  "tools": [
+    {
+      "name": "get_satellite_ndvi",
+      "description": "Fetch current NDVI and EVI values for a field from Google Earth Engine",
+      "endpoint": "/api/geo/ndvi",
+      "params": ["lat", "lon", "field_radius_m"]
+    },
+    {
+      "name": "get_soil_moisture",
+      "description": "Fetch soil moisture anomaly from Microsoft Planetary Computer MODIS data",
+      "endpoint": "/api/geo/soil-moisture",
+      "params": ["lat", "lon", "date_range"]
+    },
+    {
+      "name": "get_crop_profile",
+      "description": "Retrieve SADC crop reference profile including nutrient requirements and common diseases",
+      "endpoint": "/api/crops/profile",
+      "params": ["crop_type", "country", "growth_stage"]
+    }
+  ],
+  "output_schema": {
+    "type": "object",
+    "required": ["condition", "confidence", "severity", "causal_chain", "affected_area_pct", "urgency_hours"],
+    "properties": {
+      "condition": {
+        "type": "string",
+        "description": "Primary diagnosed condition (e.g. 'Nitrogen deficiency', 'Fall armyworm infestation')"
+      },
+      "condition_code": {
+        "type": "string",
+        "description": "Standardised condition code (e.g. 'NUTRIENT_N_DEF', 'PEST_FAW')"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Confidence score 0.0 to 1.0"
+      },
+      "severity": {
+        "type": "string",
+        "enum": ["mild", "moderate", "severe", "critical"],
+        "description": "Severity classification"
+      },
+      "causal_chain": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Ordered list of cause-effect steps from root cause to observed symptom"
+      },
+      "affected_area_pct": {
+        "type": "number",
+        "description": "Estimated percentage of field affected"
+      },
+      "urgency_hours": {
+        "type": "integer",
+        "description": "Hours within which intervention is recommended"
+      },
+      "satellite_corroboration": {
+        "type": "object",
+        "properties": {
+          "ndvi_value": { "type": "number" },
+          "ndvi_anomaly_pct": { "type": "number" },
+          "soil_moisture_anomaly_pct": { "type": "number" },
+          "data_source": { "type": "string" }
+        }
+      },
+      "secondary_conditions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "condition": { "type": "string" },
+            "confidence": { "type": "number" }
+          }
+        }
+      }
+    }
+  },
+  "memory": {
+    "type": "session",
+    "store_previous_diagnoses": true,
+    "max_history": 10
+  },
+  "sadc_calibration": {
+    "countries": ["ZA", "ZW", "ZM", "MZ", "TZ", "BW", "NA", "MW", "AO", "CD", "SZ", "LS", "MG", "MU", "KM", "SC"],
+    "crops": ["maize", "wheat", "soybean", "sugarcane", "cotton", "tobacco", "cassava", "sorghum", "sunflower", "potato", "tomato", "citrus", "mango", "avocado", "coffee", "tea"],
+    "soil_types": ["sandy_loam", "clay", "red_clay", "sandy", "loam", "vertisol", "latosol"]
+  }
+}
