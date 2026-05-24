@@ -1,0 +1,6 @@
+# Cloudflare Pages routing
+# API routes are handled by Pages Functions (functions/api/*.js)
+# All other routes serve the SPA
+
+/api/*  /api/:splat  200
+/*      /index.html  200
