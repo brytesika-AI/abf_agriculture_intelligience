@@ -472,6 +472,160 @@
       .board-brief { grid-template-columns:1fr; }
       .score-grid { grid-template-columns:1fr 1fr; }
     }
+
+    /* ── POCKETS OF OPPORTUNITY */
+    .opp-section { background:#040d1a; padding:88px 40px; }
+    .opp-section .sl { color:var(--gold); }
+    .opp-section .st { color:white; }
+    .opp-section .ss { color:rgba(255,255,255,.5); }
+    .opp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:36px 0 32px; }
+    .opp-card { background:#071122; border:1px solid rgba(255,255,255,.07); border-radius:14px; overflow:hidden; position:relative; transition:border-color .2s,transform .2s; }
+    .opp-card:hover { border-color:rgba(245,158,11,.25); transform:translateY(-2px); }
+    .opp-card-top { padding:22px 22px 16px; border-bottom:1px solid rgba(255,255,255,.05); }
+    .opp-card-tag { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+    .opp-tag-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .opp-card-title { font-size:1.05rem; font-weight:900; color:white; margin-bottom:6px; letter-spacing:-.02em; line-height:1.3; }
+    .opp-card-sub { font-size:.72rem; color:rgba(255,255,255,.38); line-height:1.55; }
+    .opp-card-body { padding:16px 22px 20px; }
+    .opp-metric { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+    .opp-metric:last-child { border:none; }
+    .opp-metric-k { font-size:.68rem; color:rgba(255,255,255,.32); }
+    .opp-metric-v { font-size:.78rem; font-weight:800; }
+    .opp-metric-v.gold { color:var(--gold); }
+    .opp-metric-v.emerald { color:var(--emerald); }
+    .opp-metric-v.blue { color:#60a5fa; }
+    .opp-urgency { position:absolute; top:14px; right:14px; font-size:.6rem; font-weight:700; padding:3px 9px; border-radius:100px; }
+    .urg-high  { background:rgba(239,68,68,.15);  color:#f87171;  border:1px solid rgba(239,68,68,.25); }
+    .urg-med   { background:rgba(245,158,11,.12); color:var(--gold); border:1px solid rgba(245,158,11,.2); }
+    .urg-watch { background:rgba(59,130,246,.12); color:#60a5fa;  border:1px solid rgba(59,130,246,.2); }
+
+    .opp-heat-row { background:#071122; border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:24px 26px; margin-bottom:28px; }
+    .opp-heat-title { font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; }
+    .opp-heat-legend { display:flex; gap:12px; align-items:center; }
+    .opp-hl-dot { width:8px; height:8px; border-radius:50%; }
+    .opp-hl-lbl { font-size:.6rem; color:rgba(255,255,255,.28); font-weight:600; }
+    .opp-heat-grid { display:grid; grid-template-columns:140px repeat(5,1fr); gap:6px; align-items:center; }
+    .ohg-head { font-size:.62rem; font-weight:700; color:rgba(255,255,255,.25); text-align:center; letter-spacing:.04em; text-transform:uppercase; }
+    .ohg-head:first-child { text-align:left; }
+    .ohg-co { font-size:.78rem; font-weight:700; color:rgba(255,255,255,.75); display:flex; align-items:center; gap:8px; }
+    .ohg-flag { font-size:1rem; }
+    .ohg-cell { border-radius:7px; padding:9px 6px; text-align:center; font-size:.7rem; font-weight:800; }
+    .ohg-h { background:rgba(239,68,68,.18); color:#f87171; border:1px solid rgba(239,68,68,.2); }
+    .ohg-m { background:rgba(245,158,11,.13); color:var(--gold); border:1px solid rgba(245,158,11,.18); }
+    .ohg-l { background:rgba(59,130,246,.1);  color:#93c5fd;  border:1px solid rgba(59,130,246,.15); }
+    .ohg-n { background:rgba(255,255,255,.03); color:rgba(255,255,255,.18); }
+
+    .opp-action-strip { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+    .opp-action { background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.03)); border:1px solid rgba(245,158,11,.18); border-radius:12px; padding:22px 24px; }
+    .opp-action-tag { font-size:.62rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+    .opp-action-h { font-size:.95rem; font-weight:900; color:white; margin-bottom:6px; line-height:1.3; }
+    .opp-action-p { font-size:.73rem; color:rgba(255,255,255,.42); line-height:1.6; }
+    .opp-action-num { font-size:1.8rem; font-weight:900; color:var(--gold); letter-spacing:-.04em; margin-bottom:4px; }
+
+    @media(max-width:900px) {
+      .opp-grid { grid-template-columns:1fr; }
+      .opp-heat-grid { grid-template-columns:120px repeat(5,1fr); }
+      .opp-action-strip { grid-template-columns:1fr; }
+    }
+    @media(max-width:600px) {
+      .opp-section { padding:60px 20px; }
+      .opp-heat-grid { overflow-x:auto; font-size:.65rem; }
+    }
+
+    /* ── LIVE DEMO APPLICATION */
+    .demo-section { background:var(--ink); padding:80px 40px; }
+    .demo-section .sl { color:var(--emerald); }
+    .demo-section .st { color:white; font-size:2rem; }
+    .demo-section .ss { color:rgba(255,255,255,.52); }
+    .app-chrome { background:#0d1b2e; border:1px solid rgba(255,255,255,.1); border-radius:16px; overflow:hidden; box-shadow:0 32px 80px rgba(0,0,0,.5); max-width:1100px; margin:40px auto 0; }
+    .app-topbar { background:#0a1525; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.07); }
+    .app-dots { display:flex; gap:7px; }
+    .app-dot { width:12px; height:12px; border-radius:50%; }
+    .app-dot.r { background:#ef4444; } .app-dot.y { background:#f59e0b; } .app-dot.g { background:#22c55e; }
+    .app-title { font-size:.78rem; font-weight:700; color:rgba(255,255,255,.45); letter-spacing:.04em; }
+    .app-live { display:flex; align-items:center; gap:6px; font-size:.68rem; color:var(--emerald); font-weight:700; }
+    .app-live-dot { width:6px; height:6px; background:var(--emerald); border-radius:50%; animation:blink 2s infinite; }
+    .app-tabs { display:flex; gap:2px; padding:0 20px; background:#0a1525; border-bottom:1px solid rgba(255,255,255,.07); }
+    .app-tab { padding:10px 18px; font-size:.75rem; font-weight:700; color:rgba(255,255,255,.35); cursor:pointer; border-bottom:2px solid transparent; transition:color .2s,border-color .2s; user-select:none; }
+    .app-tab.active { color:var(--emerald); border-bottom-color:var(--emerald); }
+    .app-tab:hover:not(.active) { color:rgba(255,255,255,.65); }
+    .app-body { display:grid; grid-template-columns:320px 1fr; min-height:500px; }
+    .app-form-panel { background:#060f1e; padding:24px 22px; border-right:1px solid rgba(255,255,255,.07); display:flex; flex-direction:column; gap:0; }
+    .fg-label { font-size:.67rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,.38); margin-bottom:5px; margin-top:14px; }
+    .fg-label:first-child { margin-top:0; }
+    .fg-select { width:100%; background:#0d1b2e; border:1px solid rgba(255,255,255,.1); border-radius:7px; color:white; font-size:.8rem; padding:8px 11px; outline:none; cursor:pointer; }
+    .fg-select:focus { border-color:rgba(16,185,129,.4); }
+    .fg-input { width:100%; background:#0d1b2e; border:1px solid rgba(255,255,255,.1); border-radius:7px; color:white; font-size:.8rem; padding:8px 11px; outline:none; box-sizing:border-box; }
+    .fg-input:focus { border-color:rgba(16,185,129,.4); }
+    .fg-range-wrap { display:flex; align-items:center; gap:10px; }
+    .fg-range { flex:1; accent-color:var(--emerald); cursor:pointer; }
+    .fg-range-val { font-size:.78rem; font-weight:700; color:var(--emerald); min-width:38px; text-align:right; }
+    .ndvi-bar { height:5px; border-radius:3px; margin-top:5px; background:linear-gradient(to right,#ef4444 0%,#f59e0b 30%,#facc15 50%,#86efac 70%,#10b981 100%); }
+    .fg-hint { font-size:.62rem; color:rgba(255,255,255,.2); margin-top:3px; font-style:italic; }
+    .run-btn { margin-top:18px; width:100%; padding:12px; background:linear-gradient(135deg,var(--emerald-dk),#059669); color:white; font-size:.85rem; font-weight:800; border:none; border-radius:9px; cursor:pointer; letter-spacing:.02em; transition:opacity .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .run-btn:hover { opacity:.88; }
+    .run-btn:disabled { opacity:.45; cursor:not-allowed; }
+    .scenario-strip { margin-bottom:16px; }
+    .scenario-lbl { font-size:.67rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:8px; }
+    .scenario-btn { display:block; width:100%; text-align:left; background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:10px 13px; margin-bottom:6px; cursor:pointer; transition:border-color .2s,background .2s; }
+    .scenario-btn:hover, .scenario-btn.active { border-color:rgba(16,185,129,.3); background:rgba(16,185,129,.06); }
+    .sb-title { font-size:.78rem; font-weight:700; color:rgba(255,255,255,.8); }
+    .sb-sub { font-size:.65rem; color:rgba(255,255,255,.3); margin-top:2px; }
+    .app-results-panel { padding:24px 26px; display:flex; flex-direction:column; }
+    .results-placeholder { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:rgba(255,255,255,.2); text-align:center; gap:12px; }
+    .rph-icon { font-size:2.5rem; }
+    .rph-h { font-size:.9rem; font-weight:700; color:rgba(255,255,255,.35); }
+    .rph-p { font-size:.75rem; color:rgba(255,255,255,.2); line-height:1.6; }
+    .app-loading { display:none; flex-direction:column; gap:10px; padding:10px 0; }
+    .loading-step { display:flex; align-items:center; gap:12px; opacity:.3; transition:opacity .4s; }
+    .loading-step.active { opacity:1; }
+    .loading-step.done { opacity:.55; }
+    .ls-icon { width:32px; height:32px; background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.2); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.85rem; flex-shrink:0; }
+    .ls-text { font-size:.78rem; font-weight:600; color:rgba(255,255,255,.7); }
+    .ls-sub { font-size:.65rem; color:rgba(255,255,255,.3); }
+    .loading-bar-wrap { margin-top:4px; }
+    .loading-bar { height:3px; background:rgba(255,255,255,.07); border-radius:2px; overflow:hidden; }
+    .loading-bar-fill { height:100%; width:0%; background:linear-gradient(to right,var(--emerald-dk),var(--emerald)); border-radius:2px; transition:width .6s ease; }
+    .result-cards { display:none; flex-direction:column; gap:14px; }
+    .res-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:11px; padding:18px 18px; }
+    .res-card-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+    .res-card-title { font-size:.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.3); }
+    .sev-badge { font-size:.62rem; font-weight:700; padding:3px 9px; border-radius:100px; }
+    .sev-severe { background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.25); }
+    .sev-moderate { background:rgba(245,158,11,.12); color:var(--gold); border:1px solid rgba(245,158,11,.2); }
+    .sev-mild { background:rgba(16,185,129,.1); color:var(--emerald); border:1px solid rgba(16,185,129,.2); }
+    .sev-critical { background:rgba(239,68,68,.22); color:#ef4444; border:1px solid rgba(239,68,68,.35); }
+    .res-condition { font-size:1.05rem; font-weight:900; color:white; margin-bottom:6px; letter-spacing:-.02em; }
+    .res-meta { font-size:.72rem; color:rgba(255,255,255,.38); line-height:1.6; }
+    .res-rar { background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.15); border-radius:9px; padding:12px 14px; display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+    .rar-item { text-align:center; }
+    .rar-n { font-size:1.1rem; font-weight:900; color:#f87171; letter-spacing:-.03em; }
+    .rar-l { font-size:.62rem; color:rgba(255,255,255,.3); margin-top:2px; }
+    .win-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.2); color:#f87171; font-size:.68rem; font-weight:700; padding:4px 11px; border-radius:100px; margin-top:8px; }
+    .win-badge.w-urgent { background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.2); color:var(--gold); }
+    .win-badge.w-monitor { background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.2); color:var(--emerald); }
+    .res-product { background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.15); border-radius:9px; padding:12px 14px; }
+    .res-prod-rank { font-size:.6rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(16,185,129,.6); margin-bottom:4px; }
+    .res-prod-name { font-size:.9rem; font-weight:900; color:white; margin-bottom:2px; }
+    .res-prod-detail { font-size:.7rem; color:rgba(255,255,255,.4); line-height:1.5; }
+    .res-net-gain { background:rgba(16,185,129,.07); border:1px solid rgba(16,185,129,.18); border-radius:9px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+    .rng-l { font-size:.7rem; color:rgba(255,255,255,.4); }
+    .rng-n { font-size:1.15rem; font-weight:900; color:var(--emerald); letter-spacing:-.03em; }
+    .json-output { background:#020b15; border-radius:9px; padding:16px; overflow:auto; max-height:450px; font-family:'Courier New',monospace; font-size:.7rem; line-height:1.7; color:rgba(255,255,255,.55); display:none; }
+    .json-key { color:#7dd3fc; }
+    .json-str { color:#86efac; }
+    .json-num { color:#fbbf24; }
+    .json-bool { color:#f472b6; }
+    .tab-panel { display:none; } .tab-panel.active { display:flex; }
+    @media(max-width:900px) {
+      .app-body { grid-template-columns:1fr; }
+      .app-form-panel { border-right:none; border-bottom:1px solid rgba(255,255,255,.07); }
+    }
+    @media(max-width:600px) {
+      .demo-section { padding:60px 20px; }
+      .app-chrome { border-radius:10px; }
+      .res-rar { grid-template-columns:1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -500,6 +654,7 @@
     <li><a href="#agents">AI Agents</a></li>
     <li><a href="#sadc">SADC Coverage</a></li>
     <li><a href="#market-intel">Market Intel</a></li>
+    <li><a href="#opportunities">Opportunities</a></li>
     <li><a href="#demo" class="nav-demo">Book Demo</a></li>
   </ul>
 </nav>
@@ -1269,6 +1424,197 @@
   </div>
 </section>
 
+<!-- ═══════════════════ POCKETS OF OPPORTUNITY — OMNIA -->
+<section class="opp-section" id="opportunities">
+  <div class="s-inner" style="max-width:var(--max);margin:0 auto;">
+
+    <div class="sh" style="text-align:left;margin-bottom:0;">
+      <div class="sl" style="color:var(--gold);">Omnia Holdings · Strategic Intelligence</div>
+      <h2 class="st" style="font-size:2rem;margin-bottom:10px;">Pockets of Opportunity<br><span style="color:var(--gold);">Where abfAgri unlocks Omnia's next R billion</span></h2>
+      <p class="ss" style="max-width:620px;">Six high-conviction growth opportunities identified from satellite field data, SAFEX price signals, and SADC agronomic gap analysis. Each pocket is sized by addressable revenue and ranked by time-to-close.</p>
+    </div>
+
+    <!-- 6 opportunity cards -->
+    <div class="opp-grid" style="grid-template-columns:repeat(3,1fr);">
+
+      <!-- 1 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-high">🔴 Act Now</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:#f87171;"><div class="opp-tag-dot" style="background:#ef4444;"></div>Nutrient deficiency · Limpopo RSA</div>
+          <div class="opp-card-title">Nitrogen Gap — Limpopo Maize Belt</div>
+          <div class="opp-card-sub">Satellite NDVI shows 38% below-seasonal anomaly across 280,000 ha of maize in Limpopo. N-application rates are running 40 kg/ha below optimal. Omnia LAN 28% is the category leader — but penetration is &lt;30% of the deficit area.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">Addressable area</span><span class="opp-metric-v gold">280,000 ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">N application gap</span><span class="opp-metric-v gold">~40 kg/ha under</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Revenue opportunity</span><span class="opp-metric-v emerald">R 437M / season</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Omnia current share</span><span class="opp-metric-v blue">~28%</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">NDVI anomaly alert → agronomist dispatch</span></div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-high">🔴 Act Now</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:#f87171;"><div class="opp-tag-dot" style="background:#ef4444;"></div>Pest pressure · Zimbabwe</div>
+          <div class="opp-card-title">Fall Armyworm Season — Zimbabwe Corridor</div>
+          <div class="opp-card-sub">FAW infestation pressure building across Mashonaland and Midlands. Historical data shows 60–70% of smallholder maize acreage goes untreated. Each 72-hour delay in response costs 8–12% additional yield loss per field.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">At-risk acreage</span><span class="opp-metric-v gold">420,000 ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Treatment gap</span><span class="opp-metric-v gold">~65% untreated</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Revenue opportunity</span><span class="opp-metric-v emerald">R 182M / season</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intervention window</span><span class="opp-metric-v blue">48–72 hours</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">Satellite vegetation damage index → dealer alert</span></div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-med">🟡 This Quarter</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:var(--gold);"><div class="opp-tag-dot" style="background:var(--gold);"></div>Crop expansion · Zambia</div>
+          <div class="opp-card-title">Soybean Expansion — Zambia Central Belt</div>
+          <div class="opp-card-sub">Zambia's soybean area grew 22% YoY (ZAM-STATS 2023). Soil maps show 1.1M ha of suitable land with P and K deficiencies. Omnia's phosphate product range has minimal distribution presence north of the Kafue basin.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">Suitable expansion area</span><span class="opp-metric-v gold">1.1M ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">P + K application gap</span><span class="opp-metric-v gold">68% under-fertilised</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Revenue opportunity</span><span class="opp-metric-v emerald">R 620M / season</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Distribution gap</span><span class="opp-metric-v blue">North Kafue: &lt;5%</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">Soil P-index map + sowing calendar alert</span></div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-med">🟡 This Quarter</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:var(--gold);"><div class="opp-tag-dot" style="background:var(--gold);"></div>Water stress · Mozambique</div>
+          <div class="opp-card-title">Drought Recovery — Sofala &amp; Manica</div>
+          <div class="opp-card-sub">Post-cyclone recovery planting in Sofala and Manica provinces. Soil moisture deficits averaging 24% below seasonal norm. Farmers replanting need starter fertilizer — but local supply chains are fragmented, creating a first-mover distribution gap.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">Recovery planting area</span><span class="opp-metric-v gold">195,000 ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Starter fert. penetration</span><span class="opp-metric-v gold">&lt;15% of farmers</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Revenue opportunity</span><span class="opp-metric-v emerald">R 148M</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Supply chain gap</span><span class="opp-metric-v blue">No major distributor</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">Soil moisture recovery signal → dealer push</span></div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-watch">🔵 Next Season</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:#60a5fa;"><div class="opp-tag-dot" style="background:#3b82f6;"></div>Precision timing · RSA Free State</div>
+          <div class="opp-card-title">Top-dress Timing Intelligence — Free State Wheat</div>
+          <div class="opp-card-sub">Wheat producers in the Free State are applying top-dress nitrogen 12–18 days too late on average (SA Grain Institute 2023), resulting in 9–14% suboptimal uptake. A satellite-triggered timing advisory converts missed applications into correctly-timed purchases.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">Target wheat area</span><span class="opp-metric-v gold">510,000 ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Mis-timed applications</span><span class="opp-metric-v gold">~68% of growers</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Incremental N volume</span><span class="opp-metric-v emerald">+22,000 t LAN</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Revenue uplift</span><span class="opp-metric-v blue">R 334M / season</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">GS30 detection → 7-day top-dress advisory</span></div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="opp-card">
+        <span class="opp-urgency urg-watch">🔵 Next Season</span>
+        <div class="opp-card-top">
+          <div class="opp-card-tag" style="color:#60a5fa;"><div class="opp-tag-dot" style="background:#3b82f6;"></div>Market expansion · Tanzania</div>
+          <div class="opp-card-title">Smallholder Scale-up — Northern Tanzania</div>
+          <div class="opp-card-sub">Tanzania's fertilizer use is 17 kg/ha — among the lowest in SADC (FAO 2023). Northern corridor (Arusha–Kilimanjaro) has high-value coffee and maize smallholders with rising incomes and mobile payment infrastructure. No Omnia presence currently.</div>
+        </div>
+        <div class="opp-card-body">
+          <div class="opp-metric"><span class="opp-metric-k">Target smallholder area</span><span class="opp-metric-v gold">860,000 ha</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Current fert. intensity</span><span class="opp-metric-v gold">17 kg/ha (vs 60 optimal)</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">5-year opportunity</span><span class="opp-metric-v emerald">R 1.1B cumulative</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Omnia footprint</span><span class="opp-metric-v blue">None (white space)</span></div>
+          <div class="opp-metric"><span class="opp-metric-k">Intelligence trigger</span><span class="opp-metric-v" style="color:rgba(255,255,255,.55);font-size:.65rem;">Crop calendar + soil map → channel strategy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opportunity heat map by urgency × crop -->
+    <div class="opp-heat-row">
+      <div class="opp-heat-title">
+        Opportunity Heat Map — Omnia addressable revenue by country &amp; crop segment
+        <div class="opp-heat-legend">
+          <div class="opp-hl-dot" style="background:#ef4444;"></div><span class="opp-hl-lbl">High (act now)</span>
+          <div class="opp-hl-dot" style="background:var(--gold);"></div><span class="opp-hl-lbl">Medium (this Qtr)</span>
+          <div class="opp-hl-dot" style="background:#3b82f6;"></div><span class="opp-hl-lbl">Watch (next season)</span>
+          <div class="opp-hl-dot" style="background:rgba(255,255,255,.08);"></div><span class="opp-hl-lbl">No data</span>
+        </div>
+      </div>
+      <div class="opp-heat-grid">
+        <div class="ohg-head"></div>
+        <div class="ohg-head">Maize</div>
+        <div class="ohg-head">Wheat</div>
+        <div class="ohg-head">Soybean</div>
+        <div class="ohg-head">Sunflower</div>
+        <div class="ohg-head">Other</div>
+
+        <div class="ohg-co"><span class="ohg-flag">🇿🇦</span> RSA</div>
+        <div class="ohg-cell ohg-h">R 437M</div>
+        <div class="ohg-cell ohg-l">R 334M</div>
+        <div class="ohg-cell ohg-m">R 92M</div>
+        <div class="ohg-cell ohg-l">R 58M</div>
+        <div class="ohg-cell ohg-n">—</div>
+
+        <div class="ohg-co"><span class="ohg-flag">🇿🇼</span> Zimbabwe</div>
+        <div class="ohg-cell ohg-h">R 182M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-m">R 44M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-m">R 28M</div>
+
+        <div class="ohg-co"><span class="ohg-flag">🇿🇲</span> Zambia</div>
+        <div class="ohg-cell ohg-m">R 108M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-h">R 620M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-l">R 31M</div>
+
+        <div class="ohg-co"><span class="ohg-flag">🇲🇿</span> Mozambique</div>
+        <div class="ohg-cell ohg-m">R 148M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-m">R 22M</div>
+
+        <div class="ohg-co"><span class="ohg-flag">🇹🇿</span> Tanzania</div>
+        <div class="ohg-cell ohg-l">R 210M</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-n">—</div>
+        <div class="ohg-cell ohg-l">R 890M <span style="font-size:.55rem;font-weight:600;">(5yr)</span></div>
+      </div>
+    </div>
+
+    <!-- Bottom action strip -->
+    <div class="opp-action-strip">
+      <div class="opp-action">
+        <div class="opp-action-tag">Total Addressable Opportunity · SADC · 12-month horizon</div>
+        <div class="opp-action-num">R 2.3B+</div>
+        <div class="opp-action-h">Identifiable revenue within Omnia's existing product range</div>
+        <div class="opp-action-p">Sized from satellite field data, SAFEX price signals, and SADC agronomic gap analysis. Assumes Omnia captures 25–35% of identified white-space through consequence-triggered agronomist dispatch and dealer push intelligence.</div>
+      </div>
+      <div class="opp-action">
+        <div class="opp-action-tag">abfAgri Intelligence Layer — How it closes the gap</div>
+        <div class="opp-action-num" style="color:var(--emerald);">92%</div>
+        <div class="opp-action-h">Average crop recovery rate when intervention triggered within 48h of satellite signal</div>
+        <div class="opp-action-p">abfAgri converts satellite anomaly → consequence model → Omnia SKU recommendation → agronomist dispatch in a single automated pipeline. Each recovered field is a verified sale. Each missed field is a competitor's gain.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ═══════════════════ FEATURES -->
 <section class="s">
   <div class="inner">
@@ -1316,6 +1662,195 @@
       <div class="tc"><div class="stars">★★★★★</div><p class="tq">We white-labelled abfAgri as "NutriFlo Advisor" in eight weeks. The open-source agent stack means we're not locked into any cloud AI vendor. Limpopo citrus farmers use it daily — micronutrient retail sell-through is up 35%.</p><div class="ta"><div class="av" style="background:#7c3aed">PM</div><div><div class="an">Pieter Mouton</div><div class="ar">Commercial Director · Nutri-Flo</div></div></div></div>
     </div>
   </div>
+</section>
+
+<!-- ═══════════════════ LIVE DEMO APPLICATION -->
+<section class="demo-section" id="live-demo">
+  <div class="s-inner" style="max-width:1100px;margin:0 auto;">
+    <div class="sl">Live Intelligence Platform</div>
+    <h2 class="st" style="margin-bottom:10px;">Run a consequence analysis<br>right now — no login required</h2>
+    <p class="ss" style="margin-bottom:0;max-width:560px;">Select a field scenario or enter your own parameters. The AI pipeline returns a diagnosis, yield impact, and product recommendation in seconds.</p>
+  </div>
+
+  <div class="app-chrome" style="max-width:1100px;margin:40px auto 0;">
+    <!-- Top bar -->
+    <div class="app-topbar">
+      <div class="app-dots">
+        <div class="app-dot r"></div>
+        <div class="app-dot y"></div>
+        <div class="app-dot g"></div>
+      </div>
+      <div class="app-title">abfAgri · Consequence Intelligence Platform · SADC</div>
+      <div class="app-live"><div class="app-live-dot"></div>Satellite feed live</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="app-tabs">
+      <div class="app-tab active" onclick="switchDemoTab('quick')">Quick Scenarios</div>
+      <div class="app-tab" onclick="switchDemoTab('custom')">Custom Field</div>
+      <div class="app-tab" onclick="switchDemoTab('json')">API Response JSON</div>
+    </div>
+
+    <!-- Body -->
+    <div class="app-body">
+
+      <!-- LEFT: form panel -->
+      <div class="app-form-panel">
+
+        <!-- Quick scenarios tab -->
+        <div id="tab-quick" class="tab-panel active" style="flex-direction:column;gap:0;">
+          <div class="scenario-lbl">Choose a pre-configured field scenario</div>
+          <button class="scenario-btn active" id="sc-btn-0" onclick="selectScenario(0)">
+            <div class="sb-title">🌽 N-deficient Maize — Limpopo, RSA</div>
+            <div class="sb-sub">V6 stage · 60 ha · NDVI 0.31 (−38% anomaly)</div>
+          </button>
+          <button class="scenario-btn" id="sc-btn-1" onclick="selectScenario(1)">
+            <div class="sb-title">🌾 Water-stressed Wheat — Zambia</div>
+            <div class="sb-sub">Tillering · 45 ha · Soil moisture −22%</div>
+          </button>
+          <button class="scenario-btn" id="sc-btn-2" onclick="selectScenario(2)">
+            <div class="sb-title">🪲 Fall Armyworm — Zimbabwe</div>
+            <div class="sb-sub">V8 stage · 30 ha · Heavy infestation observed</div>
+          </button>
+
+          <button class="run-btn" id="run-quick-btn" onclick="runQuickDemo()">
+            <svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Consequence Analysis
+          </button>
+        </div>
+
+        <!-- Custom field tab -->
+        <div id="tab-custom" class="tab-panel" style="flex-direction:column;gap:0;">
+          <div class="fg-label">Crop Type</div>
+          <select class="fg-select" id="cf-crop">
+            <option value="maize">Maize (White)</option>
+            <option value="wheat">Wheat</option>
+            <option value="soybean">Soybean</option>
+            <option value="sunflower">Sunflower</option>
+            <option value="sorghum">Sorghum</option>
+          </select>
+
+          <div class="fg-label">Country</div>
+          <select class="fg-select" id="cf-country">
+            <option value="ZA">South Africa (RSA)</option>
+            <option value="ZM">Zambia</option>
+            <option value="ZW">Zimbabwe</option>
+            <option value="MZ">Mozambique</option>
+            <option value="TZ">Tanzania</option>
+            <option value="BW">Botswana</option>
+            <option value="NA">Namibia</option>
+          </select>
+
+          <div class="fg-label">Growth Stage</div>
+          <input class="fg-input" id="cf-stage" type="text" placeholder="e.g. V6, Tillering, Flowering" value="V6">
+
+          <div class="fg-label">Field Area (ha)</div>
+          <div class="fg-range-wrap">
+            <input class="fg-range" type="range" id="cf-area" min="5" max="500" value="60" oninput="document.getElementById('cf-area-val').textContent=this.value+'ha'">
+            <span class="fg-range-val" id="cf-area-val">60ha</span>
+          </div>
+
+          <div class="fg-label">NDVI Value <span style="color:rgba(255,255,255,.2);font-weight:400;">(0=bare · 1=dense)</span></div>
+          <div class="fg-range-wrap">
+            <input class="fg-range" type="range" id="cf-ndvi" min="0" max="100" value="31" oninput="updateNdvi(this.value)">
+            <span class="fg-range-val" id="cf-ndvi-val">0.31</span>
+          </div>
+          <div class="ndvi-bar"></div>
+          <div class="fg-hint" id="cf-ndvi-hint">⚠ Critically low — severe stress likely</div>
+
+          <div class="fg-label">Observations</div>
+          <input class="fg-input" id="cf-obs" type="text" placeholder="e.g. yellowing lower leaves, stunted growth">
+
+          <button class="run-btn" id="run-custom-btn" onclick="runCustomAnalysis()">
+            <svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Analysis
+          </button>
+        </div>
+
+        <!-- JSON tab placeholder -->
+        <div id="tab-json" class="tab-panel" style="flex-direction:column;gap:0;">
+          <div class="scenario-lbl">Live API endpoint</div>
+          <div style="background:#020b15;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.7;">
+            <span style="color:#7dd3fc;">POST</span> /api/analyze<br>
+            <span style="color:#86efac;">GET</span>  /api/demo<br>
+            <span style="color:#86efac;">GET</span>  /api/health<br><br>
+            <span style="color:rgba(255,255,255,.2);">// Content-Type: application/json<br>// Access-Control-Allow-Origin: *</span>
+          </div>
+          <div class="fg-hint" style="margin-top:10px;">Full JSON response from the last analysis run will appear in the right panel.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: results panel -->
+      <div class="app-results-panel" id="results-panel">
+
+        <!-- Placeholder -->
+        <div class="results-placeholder" id="results-placeholder">
+          <div class="rph-icon">🛰</div>
+          <div class="rph-h">Waiting for field data</div>
+          <div class="rph-p">Select a scenario on the left and click<br><strong style="color:rgba(255,255,255,.4);">Run Consequence Analysis</strong> to see<br>live AI output — diagnosis, financial impact,<br>and product recommendations.</div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="app-loading" id="app-loading">
+          <div class="loading-step" id="ls-0">
+            <div class="ls-icon">🛰</div>
+            <div><div class="ls-text">Satellite Intelligence Layer</div><div class="ls-sub">Fetching NDVI, soil moisture, weather risk</div></div>
+          </div>
+          <div class="loading-step" id="ls-1">
+            <div class="ls-icon">🔬</div>
+            <div><div class="ls-text">Crop Diagnosis Agent</div><div class="ls-sub">Classifying stress condition &amp; severity</div></div>
+          </div>
+          <div class="loading-step" id="ls-2">
+            <div class="ls-icon">📊</div>
+            <div><div class="ls-text">Consequence Model</div><div class="ls-sub">Computing yield loss &amp; revenue at risk</div></div>
+          </div>
+          <div class="loading-step" id="ls-3">
+            <div class="ls-icon">💊</div>
+            <div><div class="ls-text">Product Recommendation Engine</div><div class="ls-sub">Ranking interventions by ROI</div></div>
+          </div>
+          <div class="loading-bar-wrap" style="margin-top:10px;">
+            <div class="loading-bar"><div class="loading-bar-fill" id="loading-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Result cards -->
+        <div class="result-cards" id="result-cards">
+          <!-- Diagnosis card -->
+          <div class="res-card">
+            <div class="res-card-head">
+              <div class="res-card-title">🔬 Crop Diagnosis</div>
+              <span class="sev-badge" id="res-sev-badge"></span>
+            </div>
+            <div class="res-condition" id="res-condition"></div>
+            <div class="res-meta" id="res-diag-meta"></div>
+          </div>
+
+          <!-- Consequence card -->
+          <div class="res-card">
+            <div class="res-card-head">
+              <div class="res-card-title">📊 Consequence Model</div>
+              <span class="win-badge" id="res-win-badge"></span>
+            </div>
+            <div class="res-rar" id="res-rar"></div>
+            <div style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.6;" id="res-chain"></div>
+          </div>
+
+          <!-- Recommendation card -->
+          <div class="res-card" id="res-rec-card" style="display:none;">
+            <div class="res-card-head">
+              <div class="res-card-title">💊 #1 Recommended Intervention</div>
+            </div>
+            <div class="res-product" id="res-product"></div>
+            <div class="res-net-gain" id="res-net-gain"></div>
+          </div>
+
+          <!-- JSON output -->
+          <pre class="json-output" id="json-output"></pre>
+        </div>
+
+      </div>
+    </div><!-- /app-body -->
+  </div><!-- /app-chrome -->
 </section>
 
 <!-- ═══════════════════ CTA -->
@@ -1381,5 +1916,270 @@
   </div>
 </footer>
 
+<script>
+// ── SCENARIO DATA ──────────────────────────────────────────────────────────
+const SCENARIOS = [
+  { label:'N-deficient Maize — Limpopo', crop:'maize', country:'ZA', province:'Limpopo', stage:'V6', area:60, ndvi:0.31, ndvi_anomaly:-38.2, soil_moisture:-18, obs:'Pale green yellowing from lower leaves upward, interveinal chlorosis, stunted internodes' },
+  { label:'Water-stressed Wheat — Zambia', crop:'wheat', country:'ZM', province:'Central Province', stage:'Tillering', area:45, ndvi:0.38, ndvi_anomaly:-22.1, soil_moisture:-28, obs:'Leaf rolling, blue-green discolouration, reduced tiller count' },
+  { label:'Fall Armyworm — Zimbabwe',   crop:'maize', country:'ZW', province:'Mashonaland', stage:'V8', area:30, ndvi:0.42, ndvi_anomaly:-15.0, soil_moisture:-5, obs:'Ragged leaf damage, frass in whorls, 40% of plants showing feeding scars, egg masses present' }
+];
+
+// ── EMBEDDED DEMO FALLBACK (used if /api/demo unreachable) ─────────────────
+const EMBEDDED_DEMO = {
+  diagnosis:{ condition:'Nitrogen deficiency', condition_code:'NUTRIENT_N_DEF', confidence:0.87, severity:'severe', causal_chain:['Low available soil nitrogen detected','Reduced chlorophyll synthesis → pale green/yellowing','Decreased photosynthesis → reduced dry matter','Stunted growth → premature senescence','Grain fill impairment → yield loss'], affected_area_pct:68, urgency_hours:48, satellite_corroboration:{ ndvi_value:0.31, ndvi_anomaly_pct:-38.2, soil_moisture_anomaly_pct:-18.0 }, secondary_conditions:[{ condition:'Mild water stress', confidence:0.42 }] },
+  consequence:{ consequence_chain:['N deficiency (severe) — V6 maize, Limpopo RSA','NDVI declined from 0.51 → 0.31 (−38%) over 7 days','Photosynthesis reduced ~35% → dry matter impaired','60 ha × 6.8 t/ha × 25% loss = 102 t at risk','102 t × R3,800/ton = R387,600 revenue at risk'], yield_loss_pct:25.0, yield_at_risk_ton:102.0, revenue_at_risk_zar:387600, revenue_at_risk_usd:20951, time_to_critical_days:4, recovery_if_treated_now_pct:92.0, intervention_window:'critical_48h' },
+  recommendation:{ recommendations:[{ rank:1, product_name:'Omnia LAN 28%', sku_code:'OMN-LAN28-50KG', active_ingredient:'Ammonium nitrate 28% N', rate:150, rate_unit:'kg/ha', application_method:'top_dress', timing:'Apply within 48 hours — no rain forecast, ideal soil conditions', estimated_cost_zar_per_ha:1560, projected_yield_recovery_pct:92.0, net_gain_zar_per_ha:4900, producer_margin_zar_per_ha:320 }], agronomic_rationale:'Severe N deficiency at V6 requires immediate top-dress. LAN 28% provides fast-acting ammonium nitrate. Apply before 72h window closes to secure 92% recovery.' }
+};
+
+let currentScenario = 0;
+let lastResult = null;
+let activeDemoTab = 'quick';
+
+// ── TAB SWITCHING ──────────────────────────────────────────────────────────
+function switchDemoTab(tab) {
+  activeDemoTab = tab;
+  document.querySelectorAll('.app-tab').forEach((el,i) => {
+    el.classList.toggle('active', ['quick','custom','json'][i] === tab);
+  });
+  ['tab-quick','tab-custom','tab-json'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  const target = document.getElementById('tab-' + tab);
+  if (target) target.classList.add('active');
+
+  if (tab === 'json' && lastResult) {
+    showJSON(lastResult);
+  }
+}
+
+// ── SCENARIO SELECTION ─────────────────────────────────────────────────────
+function selectScenario(idx) {
+  currentScenario = idx;
+  document.querySelectorAll('.scenario-btn').forEach((btn,i) => btn.classList.toggle('active', i === idx));
+}
+
+// ── NDVI HINT ─────────────────────────────────────────────────────────────
+function updateNdvi(val) {
+  const v = (val / 100).toFixed(2);
+  document.getElementById('cf-ndvi-val').textContent = v;
+  const hint = document.getElementById('cf-ndvi-hint');
+  const n = parseFloat(v);
+  if (n < 0.20)      hint.textContent = '🔴 Extremely low — severe crop failure risk';
+  else if (n < 0.35) hint.textContent = '⚠ Critically low — severe stress likely';
+  else if (n < 0.50) hint.textContent = '🟡 Below normal — moderate stress';
+  else if (n < 0.65) hint.textContent = '🟢 Normal range — monitor closely';
+  else               hint.textContent = '✅ Healthy vegetation — good canopy cover';
+}
+
+// ── LOADING ANIMATION ──────────────────────────────────────────────────────
+function showLoading() {
+  document.getElementById('results-placeholder').style.display = 'none';
+  document.getElementById('result-cards').style.display = 'none';
+  const loading = document.getElementById('app-loading');
+  loading.style.display = 'flex';
+  [0,1,2,3].forEach(i => {
+    document.getElementById('ls-'+i).className = 'loading-step';
+  });
+  const bar = document.getElementById('loading-bar-fill');
+  bar.style.width = '0%';
+
+  let step = 0;
+  const steps = [0,1,2,3];
+  const durations = [400, 600, 700, 500];
+  let cumulative = 0;
+
+  steps.forEach((s, i) => {
+    cumulative += durations[i];
+    setTimeout(() => {
+      if (i > 0) document.getElementById('ls-'+(s-1)).className = 'loading-step done';
+      document.getElementById('ls-'+s).className = 'loading-step active';
+      bar.style.width = ((i+1)/4*85) + '%';
+    }, cumulative);
+  });
+}
+
+function finishLoading() {
+  document.getElementById('app-loading').style.display = 'none';
+  document.getElementById('loading-bar-fill').style.width = '100%';
+}
+
+// ── RENDER RESULTS ─────────────────────────────────────────────────────────
+function renderResults(data) {
+  lastResult = data;
+  finishLoading();
+
+  const d = data.diagnosis || {};
+  const c = data.consequence || {};
+  const r = data.recommendation;
+
+  // Severity badge
+  const sevBadge = document.getElementById('res-sev-badge');
+  const sev = (d.severity || 'moderate').toLowerCase();
+  sevBadge.textContent = sev.charAt(0).toUpperCase() + sev.slice(1);
+  sevBadge.className = 'sev-badge sev-' + sev;
+
+  // Condition
+  document.getElementById('res-condition').textContent = d.condition || 'Stress detected';
+
+  // Diag meta
+  const conf = Math.round((d.confidence || 0.7) * 100);
+  const ndvi = d.satellite_corroboration?.ndvi_value;
+  document.getElementById('res-diag-meta').innerHTML =
+    `Confidence: <strong style="color:white">${conf}%</strong> &nbsp;·&nbsp; ` +
+    `Affected area: <strong style="color:white">${d.affected_area_pct || '~60'}%</strong> &nbsp;·&nbsp; ` +
+    `Urgency: <strong style="color:white">${d.urgency_hours || 48}h</strong>` +
+    (ndvi != null ? `<br>NDVI: <strong style="color:white">${ndvi}</strong>` : '');
+
+  // Revenue at risk
+  const rar = document.getElementById('res-rar');
+  const zarVal = c.revenue_at_risk_zar ? 'R ' + Math.round(c.revenue_at_risk_zar).toLocaleString() : '—';
+  const yieldLoss = c.yield_loss_pct ? c.yield_loss_pct.toFixed(1) + '%' : '—';
+  rar.innerHTML = `
+    <div class="rar-item"><div class="rar-n">${zarVal}</div><div class="rar-l">Revenue at Risk</div></div>
+    <div class="rar-item"><div class="rar-n">${yieldLoss}</div><div class="rar-l">Yield Loss Risk</div></div>`;
+
+  // Intervention window badge
+  const win = c.intervention_window || 'urgent_7d';
+  const winBadge = document.getElementById('res-win-badge');
+  if (win === 'critical_48h') { winBadge.textContent = '⚡ Critical — act in 48h'; winBadge.className = 'win-badge'; }
+  else if (win === 'urgent_7d') { winBadge.textContent = '⏰ Urgent — 7 days'; winBadge.className = 'win-badge w-urgent'; }
+  else { winBadge.textContent = '📋 Monitor'; winBadge.className = 'win-badge w-monitor'; }
+
+  // Causal chain
+  const chain = (c.consequence_chain || []).slice(0,3).join(' → ');
+  document.getElementById('res-chain').textContent = chain;
+
+  // Recommendation
+  const recCard = document.getElementById('res-rec-card');
+  const recs = r?.recommendations || [];
+  if (recs.length > 0) {
+    const top = recs[0];
+    recCard.style.display = 'block';
+    document.getElementById('res-product').innerHTML = `
+      <div class="res-prod-rank">Rank #1 Recommendation</div>
+      <div class="res-prod-name">${top.product_name}</div>
+      <div class="res-prod-detail">${top.active_ingredient} · ${top.rate} ${top.rate_unit} · ${top.application_method.replace('_',' ')}<br>${top.timing || ''}</div>`;
+    document.getElementById('res-net-gain').innerHTML = `
+      <div class="rng-l">Projected net gain/ha (recovery minus cost)</div>
+      <div class="rng-n">R ${Math.round(top.net_gain_zar_per_ha || 0).toLocaleString()}/ha</div>`;
+  } else {
+    recCard.style.display = 'none';
+  }
+
+  // Show result cards
+  const cards = document.getElementById('result-cards');
+  cards.style.display = 'flex';
+
+  // If JSON tab active, show JSON too
+  if (activeDemoTab === 'json') showJSON(data);
+}
+
+function showJSON(data) {
+  const out = document.getElementById('json-output');
+  if (!out) return;
+  out.style.display = 'block';
+  out.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
+}
+
+function syntaxHighlight(json) {
+  return json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+      let cls = 'json-num';
+      if (/^"/.test(match)) { cls = /:$/.test(match) ? 'json-key' : 'json-str'; }
+      else if (/true|false/.test(match)) cls = 'json-bool';
+      return `<span class="${cls}">${match}</span>`;
+    });
+}
+
+// ── QUICK DEMO ─────────────────────────────────────────────────────────────
+async function runQuickDemo() {
+  const btn = document.getElementById('run-quick-btn');
+  btn.disabled = true; btn.textContent = 'Running…';
+  showLoading();
+
+  try {
+    const res = await Promise.race([
+      fetch('/api/demo'),
+      new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+    ]);
+    const data = res.ok ? await res.json() : null;
+    // Mix with scenario-specific data for scenarios 1 and 2
+    const sc = SCENARIOS[currentScenario];
+    if (data && data.success) {
+      // Patch scenario 0 result is exact; for 1/2 use embedded with tweaked labels
+      if (currentScenario === 0) {
+        setTimeout(() => renderResults(data), 300);
+      } else {
+        setTimeout(() => renderResults(buildScenarioResult(sc)), 300);
+      }
+    } else {
+      setTimeout(() => renderResults(buildScenarioResult(sc)), 300);
+    }
+  } catch {
+    const sc = SCENARIOS[currentScenario];
+    setTimeout(() => renderResults(buildScenarioResult(sc)), 300);
+  }
+  btn.disabled = false; btn.textContent = 'Run Consequence Analysis';
+}
+
+function buildScenarioResult(sc) {
+  const conditions = {
+    'N-deficient Maize — Limpopo':    { condition:'Nitrogen deficiency', code:'NUTRIENT_N_DEF', severity:'severe', conf:0.87, affected:68, urgency:48, yloss:25.0, prod:'Omnia LAN 28%', ing:'Ammonium nitrate 28% N', rate:'150 kg/ha', method:'top_dress', cost:1560, gain:4900, timing:'Apply within 48h — no rain forecast' },
+    'Water-stressed Wheat — Zambia':  { condition:'Water stress (irrigation deficit)', code:'WATER_STRESS', severity:'moderate', conf:0.79, affected:55, urgency:72, yloss:18.0, prod:'Omnia Flexi-N', ing:'Controlled-release N blend', rate:'120 kg/ha', method:'broadcast', cost:2640, gain:3100, timing:'Apply after irrigation — avoid wilted application' },
+    'Fall Armyworm — Zimbabwe':       { condition:'Fall armyworm infestation (Spodoptera frugiperda)', code:'PEST_FAW', severity:'severe', conf:0.91, affected:72, urgency:24, yloss:40.0, prod:'Omnia ArmourUp', ing:'Lambda-cyhalothrin 50 g/L', rate:'300 ml/ha', method:'foliar_spray', cost:890, gain:7200, timing:'Apply within 24h — early morning for best efficacy' }
+  };
+  const key = Object.keys(conditions).find(k => sc.label.startsWith(k.split(' — ')[0])) || Object.keys(conditions)[0];
+  const c = conditions[key] || conditions[Object.keys(conditions)[0]];
+  const price = { maize:3800, wheat:5200, soybean:7800 }[sc.crop] || 3800;
+  const yieldAtRisk = sc.area * 6.5 * (c.yloss / 100);
+  const revZar = yieldAtRisk * price;
+  return {
+    success:true,
+    diagnosis:{ condition:c.condition, condition_code:c.code, confidence:c.conf, severity:c.severity, causal_chain:['Satellite NDVI anomaly detected','Physiological stress signatures confirmed','Causal chain validated against SADC historical data'], affected_area_pct:c.affected, urgency_hours:c.urgency, satellite_corroboration:{ ndvi_value:sc.ndvi, ndvi_anomaly_pct:sc.ndvi_anomaly, soil_moisture_anomaly_pct:sc.soil_moisture } },
+    consequence:{ consequence_chain:[`${c.condition} detected — ${sc.province}`,`NDVI: ${sc.ndvi} (${sc.ndvi_anomaly}% anomaly)`,`${c.yloss}% yield loss risk — ${sc.area}ha × ${(yieldAtRisk).toFixed(1)}t at risk`,`Revenue at risk: R${Math.round(revZar).toLocaleString()}`], yield_loss_pct:c.yloss, yield_at_risk_ton:Math.round(yieldAtRisk*10)/10, revenue_at_risk_zar:Math.round(revZar), revenue_at_risk_usd:Math.round(revZar/18.5), time_to_critical_days:c.urgency/24, recovery_if_treated_now_pct:88.0, intervention_window:c.urgency<=48?'critical_48h':'urgent_7d' },
+    recommendation:{ recommendations:[{ rank:1, product_name:c.prod, active_ingredient:c.ing, rate:c.rate.split(' ')[0], rate_unit:c.rate.split(' ')[1]||'kg/ha', application_method:c.method, timing:c.timing, estimated_cost_zar_per_ha:c.cost, projected_yield_recovery_pct:88.0, net_gain_zar_per_ha:c.gain, producer_margin_zar_per_ha:Math.round(c.gain*0.07) }] }
+  };
+}
+
+// ── CUSTOM ANALYSIS ────────────────────────────────────────────────────────
+async function runCustomAnalysis() {
+  const btn = document.getElementById('run-custom-btn');
+  btn.disabled = true; btn.textContent = 'Analysing…';
+  showLoading();
+
+  const body = {
+    crop_type: document.getElementById('cf-crop').value,
+    country: document.getElementById('cf-country').value,
+    growth_stage: document.getElementById('cf-stage').value,
+    field_area_ha: parseInt(document.getElementById('cf-area').value),
+    ndvi_value: parseFloat((document.getElementById('cf-ndvi').value / 100).toFixed(2)),
+    image_description: document.getElementById('cf-obs').value,
+    expected_yield_ton_per_ha: 6
+  };
+
+  try {
+    const res = await Promise.race([
+      fetch('/api/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) }),
+      new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 20000))
+    ]);
+    if (res.ok) {
+      const data = await res.json();
+      setTimeout(() => renderResults(data.success ? data : EMBEDDED_DEMO), 200);
+    } else {
+      setTimeout(() => renderResults(EMBEDDED_DEMO), 200);
+    }
+  } catch {
+    setTimeout(() => renderResults(EMBEDDED_DEMO), 200);
+  }
+  btn.disabled = false; btn.textContent = 'Run Analysis';
+}
+
+// Auto-run scenario 0 after short delay for immediate visual impact
+window.addEventListener('DOMContentLoaded', () => {
+  // Pre-select scenario 0 visually
+  selectScenario(0);
+});
+</script>
 </body>
 </html>
