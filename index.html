@@ -27,28 +27,35 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink:       #040d1a;
-      --ink-mid:   #0d1f38;
-      --ink-soft:  #1a3050;
-      --emerald:   #10b981;
-      --emerald-dk:#059669;
-      --emerald-lt:#d1fae5;
-      --emerald-bg:#ecfdf5;
-      --gold:      #f59e0b;
-      --gold-lt:   #fef3c7;
-      --blue:      #3b82f6;
-      --blue-lt:   #dbeafe;
-      --blue-dk:   #1d4ed8;
-      --violet:    #7c3aed;
-      --white:     #ffffff;
-      --gray-50:   #f8fafc;
-      --gray-100:  #f1f5f9;
-      --gray-200:  #e2e8f0;
-      --gray-400:  #94a3b8;
-      --gray-500:  #64748b;
-      --gray-700:  #334155;
-      --max:       1240px;
-      --r:         14px;
+      --ink:         #040d1a;
+      --ink-mid:     #0d1f38;
+      --ink-soft:    #1a3050;
+      --emerald:     #10b981;
+      --emerald-dk:  #059669;
+      --emerald-lt:  #d1fae5;
+      --emerald-bg:  #ecfdf5;
+      --gold:        #f59e0b;
+      --gold-lt:     #fef3c7;
+      --blue:        #3b82f6;
+      --blue-lt:     #dbeafe;
+      --blue-dk:     #1d4ed8;
+      --violet:      #7c3aed;
+      --white:       #ffffff;
+      --gray-50:     #f8fafc;
+      --gray-100:    #f1f5f9;
+      --gray-200:    #e2e8f0;
+      --gray-400:    #94a3b8;
+      --gray-500:    #64748b;
+      --gray-700:    #334155;
+      /* African palette */
+      --terracotta:  #c2410c;
+      --earth:       #92400e;
+      --kente:       #b45309;
+      --savanna:     #78350f;
+      --sunset:      #ea580c;
+      --baobab:      #16a34a;
+      --max:         1240px;
+      --r:           14px;
       --shadow:    0 4px 24px rgba(4,13,26,.12), 0 1px 6px rgba(4,13,26,.07);
       --shadow-lg: 0 16px 48px rgba(4,13,26,.18), 0 4px 14px rgba(4,13,26,.10);
     }
@@ -76,7 +83,18 @@
 
     /* ── HERO */
     .hero { background: var(--ink); padding: 96px 40px 0; position: relative; overflow: hidden; }
-    .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 55% 55% at 72% 35%, rgba(16,185,129,.13),transparent 70%), radial-gradient(ellipse 40% 50% at 8% 80%, rgba(59,130,246,.08),transparent 65%); pointer-events:none; }
+    .hero::before { content:''; position:absolute; inset:0; background:
+      radial-gradient(ellipse 55% 55% at 72% 35%, rgba(16,185,129,.13),transparent 70%),
+      radial-gradient(ellipse 40% 50% at 8% 80%, rgba(59,130,246,.08),transparent 65%),
+      radial-gradient(ellipse 35% 40% at 92% 85%, rgba(234,88,12,.09),transparent 62%),
+      radial-gradient(ellipse 28% 38% at 14% 18%, rgba(245,158,11,.06),transparent 58%);
+      pointer-events:none; }
+    /* African kente-inspired subtle grid pattern on hero */
+    .hero::after { content:''; position:absolute; inset:0; pointer-events:none;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 48px, rgba(245,158,11,.028) 48px, rgba(245,158,11,.028) 49px),
+        repeating-linear-gradient(-45deg, transparent, transparent 48px, rgba(245,158,11,.022) 48px, rgba(245,158,11,.022) 49px);
+    }
     .hero-grid { max-width:var(--max); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:flex-end; position:relative; }
     .hero-left { padding-bottom:88px; }
     .hero-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
@@ -970,8 +988,165 @@
     @media(max-width:640px) { .scan-cats { grid-template-columns:repeat(2,1fr); } .scan-fc { width:32px; } .scan-section { padding:60px 20px; } }
 
     /* ═══════════════════════════════════════════════════════════════
-       MOBILE APP-FRIENDLY LAYER
+       AFRICAN THEME ENHANCEMENTS
        ═══════════════════════════════════════════════════════════════ */
+
+    /* African accent stripe on topbar */
+    .topbar { background: linear-gradient(90deg, #065f46 0%, #059669 40%, #d97706 100%); }
+
+    /* African adinkra-style warm glow on advisor + scan sections */
+    .advisor-section {
+      position: relative;
+      background: var(--ink-mid) !important;
+    }
+    .advisor-section::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 45% at 94% 10%, rgba(234,88,12,.07), transparent 62%),
+        radial-gradient(ellipse 50% 40% at 4% 92%, rgba(245,158,11,.06), transparent 58%);
+    }
+    .scan-section::before {
+      background:
+        radial-gradient(ellipse 65% 50% at 18% 70%, rgba(59,130,246,.05), transparent 65%),
+        radial-gradient(ellipse 55% 55% at 88% 22%, rgba(16,185,129,.06), transparent 62%),
+        radial-gradient(ellipse 40% 40% at 50% 100%, rgba(234,88,12,.05), transparent 55%) !important;
+    }
+
+    /* African section divider — warm gradient rule */
+    .afr-divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, #b45309 20%, #f59e0b 50%, #b45309 80%, transparent 100%);
+      opacity: .35;
+      margin: 0;
+    }
+
+    /* ── Language selector bar ───────────────────────────────────── */
+    .lang-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.16);
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .lang-bar-lbl {
+      font-size: .72rem;
+      font-weight: 700;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      flex-shrink: 0;
+    }
+    .lang-sel {
+      background: rgba(4,13,26,.55);
+      border: 1px solid rgba(245,158,11,.28);
+      color: rgba(255,255,255,.82);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      min-width: 160px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f59e0b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 30px;
+    }
+    .lang-sel:focus { outline: none; border-color: var(--gold); }
+    .lang-sel option { background: #0d1f38; }
+
+    /* ── Voice input ─────────────────────────────────────────────── */
+    .voice-input-wrap { position: relative; }
+    .voice-input-row { display: flex; gap: 10px; align-items: flex-start; }
+    .voice-input-row .adv-textarea { flex: 1; }
+    .mic-btn {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      border: 2px solid rgba(245,158,11,.3);
+      background: rgba(245,158,11,.08);
+      color: #fbbf24;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .22s;
+      flex-shrink: 0;
+      margin-top: 2px;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+    .mic-btn:hover { background: rgba(245,158,11,.18); border-color: rgba(245,158,11,.55); transform: scale(1.05); }
+    .mic-btn.listening {
+      background: rgba(239,68,68,.18);
+      border-color: #ef4444;
+      color: #f87171;
+      animation: mic-pulse 1s ease-in-out infinite;
+      box-shadow: 0 0 0 0 rgba(239,68,68,.4);
+    }
+    @keyframes mic-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(239,68,68,.45); }
+      70%  { box-shadow: 0 0 0 12px rgba(239,68,68,.0); }
+      100% { box-shadow: 0 0 0 0 rgba(239,68,68,.0); }
+    }
+    .mic-hint {
+      font-size: .65rem;
+      color: rgba(245,158,11,.6);
+      text-align: center;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+    .mic-status {
+      font-size: .7rem;
+      color: #f87171;
+      font-weight: 700;
+      margin-top: 6px;
+      min-height: 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .mic-status.listening::before { content: '●'; animation: blink .7s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{ opacity:1; } 50%{ opacity:.2; } }
+
+    /* ── African proverb banner in hero ──────────────────────────── */
+    .afr-proverb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,158,11,.09);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: 24px;
+      padding: 7px 16px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    /* ── Warm African card accent borders ────────────────────────── */
+    .know-card { border-left: 3px solid rgba(16,185,129,.3) !important; }
+    .know-card:nth-child(2n) { border-left-color: rgba(245,158,11,.3) !important; }
+    .know-card:nth-child(3n) { border-left-color: rgba(59,130,246,.3) !important; }
+
+    /* ── Voice badge on field scanner ────────────────────────────── */
+    .scan-voice-note {
+      font-size: .68rem;
+      color: rgba(245,158,11,.7);
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       MOBILE APP-FRIENDLY LAYER
+       ════════════════════════════════════════════════════════════════ */
 
     /* ── Hamburger button ─────────────────────────────────────────── */
     .mob-ham {
@@ -1230,6 +1405,8 @@
   <a href="#demo" class="mob-drawer-cta" onclick="closeMobMenu()">📩 Book Omnia Executive Demo</a>
 </div>
 
+<div class="afr-divider"></div>
+
 <!-- ═══════════════════ LIVE MARKET TICKER -->
 <div class="ticker-bar" id="ticker-bar">
   <div class="ticker-label">📡 Live SAFEX</div>
@@ -1314,6 +1491,11 @@
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-left">
+      <!-- African proverb banner — rotates languages -->
+      <div class="afr-proverb" id="afr-proverb-wrap">
+        <span>🌿</span>
+        <span id="afr-proverb-text">Umuntu ngumuntu ngabantu — A person is a person through other people (isiZulu)</span>
+      </div>
       <div class="hero-pills">
         <span class="pill pill-e">🌍 16 SADC Countries</span>
         <span class="pill pill-g">🛰️ Live Satellite Intelligence</span>
@@ -1714,7 +1896,29 @@
     <!-- STEP 2: Symptom Selection -->
     <div id="adv-step2" style="display:none">
       <button class="adv-back-crop" onclick="advReset()">← Back to crop selection</button>
-      <p style="font-size:.82rem;color:rgba(255,255,255,.48);margin-bottom:18px;">What are you observing in the field? Select all that apply:</p>
+
+      <!-- Language selector for voice input -->
+      <div class="lang-bar">
+        <span class="lang-bar-lbl">🌍 Language / Ulimi / Lulimi:</span>
+        <select id="voice-lang" class="lang-sel" title="Choose your language for voice input">
+          <option value="en-ZA">🇿🇦 English (South Africa)</option>
+          <option value="zu-ZA">🇿🇦 isiZulu</option>
+          <option value="xh-ZA">🇿🇦 isiXhosa</option>
+          <option value="st-ZA">🇿🇦 Sesotho</option>
+          <option value="tn-ZA">🇿🇦 Setswana</option>
+          <option value="ts-ZA">🇿🇦 Xitsonga</option>
+          <option value="af-ZA">🇿🇦 Afrikaans</option>
+          <option value="sn">🇿🇼 ChiShona</option>
+          <option value="nd">🇿🇼 isiNdebele</option>
+          <option value="bem">🇿🇲 Bemba / Icibemba</option>
+          <option value="ny">🇲🇼 Chichewa / Nyanja</option>
+          <option value="sw">🌍 Kiswahili</option>
+          <option value="pt-MZ">🇲🇿 Português</option>
+          <option value="fr">🇨🇩 Français</option>
+        </select>
+      </div>
+
+      <p style="font-size:.82rem;color:rgba(255,255,255,.48);margin-bottom:18px;">What are you seeing in the field? Tap a symptom or 🎤 speak:</p>
       <div class="adv-syms">
         <button class="adv-sym" onclick="advToggleSym(this,'yellowing leaves')">🟡 Yellowing leaves</button>
         <button class="adv-sym" onclick="advToggleSym(this,'stunted growth')">📉 Stunted growth</button>
@@ -1725,7 +1929,20 @@
         <button class="adv-sym" onclick="advToggleSym(this,'nutrient deficiency symptoms')">⚗️ Nutrient deficiency</button>
         <button class="adv-sym" onclick="advToggleSym(this,'lodging or stem weakness')">💨 Lodging / stem weakness</button>
       </div>
-      <textarea class="adv-textarea" id="adv-obs-text" placeholder="Or describe what you're seeing — growth stage, field location, weather, soil type…"></textarea>
+
+      <!-- Voice-enabled textarea -->
+      <div class="voice-input-wrap">
+        <p style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:8px;">Or describe in your own words (type or 🎤 speak):</p>
+        <div class="voice-input-row">
+          <textarea class="adv-textarea" id="adv-obs-text" placeholder="E.g. "The leaves are turning yellow from the bottom. Plant is small. Rain was good." — Speak in your language using the mic button 👉"></textarea>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <button class="mic-btn" id="adv-mic-btn" onclick="startVoice('adv-obs-text','adv-mic-btn')" title="Tap to speak — speaks in your chosen language" aria-label="Voice input">🎤</button>
+            <div class="mic-hint">Tap mic<br>to speak</div>
+          </div>
+        </div>
+        <div class="mic-status" id="adv-mic-status"></div>
+      </div>
+
       <button class="adv-analyse-btn" id="adv-btn" onclick="advAnalyse()">🔬 Analyse Field →</button>
     </div>
 
@@ -1848,6 +2065,12 @@
 
     <!-- Step 1 — Category selection -->
     <div id="scan-s1">
+      <!-- Accessibility note for low-literacy farmers -->
+      <div style="text-align:center;margin-bottom:20px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.15);border-radius:24px;padding:7px 18px;font-size:.72rem;font-weight:700;color:#fbbf24;">
+          📷 Take a photo of your crop — the AI will identify the problem
+        </span>
+      </div>
       <div class="scan-cats">
         <div class="scan-cat" onclick="scanCat(this,'crops')">
           <div class="scan-cat-ico">🌽</div>
@@ -1866,6 +2089,7 @@
           <div class="scan-cat-nm">Livestock / Pasture</div>
         </div>
       </div>
+      <div class="scan-voice-note">🎤 Use the Field Advisor below to describe what you see in your language — Zulu, Shona, Bemba, Tswana, English and more</div>
     </div>
 
     <!-- Step 2 — Upload (hidden until category selected) -->
@@ -1875,10 +2099,10 @@
            ondragover="scanDragOver(event)"
            ondragleave="scanDragLeave(event)"
            ondrop="scanDrop(event)">
-        <input type="file" id="scan-fin" accept="image/*" style="display:none" onchange="scanFile(this)">
+        <input type="file" id="scan-fin" accept="image/*" capture="environment" style="display:none" onchange="scanFile(this)">
         <span class="su-ico">📷</span>
-        <div class="su-ttl">Drop your field photo here or click to browse</div>
-        <div class="su-hint">JPG · PNG · WEBP · HEIC &nbsp;·&nbsp; Max 5 MB</div>
+        <div class="su-ttl">Take a photo or choose from your gallery</div>
+        <div class="su-hint">JPG · PNG · WEBP · HEIC &nbsp;·&nbsp; Max 5 MB · Works offline</div>
       </div>
       <div class="scan-preview" id="scan-prev">
         <img id="scan-prev-img" src="" alt="Field photo preview">
@@ -4077,6 +4301,138 @@ function scanReset() {
   document.getElementById('scan-btn-txt').innerHTML = '🔍 Analyse Field Photo';
   scanUpdateFlow(1);
   document.getElementById('field-scan').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   AFRICAN THEME — Proverbs + Voice Input
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── African proverbs (rotate every 8 s) ────────────────────────── */
+var _afrProverbs = [
+  'Umuntu ngumuntu ngabantu — A person is a person through other people (isiZulu)',
+  'Motho ke motho ka batho ba bangwe — I am because we are (Sesotho)',
+  'Munhu munhu navanhu — A person is a person through other people (ChiShona)',
+  'Umuntu akalahlwa — No person should be abandoned (isiNdebele)',
+  'Ubuntu ungamanzi — Humanity is like water, it flows (isiXhosa)',
+  'Muntu ni watu wake — A person is known by their people (Kiswahili)',
+  'Il faut cultiver notre jardin — One must cultivate one\'s garden (Français · SADC)',
+  'Pula e ntle e nna le mafika — Good rain has its stones — take the good with the tough (Setswana)',
+  'Nzara inosvika — Hunger will come — prepare your land (ChiShona)',
+  'Indlela ibuzwa kwabaphambili — The road ahead is asked of those who went before (isiZulu)'
+];
+(function() {
+  var idx = 0;
+  var el = document.getElementById('afr-proverb-text');
+  if (!el) return;
+  setInterval(function() {
+    idx = (idx + 1) % _afrProverbs.length;
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.textContent = _afrProverbs[idx];
+      el.style.transition = 'opacity .6s';
+      el.style.opacity = '1';
+    }, 400);
+  }, 9000);
+})();
+
+/* ── Voice Input (Web Speech API) ───────────────────────────────── */
+var _voiceRec = null;
+
+function startVoice(textareaId, btnId) {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    var btn = document.getElementById(btnId);
+    if (btn) {
+      btn.textContent = '✕';
+      btn.style.borderColor = '#f87171';
+      btn.style.color = '#f87171';
+    }
+    showVoiceStatus(btnId, 'Voice input needs Chrome or Samsung Internet browser', false);
+    return;
+  }
+
+  var btn = document.getElementById(btnId);
+  var statusId = btnId === 'adv-mic-btn' ? 'adv-mic-status' : null;
+
+  /* Toggle off if already listening */
+  if (_voiceRec) {
+    _voiceRec.stop();
+    _voiceRec = null;
+    if (btn) { btn.classList.remove('listening'); btn.textContent = '🎤'; }
+    if (statusId) { var s = document.getElementById(statusId); if (s) { s.textContent = ''; s.className = 'mic-status'; } }
+    return;
+  }
+
+  /* Pick language from selector (falls back to en-ZA) */
+  var langEl = document.getElementById('voice-lang');
+  var lang = langEl ? langEl.value : 'en-ZA';
+
+  var rec = new SpeechRecognition();
+  rec.lang = lang;
+  rec.interimResults = true;
+  rec.continuous = false;
+  rec.maxAlternatives = 1;
+  _voiceRec = rec;
+
+  if (btn) { btn.classList.add('listening'); btn.textContent = '⏹️'; }
+  if (statusId) {
+    var st = document.getElementById(statusId);
+    if (st) { st.textContent = 'Listening… speak now'; st.className = 'mic-status listening'; }
+  }
+
+  /* Capture existing text to append to */
+  var ta = document.getElementById(textareaId);
+  var baseText = ta ? ta.value.trim() : '';
+
+  rec.onresult = function(e) {
+    var transcript = '';
+    for (var i = e.resultIndex; i < e.results.length; i++) {
+      transcript += e.results[i][0].transcript;
+    }
+    if (ta) {
+      ta.value = baseText + (baseText && transcript ? ' ' : '') + transcript;
+    }
+  };
+
+  rec.onerror = function(e) {
+    _voiceRec = null;
+    if (btn) { btn.classList.remove('listening'); btn.textContent = '🎤'; }
+    var msg = '';
+    if (e.error === 'not-allowed') msg = 'Microphone access denied — allow mic in browser settings';
+    else if (e.error === 'no-speech') msg = 'No speech heard — please try again';
+    else if (e.error === 'network') msg = 'Network required for voice — please connect and retry';
+    else msg = 'Voice error: ' + e.error;
+    showVoiceStatus(btnId, msg, false);
+  };
+
+  rec.onend = function() {
+    _voiceRec = null;
+    if (btn) { btn.classList.remove('listening'); btn.textContent = '🎤'; }
+    if (statusId) {
+      var st = document.getElementById(statusId);
+      if (st && st.textContent === 'Listening… speak now') { st.textContent = ''; st.className = 'mic-status'; }
+    }
+  };
+
+  try {
+    rec.start();
+  } catch(err) {
+    _voiceRec = null;
+    if (btn) { btn.classList.remove('listening'); btn.textContent = '🎤'; }
+    showVoiceStatus(btnId, 'Could not start microphone: ' + err.message, false);
+  }
+}
+
+function showVoiceStatus(btnId, msg, isListening) {
+  var statusId = btnId === 'adv-mic-btn' ? 'adv-mic-status' : null;
+  if (!statusId) return;
+  var st = document.getElementById(statusId);
+  if (!st) return;
+  st.textContent = msg;
+  st.className = 'mic-status' + (isListening ? ' listening' : '');
+  setTimeout(function() {
+    if (st.textContent === msg) { st.textContent = ''; st.className = 'mic-status'; }
+  }, 5000);
 }
 
 /* ══════════════════════════════════════════════════════════════════
