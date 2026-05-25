@@ -1304,29 +1304,209 @@
     }
     .mob-tab.mt-on .mob-tab-pip { background: var(--emerald); }
 
-    /* ── Show mobile elements only on small screens ───────────────── */
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE APP — FULL SCREEN PAGE SYSTEM
+       ═══════════════════════════════════════════════════════════════ */
     @media (max-width: 900px) {
+      /* Hamburger and tab bar visible */
       .mob-ham { display: flex !important; }
       .mob-tab-bar { display: flex !important; }
-      body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+
+      /* Kill page scroll — each page scrolls internally */
+      body { overflow: hidden !important; padding-bottom: 0 !important; }
+
+      /* Hide ALL desktop content on mobile */
+      .topbar, .hero, .afr-divider, .ticker-bar, .exec-kpi-bar,
+      #consequence, #stack, #agents, #knowledge,
+      #omnia-ai, #opportunities, #newsfeed,
+      section.s, section.cta, section.dark,
+      .exec-map-section, .advisor-section, .know-section,
+      .scan-section, .opp-section, .newsfeed-section,
+      .exec-dash, .demo-section, section.alt { display: none !important; }
+
+      /* Mobile home screen — shown by default */
+      #mob-home {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 60px; left: 0; right: 0;
+        bottom: calc(64px + env(safe-area-inset-bottom));
+        overflow-y: auto; overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        background: var(--ink);
+        z-index: 200;
+      }
+      #mob-home.mob-hidden { display: none !important; }
+
+      /* Any section used as an app page */
+      .mob-page-on {
+        display: block !important;
+        position: fixed !important;
+        top: 60px !important; left: 0 !important; right: 0 !important;
+        bottom: calc(64px + env(safe-area-inset-bottom)) !important;
+        overflow-y: auto !important; overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        z-index: 200;
+        animation: mpg-in .22s cubic-bezier(.4,0,.2,1) both;
+      }
+      @keyframes mpg-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Map page: let the map fill the full height */
+      #geo.mob-page-on { padding: 0 !important; }
+      #geo.mob-page-on .geo-inner { padding: 0; }
+      #geo.mob-page-on .geo-header { padding: 16px 18px 12px; }
+      #geo.mob-page-on #sadcMap { height: calc(100vh - 180px - 60px - 64px) !important; border-radius: 0; }
+
+      /* Advisor page */
+      #advisor.mob-page-on { padding: 24px 18px !important; }
+      #advisor.mob-page-on .adv-inner { max-width: 100%; }
+
+      /* Scanner page */
+      #field-scan.mob-page-on { padding: 24px 18px 32px !important; }
+      #field-scan.mob-page-on .scan-inner { max-width: 100%; }
+
+      /* Market page */
+      #market-intel.mob-page-on { padding: 24px 18px !important; }
+
+      /* Nav adjustments */
+      nav { padding: 0 14px !important; height: 60px !important; }
+      .brand-name { font-size: 1.1rem !important; }
+      .brand-sub { display: none !important; }
+      .nav-links { display: none !important; }
+
+      /* PWA banner above tab bar */
       #pwa-install-banner { bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
     }
 
-    /* ── Touch-optimized tap targets ──────────────────────────────── */
-    @media (max-width: 900px) {
-      .topbar { font-size: .68rem; padding: 9px 14px; }
-      nav { padding: 0 14px !important; height: 60px !important; }
-      .brand-name { font-size: 1.1rem !important; }
-      .brand-sub { display: none; }
-      .nav-links { display: none !important; }
-      .hero { padding: 52px 20px 20px !important; }
-      .hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
-      .scan-cats { grid-template-columns: repeat(2,1fr) !important; }
-      .ekb-grid { grid-template-columns: 1fr 1fr !important; }
+    /* ── Mobile Home Screen Styles ─────────────────────────────────── */
+    .mob-home-hdr {
+      padding: 20px 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0;
     }
-    @media (max-width: 480px) {
-      .ekb-grid { grid-template-columns: 1fr !important; }
-      .brand-sub { display: none !important; }
+    .mob-home-greet { font-size: .72rem; color: rgba(255,255,255,.38); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .mob-home-title { font-size: 1.5rem; font-weight: 900; color: white; letter-spacing: -.03em; line-height: 1.1; }
+    .mob-home-title em { color: var(--emerald); font-style: normal; }
+    .mob-home-live { display: flex; align-items: center; gap: 6px; font-size: .65rem; font-weight: 800; color: var(--emerald); text-transform: uppercase; letter-spacing: .07em; }
+    .mob-home-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); animation: pulse .9s ease-in-out infinite; }
+
+    /* Prices strip */
+    .mob-prices {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0;
+      scrollbar-width: none;
+    }
+    .mob-prices::-webkit-scrollbar { display: none; }
+    .mob-price-item {
+      flex-shrink: 0;
+      padding: 12px 16px;
+      border-right: 1px solid rgba(255,255,255,.06);
+      min-width: 100px;
+    }
+    .mob-price-name { font-size: .6rem; color: rgba(255,255,255,.4); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+    .mob-price-val { font-size: .92rem; font-weight: 900; color: white; }
+    .mob-price-chg { font-size: .62rem; font-weight: 700; margin-top: 1px; }
+    .mob-price-up { color: var(--emerald); }
+    .mob-price-dn { color: #f87171; }
+
+    /* Action cards grid */
+    .mob-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 18px;
+      flex-shrink: 0;
+    }
+    .mob-action-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: all .18s;
+      -webkit-tap-highlight-color: transparent;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .mob-action-card:active { transform: scale(.97); background: rgba(255,255,255,.07); }
+    .mob-action-card:hover { border-color: rgba(16,185,129,.35); background: rgba(16,185,129,.06); }
+    .mob-ac-ico { font-size: 2.2rem; margin-bottom: 10px; }
+    .mob-ac-title { font-size: .9rem; font-weight: 800; color: white; margin-bottom: 4px; }
+    .mob-ac-sub { font-size: .66rem; color: rgba(255,255,255,.38); font-weight: 500; }
+    .mob-action-card.mac-map { border-color: rgba(16,185,129,.2); }
+    .mob-action-card.mac-adv { border-color: rgba(59,130,246,.2); }
+    .mob-action-card.mac-scan { border-color: rgba(245,158,11,.2); }
+    .mob-action-card.mac-intel { border-color: rgba(124,58,237,.2); }
+
+    /* Alert strip */
+    .mob-alert {
+      margin: 0 18px 14px;
+      padding: 12px 16px;
+      background: rgba(239,68,68,.08);
+      border: 1px solid rgba(239,68,68,.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .75rem;
+      color: rgba(255,255,255,.68);
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    .mob-alert-ico { font-size: 1rem; flex-shrink: 0; }
+    .mob-alert strong { color: #f87171; }
+
+    /* Demo CTA */
+    .mob-demo-cta {
+      margin: 0 18px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border-radius: 14px;
+      color: white;
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+    .mob-demo-cta:active { opacity: .88; transform: scale(.98); }
+
+    /* Proverb at bottom */
+    .mob-proverb {
+      margin: 0 18px 24px;
+      padding: 12px 16px;
+      background: rgba(245,158,11,.06);
+      border: 1px solid rgba(245,158,11,.12);
+      border-radius: 12px;
+      font-size: .72rem;
+      color: rgba(245,158,11,.7);
+      font-weight: 600;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.55;
+      flex-shrink: 0;
+    }
+
+    /* Desktop: keep home screen hidden */
+    @media (min-width: 901px) {
+      #mob-home { display: none !important; }
     }
   </style>
   <!-- Leaflet.js interactive maps -->
@@ -1488,6 +1668,94 @@
 </div>
 
 <!-- ═══════════════════ HERO -->
+<!-- ════════════════════════════════════════════════════════════════
+     MOBILE HOME SCREEN  (hidden on desktop via CSS)
+     ════════════════════════════════════════════════════════════════ -->
+<div id="mob-home">
+
+  <!-- Header -->
+  <div class="mob-home-hdr">
+    <div>
+      <div class="mob-home-greet" id="mob-greet">Good morning</div>
+      <div class="mob-home-title">abf<em>Agri</em></div>
+    </div>
+    <div>
+      <div class="mob-home-live"><span class="mob-home-live-dot"></span>LIVE</div>
+    </div>
+  </div>
+
+  <!-- Live SAFEX price strip -->
+  <div class="mob-prices">
+    <div class="mob-price-item">
+      <div class="mob-price-name">White Maize</div>
+      <div class="mob-price-val">R 3,388</div>
+      <div class="mob-price-chg mob-price-up">▲ +1.39%</div>
+    </div>
+    <div class="mob-price-item">
+      <div class="mob-price-name">Soybean</div>
+      <div class="mob-price-val">R 6,935</div>
+      <div class="mob-price-chg mob-price-dn">▼ −0.64%</div>
+    </div>
+    <div class="mob-price-item">
+      <div class="mob-price-name">Wheat</div>
+      <div class="mob-price-val">R 5,480</div>
+      <div class="mob-price-chg mob-price-up">▲ +0.55%</div>
+    </div>
+    <div class="mob-price-item">
+      <div class="mob-price-name">USD/ZAR</div>
+      <div class="mob-price-val">R 16.46</div>
+      <div class="mob-price-chg mob-price-dn">▼ −0.20%</div>
+    </div>
+    <div class="mob-price-item">
+      <div class="mob-price-name">Sunflower</div>
+      <div class="mob-price-val">R 8,720</div>
+      <div class="mob-price-chg mob-price-dn">▼ −0.91%</div>
+    </div>
+  </div>
+
+  <!-- 4 main action cards -->
+  <div class="mob-actions">
+    <div class="mob-action-card mac-map" onclick="showPage('map')">
+      <div class="mob-ac-ico">🌍</div>
+      <div class="mob-ac-title">SADC Map</div>
+      <div class="mob-ac-sub">Live satellite view</div>
+    </div>
+    <div class="mob-action-card mac-adv" onclick="showPage('advisor')">
+      <div class="mob-ac-ico">🔬</div>
+      <div class="mob-ac-title">Field Advisor</div>
+      <div class="mob-ac-sub">Describe crop problem</div>
+    </div>
+    <div class="mob-action-card mac-scan" onclick="showPage('scanner')">
+      <div class="mob-ac-ico">📷</div>
+      <div class="mob-ac-title">Photo Scanner</div>
+      <div class="mob-ac-sub">Take a crop photo</div>
+    </div>
+    <div class="mob-action-card mac-intel" onclick="showPage('intel')">
+      <div class="mob-ac-ico">📊</div>
+      <div class="mob-ac-title">Market Intel</div>
+      <div class="mob-ac-sub">SAFEX prices + alerts</div>
+    </div>
+  </div>
+
+  <!-- Alert strip -->
+  <div class="mob-alert">
+    <span class="mob-alert-ico">⚠️</span>
+    <div><strong>FAW Alert:</strong> Fall Armyworm pressure building in Zimbabwe &amp; Zambia — act within 48 hours to avoid yield loss.</div>
+  </div>
+
+  <!-- Book demo CTA -->
+  <a class="mob-demo-cta" onclick="showPage('demo')">
+    📩 Book an Omnia Executive Demo
+  </a>
+
+  <!-- African proverb -->
+  <div class="mob-proverb" id="mob-proverb-text">
+    🌿 Umuntu ngumuntu ngabantu — A person is a person through other people (isiZulu)
+  </div>
+
+</div>
+
+<!-- Desktop hero below (hidden on mobile) -->
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-left">
@@ -3808,6 +4076,7 @@ async function initSadcMap() {
     zoomControl:true, attributionControl:false,
     minZoom:3, maxZoom:9
   });
+  window._sadcMap = _sadcMap; /* expose for mobile page-switch resize */
 
   // Dark base tiles (no country labels)
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
@@ -4096,43 +4365,55 @@ var _simgURL = null; // data URL for preview
 // Demo responses (used when API unreachable — local dev / deploy pending)
 const SCAN_DEMO = {
   crops: {
-    condition: 'Fall Armyworm (Spodoptera frugiperda)',
+    condition: 'Fall Armyworm (Spodoptera frugiperda) — Imvubela / Inchworm',
     severity: 'moderate',
-    description: 'Window-pane feeding patterns with characteristic frass deposits detected in leaf whorls. Young 2nd-instar larvae present on 20–30% of sampled plants. Warm, humid conditions are conducive to rapid population build-up — spread is expected to accelerate over the next 48 hours without intervention.',
+    description: 'Your maize plant leaves show small see-through "window" holes where the skin of the leaf has been eaten away. You can also see small dark droppings (called frass) that look like wet sawdust sitting inside the funnel at the top of the plant. This is caused by the Fall Armyworm caterpillar — a fast-moving green or brown worm about the size of your finger. It hides inside the plant during the day and eats all night. About 2 in every 10 plants in your field are already affected.',
+    cause: 'A small moth flew into your field at night and laid hundreds of eggs on the leaves. The eggs hatched into these caterpillars. Hot and rainy weather speeds up how fast they grow and spread. One armyworm can eat a full plant in just 3–5 days.',
+    urgency: 'Act within 48 hours — these worms move fast and can destroy 60–80% of your crop if left untreated for one week. The longer you wait, the harder and more expensive it becomes to save your field.',
     product: 'Omnia Bravest 300 SC',
-    rate: '400 mL/ha',
-    timing: 'Apply at dusk within 48 hours — larvae are nocturnal feeders',
-    roi: 'Treatment cost ~R1,800/ha vs R12,000+/ha yield loss at current SAFEX maize price',
+    rate: '400 mL per hectare — mix with 200 litres of water (about 40 full 5-litre containers)',
+    timing: 'Spray in the late afternoon or at sunset. The worms come out to feed at night so this is when the spray works best. Spray again after 7 days if you still see damage.',
+    how_to_apply: '1. Mix 400 mL of Bravest 300 SC into 200 L of water. 2. Shake or stir well before spraying. 3. Spray directly into the top funnel (whorl) of each plant — this is where the worms hide. 4. Make sure every plant gets sprayed. 5. Wear gloves, old clothes, and a mask while spraying. 6. Do not let children or animals into the field for 24 hours after spraying.',
+    roi: 'Bravest 300 SC costs about R1,800 per hectare to apply. If you do nothing, Fall Armyworm can destroy maize worth R12,000–R18,000 per hectare at today\'s SAFEX price of R3,388/ton. Every R1 you spend on treatment protects R7–R10 of your crop.',
     conf: 0.84
   },
   vegetables: {
-    condition: 'Powdery Mildew (Erysiphe spp.)',
+    condition: 'Powdery Mildew (Erysiphe spp.) — White Leaf Disease',
     severity: 'moderate',
-    description: 'White powdery fungal colonies coalescing on upper leaf surfaces across 35–45% of canopy coverage. Secondary chlorosis and premature leaf abscission observed on older foliage. Warm days with cool nights are creating optimal sporulation conditions for rapid spread.',
+    description: 'Your vegetable leaves have a white or grey powdery coating on the top surface — it looks like someone dusted the leaves with flour or ash. This is a fungus called Powdery Mildew. The leaves underneath this white powder are turning yellow and starting to dry out. If you rub it, the white powder comes off. Older leaves lower on the plant are affected first, and the disease is now moving up to the younger leaves. About 35–45% of your plants show signs of this problem.',
+    cause: 'This white fungus spreads through tiny invisible seeds called spores that blow through the air. It grows best when the days are warm (25–30°C) and the nights are cool. It does NOT need rain or water on the leaves to spread — it actually grows WORSE when it is dry and warm. Your current weather conditions are perfect for this fungus to spread quickly.',
+    urgency: 'Spray now — this fungus doubles in area every 5–7 days in these conditions. What is affecting 35% of your crop today will be 70–90% in two weeks if you do not act. Once the plant is heavily coated, it stops making food properly and your yield drops by 40–60%.',
     product: 'Omnia Funguran OH 50 WP',
-    rate: '200 g per 100 L water',
-    timing: 'Apply immediately — repeat every 7 days until conditions improve',
-    roi: 'Early intervention recovers 70–85% of marketable yield',
+    rate: '200 g per 100 litres of water — that is one big handful (about 200g) into one full 100-litre drum',
+    timing: 'Spray first thing in the morning or in the late afternoon — not in the middle of the day when it is hottest. Repeat every 7 days. Do at least 3 sprays in a row.',
+    how_to_apply: '1. Measure 200g of Funguran OH 50 WP powder into clean water. 2. Stir until the powder is fully mixed in. 3. Spray on TOP of the leaves AND underneath the leaves — the fungus lives on both sides. 4. Make sure the spray is fine and covers every leaf properly (leaves should look wet but not dripping). 5. Wash your hands and face after spraying. 6. Store leftover mix away from children.',
+    roi: 'One treatment with Funguran costs about R280–R350 per hectare. Doing nothing means losing 40–60% of your marketable vegetables, worth R3,500–R6,200 per hectare at current market prices. Treatment pays for itself many times over.',
     conf: 0.79
   },
   fruits: {
     condition: 'Citrus Bacterial Canker (Xanthomonas citri subsp. citri)',
     severity: 'severe',
-    description: 'Raised, corky lesions with water-soaked yellow halos observed on leaves and young fruit. Wind-driven spread confirmed across multiple canopy layers. 25–40% fruit surface damage visible — significant export-grade rejection risk at this progression stage.',
+    description: 'Your citrus leaves and young fruit have raised rough spots that look like small bumps or blisters. These spots are brown or tan in the middle and have a water-soaked dark green ring around them, then a yellow ring on the outside — like a small target or bullseye. On the fruit, these same raised bumpy spots are appearing and making the skin look damaged and rough. About 25–40% of your fruit already shows this damage. Buyers and exporters will reject this fruit because it does not look good — even though it is safe to eat.',
+    cause: 'This is a bacterial disease — it is caused by tiny bacteria that get into the tree through wounds on leaves and fruit. Rain splashing and wind are spreading it from plant to plant across your orchard. Once the bacteria are inside a plant, they cannot be removed — you can only protect healthy leaves and fruit from being infected.',
+    urgency: 'This is a SEVERE problem — act within 24 hours. Every rain event spreads the bacteria further. New leaves and new fruit are most at risk. Once fruit is damaged it cannot be exported and its market value drops by 60–80%.',
     product: 'Omnia Copper Oxychloride 850 WP',
-    rate: '300 g per 100 L water',
-    timing: 'Apply within 24 hours and protect all new growth flushes',
-    roi: 'Copper spray at ~R900/ha vs R35,000/ha export quality crop loss',
+    rate: '300 g per 100 litres of water — three big handfuls into a full 100-litre drum',
+    timing: 'Spray today or tomorrow morning before it rains again. Then spray every new flush of growth (every 3–4 weeks during the growing season). The copper creates a protective coat on the leaves — it does not cure infected leaves but stops healthy ones from getting infected.',
+    how_to_apply: '1. Mix 300g of Copper Oxychloride into 100 L of water. Stir well — keep stirring while you spray as it settles. 2. Spray ALL parts of the tree: top branches, middle, inside of the canopy, and under the leaves. 3. Protect all new growth — new leaves are the most vulnerable. 4. Do not spray in wind or rain. 5. Wear rubber gloves and eye protection.',
+    roi: 'Copper spray costs about R900 per hectare to apply. Losing export quality on your citrus means losing R30,000–R40,000 per hectare in premium price. Protecting even half your crop with this spray means R15,000+ saved.',
     conf: 0.78
   },
   livestock: {
-    condition: 'Tick-Borne Stress + Pasture Mineral Deficiency (Mg/Se)',
+    condition: 'Tick Burden + Pasture Mineral Deficiency (Magnesium & Selenium)',
     severity: 'moderate',
-    description: 'Animals showing reduced body condition scores, pale mucous membranes, and poor milk letdown consistent with concurrent tick pressure and pasture mineral shortfall. Magnesium and selenium deficiency confirmed by leaf chlorosis across dominant grazed swards. Dual intervention required — veterinary acaricide dip plus targeted pasture nutrition.',
-    product: 'Omnia Magnesol Foliar (Pasture) + Acaricide dip (vet)',
-    rate: 'Magnesol @ 5 L/ha on pastures · Dip per veterinary label',
-    timing: 'Apply Magnesol at next irrigation cycle + immediate vet dip protocol',
-    roi: 'Pasture mineral correction at ~R850/ha prevents R15,000+/animal losses and recovers 15–20% milk production within 3 weeks',
+    description: 'Your animals look thinner than they should be — their backbone and hip bones are more visible than normal. Their eyes look pale instead of pink, and their energy is low (they move slowly and are not eating or drinking properly). Cows are giving less milk than before. When you look at the grass they are eating, it looks yellowish and pale instead of a rich dark green. These are signs of two problems happening together: heavy tick infestation on the animals AND the grass not having enough magnesium and selenium minerals for the animals to stay healthy.',
+    cause: 'The ticks are draining blood and energy from your animals and spreading disease through their bites. At the same time, your pasture soil is low in magnesium and selenium — this means the grass cannot give these important minerals to your animals even when they eat enough. Animals under tick stress AND mineral deficiency get sick much faster than if they only had one problem.',
+    urgency: 'Both problems need to be fixed at the same time — fixing one and not the other will not give good results. Without treatment, body condition will keep falling, milk production may drop another 15–25%, and weaker animals may get tick fever which can be fatal.',
+    product: 'Omnia Magnesol Foliar (Pasture) + Veterinary Acaricide Dip',
+    rate: 'Magnesol: 5 litres per hectare on the pasture grass · Acaricide dip: follow the label for your chosen dip product and weight of animals',
+    timing: 'Apply Magnesol to the pasture at the next irrigation or when rain is expected (so it soaks into the grass). Do the acaricide dip on all animals this week — do not wait. Repeat the dip every 2–3 weeks during tick season.',
+    how_to_apply: '1. For the pasture: mix Magnesol at 5 L/ha in water and apply through your irrigation system or with a knapsack sprayer over the grass. 2. For the animals: prepare your dip tank with the correct acaricide concentration following the label. Dip ALL animals on the same day — including calves. 3. Keep animals off the treated pasture for 24 hours after spraying Magnesol. 4. Check animals again in 2 weeks — look for improved body condition and less tick activity.',
+    roi: 'Magnesol treatment costs about R850 per hectare. Losing a cow to tick fever costs R15,000–R25,000. Recovering milk production adds R2,000–R4,000 per cow over the next 3 months. Every rand spent on treatment protects many rands of animal value.',
     conf: 0.74
   }
 };
@@ -4245,17 +4526,34 @@ function scanAnalyse() {
 
 function scanRenderResult(d) {
   var sevMap = {
-    mild:     { cls: 'sev-mild',     lbl: 'Mild Stress' },
-    moderate: { cls: 'sev-moderate', lbl: 'Moderate Stress' },
-    severe:   { cls: 'sev-severe',   lbl: '⚠ Severe' },
-    critical: { cls: 'sev-critical', lbl: '🚨 Critical' }
+    mild:     { cls: 'sev-mild',     lbl: '🟢 Mild',       color: 'var(--emerald)' },
+    moderate: { cls: 'sev-moderate', lbl: '🟡 Moderate',   color: '#fbbf24' },
+    severe:   { cls: 'sev-severe',   lbl: '🔴 Severe',     color: '#f87171' },
+    critical: { cls: 'sev-critical', lbl: '🚨 Critical',   color: '#fca5a5' }
   };
-  var sev = sevMap[d.severity] || sevMap.moderate;
+  var sev = sevMap[(d.severity||'').toLowerCase()] || sevMap.moderate;
   var catLabel = (_scat || 'Field').charAt(0).toUpperCase() + (_scat || 'field').slice(1);
-  var confPct  = Math.round(((d.conf || d.confidence || 0.80)) * 100);
+  var confPct  = Math.round((d.conf || d.confidence || 0.80) * 100);
   var isDemo   = d.demo === true;
 
+  function block(icon, label, text, bgColor) {
+    if (!text) return '';
+    return '<div style="margin-bottom:14px;padding:14px 16px;background:' + (bgColor||'rgba(255,255,255,.04)') + ';border-radius:12px;border:1px solid rgba(255,255,255,.07);">' +
+      '<div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.35);margin-bottom:8px;">' + icon + ' ' + label + '</div>' +
+      '<div style="font-size:.82rem;color:rgba(255,255,255,.78);line-height:1.75;">' + text + '</div>' +
+    '</div>';
+  }
+
+  function stepBlock(icon, label, text, bgColor) {
+    if (!text) return '';
+    return '<div style="margin-bottom:14px;padding:14px 16px;background:' + (bgColor||'rgba(16,185,129,.06)') + ';border-radius:12px;border:1px solid rgba(16,185,129,.15);">' +
+      '<div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--emerald);margin-bottom:8px;">' + icon + ' ' + label + '</div>' +
+      '<div style="font-size:.82rem;color:rgba(255,255,255,.78);line-height:1.75;">' + text + '</div>' +
+    '</div>';
+  }
+
   var html =
+    /* ── Header ── */
     '<div class="scan-res-hd">' +
       '<div>' +
         '<div class="scan-res-ht">' + d.condition + '</div>' +
@@ -4263,20 +4561,53 @@ function scanRenderResult(d) {
       '</div>' +
       '<span class="scan-sev ' + sev.cls + '">' + sev.lbl + '</span>' +
     '</div>' +
+
     '<div class="scan-res-body">' +
-      '<p class="scan-res-desc">' + d.description + '</p>' +
-      '<div class="scan-action">' +
-        '<div class="scan-act-lbl">⚡ Recommended Action</div>' +
-        '<div class="scan-act-prod">' + d.product + (d.rate ? ' &nbsp;—&nbsp; ' + d.rate : '') + '</div>' +
-        '<div class="scan-act-tim">🕐 ' + d.timing + '</div>' +
-        (d.roi ? '<div class="scan-act-roi">💰 ' + d.roi + '</div>' : '') +
+
+      /* ── What you are seeing ── */
+      block('👁️', 'What You Are Seeing', d.description, 'rgba(255,255,255,.03)') +
+
+      /* ── Cause ── */
+      (d.cause ? block('🔍', 'What Is Causing It', d.cause, 'rgba(59,130,246,.06)') : '') +
+
+      /* ── Why act now ── */
+      (d.urgency || d.action_urgency
+        ? '<div style="margin-bottom:14px;padding:12px 16px;background:rgba(239,68,68,.07);border-radius:12px;border:1px solid rgba(239,68,68,.2);">' +
+            '<div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#f87171;margin-bottom:7px;">⚠️ Why You Must Act Now</div>' +
+            '<div style="font-size:.82rem;color:rgba(255,255,255,.78);line-height:1.75;">' + (d.urgency || d.action_urgency) + '</div>' +
+          '</div>'
+        : '') +
+
+      /* ── Omnia product ── */
+      '<div style="margin-bottom:14px;padding:15px 17px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:12px;">' +
+        '<div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--emerald);margin-bottom:10px;">⚡ Your Omnia Solution</div>' +
+        '<div style="font-size:1rem;font-weight:900;color:white;margin-bottom:5px;">' + d.product + '</div>' +
+        '<div style="font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:6px;line-height:1.5;">📐 Rate: ' + (d.rate||'—') + '</div>' +
+        '<div style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.5;">🕐 When: ' + (d.timing||'—') + '</div>' +
       '</div>' +
+
+      /* ── How to apply ── */
+      (d.how_to_apply
+        ? stepBlock('📋', 'How To Apply — Step By Step', d.how_to_apply.replace(/\n/g,'<br>'), 'rgba(124,58,237,.06)')
+        : '') +
+
+      /* ── ROI / Money ── */
+      (d.roi
+        ? '<div style="margin-bottom:14px;padding:13px 16px;background:rgba(245,158,11,.08);border-radius:12px;border:1px solid rgba(245,158,11,.2);">' +
+            '<div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#fbbf24;margin-bottom:7px;">💰 Your Profit Protection</div>' +
+            '<div style="font-size:.82rem;color:rgba(255,255,255,.78);line-height:1.75;">' + d.roi + '</div>' +
+          '</div>'
+        : '') +
+
+      /* ── Footer ── */
       '<div class="scan-res-ft">' +
         '<span class="scan-conf">AI Confidence: ' + confPct + '%</span>' +
         '<span class="scan-src-badge ' + (isDemo ? 'scan-src-demo' : 'scan-src-live') + '">' +
           (isDemo ? '⚡ Demo Mode' : '🛰 Live Vision AI') +
         '</span>' +
       '</div>' +
+
+      /* ── Omnia footer ── */
       '<div style="margin-top:14px;padding:12px 16px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:9px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">' +
         '<span style="font-size:.73rem;color:rgba(255,255,255,.5);">Powered by <strong style="color:var(--gold);">abfAgri × Omnia</strong> — AI diagnosis to verified sale, in under 5 seconds.</span>' +
         '<a href="#omnia-ai" style="font-size:.7rem;font-weight:800;color:var(--gold);text-decoration:none;">See Omnia Partnership →</a>' +
@@ -4470,39 +4801,108 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeMobMenu();
 });
 
-/* ── Bottom tab bar active state ─────────────────────────────────── */
-var _mobTabMap = { map:'mbt-map', advisor:'mbt-advisor', scanner:'mbt-scanner', intel:'mbt-intel', demo:'mbt-demo' };
-function setMobTab(key) {
-  Object.keys(_mobTabMap).forEach(function(k) {
-    var el = document.getElementById(_mobTabMap[k]);
-    if (el) el.classList.toggle('mt-on', k === key);
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE APP PAGE SYSTEM
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Tab → section IDs to show as pages */
+var _appPageMap = {
+  home:    ['mob-home'],
+  map:     ['geo'],
+  advisor: ['advisor'],
+  scanner: ['field-scan'],
+  intel:   ['market-intel'],
+  demo:    ['mob-home']   // demo = home screen + scroll to form
+};
+var _tabIds = { home:'mbt-home', map:'mbt-map', advisor:'mbt-advisor', scanner:'mbt-scanner', intel:'mbt-intel' };
+
+var _currentPage = 'home';
+
+function showPage(name) {
+  var isMobile = window.innerWidth <= 900;
+
+  /* ── Desktop: just scroll to the section ── */
+  if (!isMobile) {
+    var destMap = { map:'geo', advisor:'advisor', scanner:'field-scan', intel:'market-intel', demo:'demo' };
+    var destId = destMap[name] || name;
+    var el = document.getElementById(destId);
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    return;
+  }
+
+  /* ── Mobile: full-screen page switch ── */
+  _currentPage = name;
+
+  /* 1. Hide home screen */
+  var homeEl = document.getElementById('mob-home');
+  if (homeEl) homeEl.classList.toggle('mob-hidden', name !== 'home');
+
+  /* 2. Remove mob-page-on from all sections */
+  document.querySelectorAll('.mob-page-on').forEach(function(s) {
+    s.classList.remove('mob-page-on');
+  });
+
+  /* 3. Show target section(s) */
+  if (name !== 'home') {
+    var ids = _appPageMap[name] || [];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.add('mob-page-on');
+        /* Scroll each page to top when opened */
+        el.scrollTop = 0;
+      }
+    });
+  }
+
+  /* 4. Special: map needs resize */
+  if (name === 'map' && window._sadcMap) {
+    setTimeout(function() { window._sadcMap.invalidateSize(); }, 100);
+  }
+
+  /* 5. Demo tab → show home, scroll to form */
+  if (name === 'demo') {
+    if (homeEl) homeEl.classList.remove('mob-hidden');
+    setTimeout(function() {
+      var cta = document.querySelector('.mob-demo-cta');
+      if (cta) cta.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 100);
+    name = 'home'; /* treat as home for tab highlight */
+  }
+
+  /* 6. Update tab highlight */
+  Object.keys(_tabIds).forEach(function(k) {
+    var el = document.getElementById(_tabIds[k]);
+    if (el) el.classList.toggle('mt-on', k === name);
   });
 }
 
-// Scroll-based active tab detection
+/* ── Time-based greeting ─────────────────────────────────────────── */
 (function() {
-  var sections = [
-    { id:'geo', key:'map' },
-    { id:'advisor', key:'advisor' },
-    { id:'field-scan', key:'scanner' },
-    { id:'market-intel', key:'intel' },
-    { id:'demo', key:'demo' }
-  ];
-  var ticking = false;
-  window.addEventListener('scroll', function() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function() {
-      ticking = false;
-      var scrollY = window.scrollY + window.innerHeight / 3;
-      var active = 'map';
-      for (var i = sections.length - 1; i >= 0; i--) {
-        var el = document.getElementById(sections[i].id);
-        if (el && el.offsetTop <= scrollY) { active = sections[i].key; break; }
-      }
-      setMobTab(active);
-    });
-  }, { passive: true });
+  var h = new Date().getHours();
+  var g = h < 12 ? 'Good morning ☀️' : h < 17 ? 'Good afternoon 🌤️' : 'Good evening 🌙';
+  var el = document.getElementById('mob-greet');
+  if (el) el.textContent = g;
+})();
+
+/* ── Sync mobile proverb with hero proverb ───────────────────────── */
+(function() {
+  var mEl = document.getElementById('mob-proverb-text');
+  var hEl = document.getElementById('afr-proverb-text');
+  if (!mEl || !hEl) return;
+  setInterval(function() {
+    mEl.style.opacity = '0';
+    setTimeout(function() {
+      mEl.textContent = '🌿 ' + hEl.textContent;
+      mEl.style.transition = 'opacity .5s';
+      mEl.style.opacity = '1';
+    }, 400);
+  }, 9000);
+})();
+
+/* ── Init: show Home page on mobile load ─────────────────────────── */
+(function() {
+  if (window.innerWidth <= 900) showPage('home');
 })();
 
 /* ── PWA Service Worker registration ─────────────────────────────── */
@@ -4551,31 +4951,31 @@ function pwaDismiss() {
 
 <!-- ── Bottom tab bar (mobile app nav) ── -->
 <div class="mob-tab-bar" id="mob-tab-bar" role="tablist">
-  <a href="#geo" class="mob-tab mt-on" id="mbt-map" onclick="setMobTab('map')" role="tab" aria-label="Map" style="position:relative;">
+  <button class="mob-tab mt-on" id="mbt-home" onclick="showPage('home')" role="tab" aria-label="Home" style="position:relative;">
+    <span class="mob-tab-ico">🏠</span>
+    <span class="mob-tab-lbl">Home</span>
+    <span class="mob-tab-pip"></span>
+  </button>
+  <button class="mob-tab" id="mbt-map" onclick="showPage('map')" role="tab" aria-label="Map" style="position:relative;">
     <span class="mob-tab-ico">🌍</span>
     <span class="mob-tab-lbl">Map</span>
     <span class="mob-tab-pip"></span>
-  </a>
-  <a href="#advisor" class="mob-tab" id="mbt-advisor" onclick="setMobTab('advisor')" role="tab" aria-label="Advisor" style="position:relative;">
+  </button>
+  <button class="mob-tab" id="mbt-advisor" onclick="showPage('advisor')" role="tab" aria-label="Advisor" style="position:relative;">
     <span class="mob-tab-ico">🔬</span>
     <span class="mob-tab-lbl">Advisor</span>
     <span class="mob-tab-pip"></span>
-  </a>
-  <a href="#field-scan" class="mob-tab" id="mbt-scanner" onclick="setMobTab('scanner')" role="tab" aria-label="Scanner" style="position:relative;">
+  </button>
+  <button class="mob-tab" id="mbt-scanner" onclick="showPage('scanner')" role="tab" aria-label="Scanner" style="position:relative;">
     <span class="mob-tab-ico">📷</span>
     <span class="mob-tab-lbl">Scanner</span>
     <span class="mob-tab-pip"></span>
-  </a>
-  <a href="#market-intel" class="mob-tab" id="mbt-intel" onclick="setMobTab('intel')" role="tab" aria-label="Market" style="position:relative;">
+  </button>
+  <button class="mob-tab" id="mbt-intel" onclick="showPage('intel')" role="tab" aria-label="Market" style="position:relative;">
     <span class="mob-tab-ico">📊</span>
     <span class="mob-tab-lbl">Market</span>
     <span class="mob-tab-pip"></span>
-  </a>
-  <a href="#demo" class="mob-tab" id="mbt-demo" onclick="setMobTab('demo')" role="tab" aria-label="Demo" style="position:relative;">
-    <span class="mob-tab-ico">📩</span>
-    <span class="mob-tab-lbl">Demo</span>
-    <span class="mob-tab-pip"></span>
-  </a>
+  </button>
 </div>
 
 <!-- PWA install banner (shows when browser detects installable PWA) -->
