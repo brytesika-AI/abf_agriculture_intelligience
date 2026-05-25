@@ -48,14 +48,14 @@ const DEMO = {
     conf: 0.78
   },
   livestock: {
-    condition: 'Tick-Borne Anaemia (Anaplasma marginale)',
+    condition: 'Tick-Borne Stress + Pasture Mineral Deficiency (Mg/Se)',
     severity: 'moderate',
-    description: 'Animals displaying pale mucous membranes, lethargy, and reduced grazing activity. Heavy tick burden visible on ears, inner thighs, and underbelly. Without immediate intervention, haemolytic anaemia will progress — mortality risk in calves within 5–7 days.',
-    product: 'Acaricide Dip Treatment (consult veterinarian)',
-    rate: 'Per registered label',
-    timing: 'Immediate veterinary assessment + initiate weekly dipping protocol',
-    roi: 'Early treatment prevents per-animal losses of R8,000–R22,000',
-    conf: 0.72
+    description: 'Animals showing reduced body condition scores, pale mucous membranes, and poor milk letdown consistent with concurrent tick pressure and pasture mineral shortfall. Magnesium and selenium deficiency confirmed by leaf chlorosis across dominant grazed swards. Dual intervention required — veterinary acaricide dip plus targeted pasture nutrition.',
+    product: 'Omnia Magnesol Foliar (Pasture) + Acaricide dip (vet)',
+    rate: 'Magnesol @ 5 L/ha on pastures · Dip per veterinary label',
+    timing: 'Apply Magnesol at next irrigation cycle + immediate vet dip protocol',
+    roi: 'Pasture mineral correction at ~R850/ha prevents R15,000+/animal losses and recovers 15–20% milk production within 3 weeks',
+    conf: 0.74
   }
 };
 
