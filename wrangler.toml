@@ -2,24 +2,10 @@ name = "abfagri"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "."
 
-# ── AI BINDING (Cloudflare Workers AI) ────────────────────────────────────────
-# In Cloudflare dashboard: Pages → abfagri → Settings → Functions → AI Bindings
-# Add binding name: AI
-# For local dev: wrangler pages dev . --ai-binding=AI
-[[ai]]
+[ai]
 binding = "AI"
-
-# ── ENVIRONMENT VARIABLES ──────────────────────────────────────────────────────
-# Set secrets in dashboard: Pages → Settings → Environment Variables
-# GEE_SERVICE_ACCOUNT_JSON  — Google Earth Engine service account (future)
-# PLANETARY_COMPUTER_TOKEN  — Microsoft Planetary Computer token (future)
-# SAFEX_API_KEY             — SAFEX commodity price feed (future)
 
 [vars]
 ENVIRONMENT = "production"
 SADC_COUNTRIES = "ZA,ZW,ZM,MZ,TZ,BW,NA,MW,AO,CD,SZ,LS,MG,MU,KM,SC"
 SARB_USD_RATE = "18.50"
-
-# ── LOCAL DEV ──────────────────────────────────────────────────────────────────
-# Run: npx wrangler pages dev . --ai-binding=AI
-# API docs: http://localhost:8788/api/health

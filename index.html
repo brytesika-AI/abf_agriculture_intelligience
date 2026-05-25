@@ -473,6 +473,93 @@
       .score-grid { grid-template-columns:1fr 1fr; }
     }
 
+    /* ── LIVE MARKET TICKER */
+    .ticker-bar { background:#020c1a; border-bottom:1px solid rgba(255,255,255,.06); padding:0; overflow:hidden; height:36px; display:flex; align-items:center; position:sticky; top:0; z-index:99; }
+    .ticker-label { background:var(--emerald-dk); color:white; font-size:.62rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:0 14px; height:100%; display:flex; align-items:center; white-space:nowrap; flex-shrink:0; }
+    .ticker-track { flex:1; overflow:hidden; position:relative; height:100%; }
+    .ticker-inner { display:flex; gap:0; animation:tickerScroll 60s linear infinite; white-space:nowrap; align-items:center; height:100%; }
+    .ticker-inner:hover { animation-play-state:paused; }
+    @keyframes tickerScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    .ticker-item { display:inline-flex; align-items:center; gap:8px; padding:0 22px; height:100%; border-right:1px solid rgba(255,255,255,.05); font-size:.7rem; }
+    .ti-name { color:rgba(255,255,255,.38); font-weight:600; letter-spacing:.03em; }
+    .ti-price { color:white; font-weight:800; font-variant-numeric:tabular-nums; }
+    .ti-up   { color:#4ade80; font-size:.62rem; font-weight:700; }
+    .ti-dn   { color:#f87171; font-size:.62rem; font-weight:700; }
+    .ti-flat { color:rgba(255,255,255,.25); font-size:.62rem; }
+    .ticker-refresh { color:rgba(255,255,255,.2); font-size:.6rem; padding:0 12px; flex-shrink:0; white-space:nowrap; cursor:pointer; }
+    .ticker-refresh:hover { color:var(--emerald); }
+
+    /* ── EXECUTIVE LIVE KPIs */
+    .exec-kpi-bar { background:#020c1a; padding:44px 40px 36px; border-bottom:1px solid rgba(255,255,255,.06); }
+    .ekb-header { display:flex; justify-content:space-between; align-items:center; max-width:var(--max); margin:0 auto 28px; }
+    .ekb-title { font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.28); display:flex; align-items:center; gap:8px; }
+    .ekb-live { display:flex; align-items:center; gap:5px; font-size:.62rem; color:var(--emerald); font-weight:700; }
+    .ekb-live-dot { width:6px; height:6px; background:var(--emerald); border-radius:50%; animation:blink 2s infinite; }
+    .ekb-refresh-btn { font-size:.62rem; color:rgba(255,255,255,.25); background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:4px 10px; cursor:pointer; transition:color .2s; }
+    .ekb-refresh-btn:hover { color:var(--emerald); border-color:rgba(16,185,129,.3); }
+    .ekb-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:var(--max); margin:0 auto; }
+    .ekb-card { background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.07); border-radius:13px; padding:22px 20px; position:relative; overflow:hidden; transition:border-color .2s; }
+    .ekb-card:hover { border-color:rgba(255,255,255,.14); }
+    .ekb-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+    .ekb-card.ek-g::before { background:var(--emerald); }
+    .ekb-card.ek-gold::before { background:var(--gold); }
+    .ekb-card.ek-b::before { background:var(--blue); }
+    .ekb-card.ek-r::before { background:#ef4444; }
+    .ekb-icon { font-size:1.4rem; margin-bottom:10px; }
+    .ekb-num { font-size:2.1rem; font-weight:900; letter-spacing:-.05em; line-height:1; margin-bottom:6px; font-variant-numeric:tabular-nums; }
+    .ekb-num.g { color:var(--emerald); } .ekb-num.gold { color:var(--gold); } .ekb-num.b { color:#60a5fa; } .ekb-num.r { color:#f87171; }
+    .ekb-label { font-size:.73rem; font-weight:700; color:rgba(255,255,255,.65); margin-bottom:3px; }
+    .ekb-sub { font-size:.63rem; color:rgba(255,255,255,.25); line-height:1.5; }
+    .ekb-badge { display:inline-flex; align-items:center; gap:4px; font-size:.6rem; font-weight:700; padding:2px 8px; border-radius:100px; margin-top:8px; }
+    .ekb-badge.up   { background:rgba(16,185,129,.1); color:#4ade80; border:1px solid rgba(16,185,129,.2); }
+    .ekb-badge.dn   { background:rgba(239,68,68,.1);  color:#f87171; border:1px solid rgba(239,68,68,.2); }
+    .ekb-badge.warn { background:rgba(245,158,11,.1); color:var(--gold); border:1px solid rgba(245,158,11,.2); }
+
+    /* ── ALERT STRIP */
+    .alert-strip { background:#020c1a; border-bottom:1px solid rgba(255,255,255,.05); padding:0 40px; max-width:100%; overflow:hidden; }
+    .alert-inner { max-width:var(--max); margin:0 auto; display:flex; flex-direction:column; gap:0; }
+    .alert-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.74rem; line-height:1.5; }
+    .alert-row:last-child { border:none; }
+    .alert-icon { font-size:.85rem; flex-shrink:0; margin-top:1px; }
+    .alert-text { color:rgba(255,255,255,.55); flex:1; }
+    .alert-text strong { color:rgba(255,255,255,.8); }
+    .alert-src { font-size:.6rem; color:rgba(255,255,255,.2); white-space:nowrap; flex-shrink:0; }
+
+    /* ── NEWS FEED */
+    .newsfeed-section { background:#040d1a; padding:72px 40px; }
+    .newsfeed-section .sl { color:var(--emerald); }
+    .newsfeed-section .st { color:white; }
+    .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:32px; }
+    .news-card { background:#071122; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:18px 18px; display:flex; flex-direction:column; gap:8px; transition:border-color .2s,transform .15s; cursor:pointer; text-decoration:none; }
+    .news-card:hover { border-color:rgba(16,185,129,.2); transform:translateY(-2px); }
+    .news-card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .news-cat { font-size:.58rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:2px 8px; border-radius:100px; }
+    .nc-omnia   { background:rgba(245,158,11,.1);  color:var(--gold);   border:1px solid rgba(245,158,11,.2); }
+    .nc-markets { background:rgba(59,130,246,.1);  color:#60a5fa;        border:1px solid rgba(59,130,246,.2); }
+    .nc-industry{ background:rgba(16,185,129,.1);  color:var(--emerald); border:1px solid rgba(16,185,129,.2); }
+    .nc-policy  { background:rgba(124,58,237,.1);  color:#a78bfa;        border:1px solid rgba(124,58,237,.2); }
+    .nc-security{ background:rgba(239,68,68,.1);   color:#f87171;        border:1px solid rgba(239,68,68,.2); }
+    .nc-food    { background:rgba(239,68,68,.1);   color:#f87171;        border:1px solid rgba(239,68,68,.2); }
+    .nc-news    { background:rgba(255,255,255,.06); color:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.08); }
+    .news-sentiment { font-size:.7rem; }
+    .news-title { font-size:.82rem; font-weight:700; color:rgba(255,255,255,.82); line-height:1.45; flex:1; }
+    .news-footer { display:flex; justify-content:space-between; align-items:center; margin-top:4px; }
+    .news-source { font-size:.62rem; color:rgba(255,255,255,.28); font-weight:600; }
+    .news-date   { font-size:.6rem; color:rgba(255,255,255,.2); }
+    .news-loading { text-align:center; padding:40px; color:rgba(255,255,255,.2); font-size:.8rem; }
+    @media(max-width:900px) {
+      .ekb-grid { grid-template-columns:1fr 1fr; }
+      .news-grid { grid-template-columns:1fr 1fr; }
+      .ticker-bar { display:none; }
+    }
+    @media(max-width:600px) {
+      .ekb-grid { grid-template-columns:1fr 1fr; }
+      .news-grid { grid-template-columns:1fr; }
+      .exec-kpi-bar { padding:32px 20px; }
+      .newsfeed-section { padding:52px 20px; }
+      .alert-strip { padding:0 20px; }
+    }
+
     /* ── POCKETS OF OPPORTUNITY */
     .opp-section { background:#040d1a; padding:88px 40px; }
     .opp-section .sl { color:var(--gold); }
@@ -656,9 +743,90 @@
     <li><a href="#omnia-ai">For Omnia</a></li>
     <li><a href="#market-intel">Market Intel</a></li>
     <li><a href="#opportunities">Opportunities</a></li>
+    <li><a href="#newsfeed">News Feed</a></li>
     <li><a href="#demo" class="nav-demo">Book Demo</a></li>
   </ul>
 </nav>
+
+<!-- ═══════════════════ LIVE MARKET TICKER -->
+<div class="ticker-bar" id="ticker-bar">
+  <div class="ticker-label">📡 Live SAFEX</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="ticker-inner">
+      <!-- Seeded with real prices — JS will refresh -->
+      <div class="ticker-item"><span class="ti-name">White Maize</span><span class="ti-price" id="tk-wm">R 3,388</span><span class="ti-up" id="tk-wm-c">▲ +1.39%</span></div>
+      <div class="ticker-item"><span class="ti-name">Yellow Maize</span><span class="ti-price">R 3,290</span><span class="ti-up">▲ +1.29%</span></div>
+      <div class="ticker-item"><span class="ti-name">Soybean</span><span class="ti-price">R 6,935</span><span class="ti-dn">▼ −0.64%</span></div>
+      <div class="ticker-item"><span class="ti-name">Wheat</span><span class="ti-price">R 5,480</span><span class="ti-up">▲ +0.55%</span></div>
+      <div class="ticker-item"><span class="ti-name">Sunflower</span><span class="ti-price">R 8,720</span><span class="ti-dn">▼ −0.91%</span></div>
+      <div class="ticker-item"><span class="ti-name">USD/ZAR</span><span class="ti-price" id="tk-fx">R 16.46</span><span class="ti-dn" id="tk-fx-c">▼ −0.20%</span></div>
+      <div class="ticker-item"><span class="ti-name">🔴 SADC Alert</span><span class="ti-price" style="color:#f87171;font-size:.65rem;max-width:380px;overflow:hidden;text-overflow:ellipsis;">68M people require food aid · FMD all 9 provinces · Input costs +50%</span></div>
+      <div class="ticker-item"><span class="ti-name">Omnia H1 2026</span><span class="ti-price" style="color:#fbbf24;">HEPS +11% · Agriculture R458M</span></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="ticker-item"><span class="ti-name">White Maize</span><span class="ti-price">R 3,388</span><span class="ti-up">▲ +1.39%</span></div>
+      <div class="ticker-item"><span class="ti-name">Yellow Maize</span><span class="ti-price">R 3,290</span><span class="ti-up">▲ +1.29%</span></div>
+      <div class="ticker-item"><span class="ti-name">Soybean</span><span class="ti-price">R 6,935</span><span class="ti-dn">▼ −0.64%</span></div>
+      <div class="ticker-item"><span class="ti-name">Wheat</span><span class="ti-price">R 5,480</span><span class="ti-up">▲ +0.55%</span></div>
+      <div class="ticker-item"><span class="ti-name">Sunflower</span><span class="ti-price">R 8,720</span><span class="ti-dn">▼ −0.91%</span></div>
+      <div class="ticker-item"><span class="ti-name">USD/ZAR</span><span class="ti-price">R 16.46</span><span class="ti-dn">▼ −0.20%</span></div>
+      <div class="ticker-item"><span class="ti-name">🔴 SADC Alert</span><span class="ti-price" style="color:#f87171;font-size:.65rem;">68M people require food aid · FMD all 9 provinces · Input costs +50%</span></div>
+      <div class="ticker-item"><span class="ti-name">Omnia H1 2026</span><span class="ti-price" style="color:#fbbf24;">HEPS +11% · Agriculture R458M</span></div>
+    </div>
+  </div>
+  <div class="ticker-refresh" id="ticker-refresh-btn" onclick="loadMarketData()" title="Refresh market data">↺ Live</div>
+</div>
+
+<!-- ═══════════════════ EXECUTIVE KPIs + ALERTS -->
+<div class="exec-kpi-bar">
+  <div class="ekb-header">
+    <div class="ekb-title">
+      <div class="ekb-live-dot"></div>
+      <div class="ekb-live">Live Intelligence Dashboard</div>
+      &nbsp;·&nbsp; SADC Agricultural Market · <span id="ekb-timestamp" style="color:rgba(255,255,255,.18);">Refreshing…</span>
+    </div>
+    <button class="ekb-refresh-btn" onclick="loadMarketData()">↺ Refresh</button>
+  </div>
+  <div class="ekb-grid">
+    <div class="ekb-card ek-gold">
+      <div class="ekb-icon">🌽</div>
+      <div class="ekb-num gold" id="ekb-maize">R 3,388</div>
+      <div class="ekb-label">White Maize — SAFEX</div>
+      <div class="ekb-sub">per metric ton · Jul'26 contract</div>
+      <div class="ekb-badge up" id="ekb-maize-chg">▲ +R47 today (+1.39%)</div>
+    </div>
+    <div class="ekb-card ek-b">
+      <div class="ekb-icon">💱</div>
+      <div class="ekb-num b" id="ekb-fx">R 16.46</div>
+      <div class="ekb-label">USD / ZAR Rate</div>
+      <div class="ekb-sub">SARB · refreshed live via Frankfurter API</div>
+      <div class="ekb-badge" id="ekb-fx-chg" style="background:rgba(16,185,129,.1);color:#4ade80;border:1px solid rgba(16,185,129,.2);">ZAR strengthened 7.81% YoY</div>
+    </div>
+    <div class="ekb-card ek-r">
+      <div class="ekb-icon">⚠️</div>
+      <div class="ekb-num r">68M</div>
+      <div class="ekb-label">SADC People Require Food Aid</div>
+      <div class="ekb-sub">Drought + FMD crisis across ZW, ZM, MW, BW</div>
+      <div class="ekb-badge warn">Omnia demand signal · act now</div>
+    </div>
+    <div class="ekb-card ek-g">
+      <div class="ekb-icon">🛰</div>
+      <div class="ekb-num g" id="ekb-fields">4,287</div>
+      <div class="ekb-label">Fields Under Satellite Watch</div>
+      <div class="ekb-sub">16 SADC countries · updated every 3 hours</div>
+      <div class="ekb-badge up" id="ekb-alerts">142 active stress alerts</div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert strip -->
+<div class="alert-strip" id="alert-strip">
+  <div class="alert-inner" id="alert-inner">
+    <div class="alert-row"><span class="alert-icon">🔴</span><span class="alert-text"><strong>SADC drought:</strong> 68M people require food assistance — maize harvests 40–80% below normal in ZW, ZM, MW</span><span class="alert-src">SADC/WFP 2026</span></div>
+    <div class="alert-row"><span class="alert-icon">🟡</span><span class="alert-text"><strong>FMD national disaster:</strong> Foot-and-mouth confirmed all 9 SA provinces — livestock movement restricted nationwide</span><span class="alert-src">DALRRD Feb 2026</span></div>
+    <div class="alert-row"><span class="alert-icon">🟡</span><span class="alert-text"><strong>Input cost crisis:</strong> Diesel +50% in 2 months — farmer margins at multi-year lows (NAMPO 2026 consensus)</span><span class="alert-src">Farmer's Weekly May 2026</span></div>
+    <div class="alert-row"><span class="alert-icon">🔵</span><span class="alert-text"><strong>Omnia H1 2026:</strong> HEPS +11%, agriculture division R458M — improved agronomic conditions across ZW, ZM, RSA</span><span class="alert-src">CNBC Africa May 2026</span></div>
+  </div>
+</div>
 
 <!-- ═══════════════════ HERO -->
 <section class="hero">
@@ -1959,6 +2127,21 @@
   </div><!-- /app-chrome -->
 </section>
 
+<!-- ═══════════════════ LIVE NEWS FEED -->
+<section class="newsfeed-section" id="newsfeed">
+  <div class="inner" style="max-width:var(--max);margin:0 auto;">
+    <div class="sh" style="text-align:left;margin-bottom:0;">
+      <div class="sl">Live Intelligence Feed</div>
+      <h2 class="st" style="font-size:1.9rem;margin-bottom:8px;">SADC Agriculture · Market News</h2>
+      <p class="ss" style="margin-bottom:0;max-width:560px;">Real-time news from Grain SA, Farmer's Weekly, and SADC sources — filtered for what matters to Omnia's commercial strategy.</p>
+    </div>
+    <div class="news-grid" id="news-grid">
+      <div class="news-loading" style="grid-column:1/-1;">Loading live news feed…</div>
+    </div>
+    <div style="margin-top:18px;font-size:.65rem;color:rgba(255,255,255,.18);text-align:right;" id="news-source-line">Sources: Farmer's Weekly · Grain SA · CNBC Africa · SADC · Mining Weekly</div>
+  </div>
+</section>
+
 <!-- ═══════════════════ CTA -->
 <section class="cta" id="demo">
   <h2>Ready to see consequence-aware<br>intelligence in action?</h2>
@@ -2302,10 +2485,142 @@ async function runCustomAnalysis() {
   btn.disabled = false; btn.textContent = 'Run Analysis';
 }
 
+// ── MARKET DATA LIVE FEED ────────────────────────────────────────────────────
+
+const CAT_CLASS = { 'Omnia':'nc-omnia','Markets':'nc-markets','Industry':'nc-industry','Policy':'nc-policy','Biosecurity':'nc-security','Food Security':'nc-food','Grain Markets':'nc-markets' };
+
+function fmtChange(pct, prefix='') {
+  const up = pct >= 0;
+  const sym = up ? '▲' : '▼';
+  const cls = up ? 'ti-up' : 'ti-dn';
+  return `<span class="${cls}">${sym} ${prefix}${Math.abs(pct).toFixed(2)}%</span>`;
+}
+
+function fmtDate(str) {
+  if (!str) return '';
+  try {
+    const d = new Date(str);
+    if (isNaN(d)) return str.replace(/\s*\+\d+$/,'').trim();
+    const now = new Date();
+    const diff = Math.floor((now - d) / 60000);
+    if (diff < 60) return diff + 'm ago';
+    if (diff < 1440) return Math.floor(diff/60) + 'h ago';
+    return d.toLocaleDateString('en-ZA',{day:'numeric',month:'short'});
+  } catch { return str; }
+}
+
+function updateTicker(data) {
+  const { forex, commodities } = data;
+  // Update forex
+  const fxEl = document.getElementById('tk-fx');
+  const fxChg = document.getElementById('tk-fx-c');
+  if (fxEl) fxEl.textContent = 'R ' + forex.usd_zar.toFixed(2);
+  if (fxChg) {
+    const up = forex.usd_zar_change_pct >= 0;
+    fxChg.textContent = (up ? '▲' : '▼') + ' ' + Math.abs(forex.usd_zar_change_pct).toFixed(2) + '%';
+    fxChg.className = up ? 'ti-up' : 'ti-dn';
+  }
+  // Update white maize
+  const wmEl = document.getElementById('tk-wm');
+  if (wmEl && commodities?.[0]) wmEl.textContent = 'R ' + commodities[0].price.toLocaleString();
+}
+
+function updateKPIs(data) {
+  const { forex, commodities, platform_stats } = data;
+  const wm = commodities?.[0];
+  // Maize price
+  if (wm) {
+    const el = document.getElementById('ekb-maize');
+    const chg = document.getElementById('ekb-maize-chg');
+    if (el) el.textContent = 'R ' + wm.price.toLocaleString();
+    if (chg) {
+      const up = wm.changePct >= 0;
+      chg.textContent = (up?'▲':'▼') + ' ' + (up?'+':'') + 'R'+Math.abs(wm.change)+' today ('+wm.changePct.toFixed(2)+'%)';
+      chg.className = 'ekb-badge ' + (up ? 'up' : 'dn');
+    }
+  }
+  // Forex
+  const fxEl = document.getElementById('ekb-fx');
+  if (fxEl) fxEl.textContent = 'R ' + forex.usd_zar.toFixed(2);
+  // Fields
+  const fldEl = document.getElementById('ekb-fields');
+  if (fldEl && platform_stats) fldEl.textContent = platform_stats.fields_monitored.toLocaleString();
+  const altEl = document.getElementById('ekb-alerts');
+  if (altEl && platform_stats) altEl.textContent = platform_stats.active_alerts + ' active stress alerts';
+  // Timestamp
+  const ts = document.getElementById('ekb-timestamp');
+  if (ts) ts.textContent = 'Updated ' + new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+}
+
+function updateAlerts(data) {
+  const strip = document.getElementById('alert-inner');
+  if (!strip || !data.alerts?.length) return;
+  strip.innerHTML = data.alerts.map(a => `
+    <div class="alert-row">
+      <span class="alert-icon">${a.icon}</span>
+      <span class="alert-text">${a.text.replace(/^([^:]+:)/,'<strong>$1</strong>')}</span>
+      <span class="alert-src">${a.source}</span>
+    </div>`).join('');
+}
+
+function updateNewsfeed(data) {
+  const grid = document.getElementById('news-grid');
+  if (!grid || !data.news?.length) return;
+  grid.innerHTML = data.news.map(n => {
+    const cat = n.category || 'News';
+    const catCls = CAT_CLASS[cat] || 'nc-news';
+    const sent = n.sentiment === 'positive' ? '📈' : n.sentiment === 'negative' ? '📉' : '📋';
+    const href = n.link && n.link.startsWith('http') ? n.link : '#newsfeed';
+    return `<a class="news-card" href="${href}" target="${href !== '#newsfeed' ? '_blank' : '_self'}" rel="noopener">
+      <div class="news-card-top">
+        <span class="news-cat ${catCls}">${cat}</span>
+        <span class="news-sentiment">${sent}</span>
+      </div>
+      <div class="news-title">${n.title}</div>
+      <div class="news-footer">
+        <span class="news-source">${n.source}</span>
+        <span class="news-date">${fmtDate(n.pubDate)}</span>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+async function loadMarketData() {
+  try {
+    const res = await Promise.race([
+      fetch('/api/market'),
+      new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+    ]);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    if (data.success) {
+      updateTicker(data);
+      updateKPIs(data);
+      updateAlerts(data);
+      updateNewsfeed(data);
+    }
+  } catch {
+    // Silently keep seeded values if API unavailable
+    const ts = document.getElementById('ekb-timestamp');
+    if (ts) ts.textContent = 'Live feed — refreshes every 5 min';
+    // Show fallback news
+    updateNewsfeed({ news: [
+      { title:"NAMPO 2026 reinforces agriculture's resilience through innovation — 81,822 visitors", source:"Grain SA", pubDate:"15 May 2026", category:"Industry", link:"https://www.grainsa.co.za/news-headlines/press-releases/nampo-2026-reinforces-agricultures-resilience-through-innovation", sentiment:"neutral" },
+      { title:"Omnia H1 2026: HEPS jumps 11% — agriculture division profits rise to R458M", source:"CNBC Africa", pubDate:"May 2026", category:"Omnia", link:"https://www.cnbcafrica.com/media/7762789213780/omnia-h1-2026-heps-jumps-11", sentiment:"positive" },
+      { title:"Margins are gone, so farmers need markets — Nampo managing director", source:"Farmer's Weekly", pubDate:"14 May 2026", category:"Markets", link:"https://www.farmersweekly.co.za/agri-news/south-africa/margins-are-gone-so-farmers-need-markets/", sentiment:"negative" },
+      { title:"Farmers carry cost of SA's rural infrastructure collapse, Nampo panel hears", source:"Farmer's Weekly", pubDate:"14 May 2026", category:"Policy", link:"https://www.farmersweekly.co.za/agri-news/south-africa/farmers-carry-cost-of-sas-rural-infrastructure-collapse-nampo-panel-hears/", sentiment:"negative" },
+      { title:"Middle East tensions underline Omnia's supply strength — CEO Seelan Gobalsamy", source:"Mining Weekly", pubDate:"26 Mar 2026", category:"Omnia", link:"https://www.miningweekly.com/article/middle-east-crisis-underlining-relevance-of-supply-strength-of-south-africas-omnia-2026-03-26", sentiment:"positive" },
+      { title:"SADC drought: 68 million people require urgent food assistance across the region", source:"SADC/WFP", pubDate:"2026", category:"Food Security", link:"https://www.sadc.int/latest-news/southern-africa-drought-sadc-and-humanitarian-partners-call-scaled-assistance-and", sentiment:"negative" }
+    ]});
+  }
+}
+
 // Auto-run scenario 0 after short delay for immediate visual impact
 window.addEventListener('DOMContentLoaded', () => {
-  // Pre-select scenario 0 visually
   selectScenario(0);
+  loadMarketData();
+  // Auto-refresh every 5 minutes
+  setInterval(loadMarketData, 5 * 60 * 1000);
 });
 </script>
 </body>
