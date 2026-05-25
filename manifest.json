@@ -1,0 +1,59 @@
+{
+  "name": "abfAgri — SADC Decision Intelligence",
+  "short_name": "abfAgri",
+  "description": "Consequence-aware geospatial decision intelligence for SADC agriculture. Live SAFEX prices, AI field diagnosis, satellite crop monitoring and Omnia product recommendations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#040d1a",
+  "theme_color": "#10b981",
+  "categories": ["agriculture", "business", "productivity"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Field Advisor",
+      "short_name": "Advisor",
+      "description": "AI crop diagnosis with Omnia product recommendations",
+      "url": "/#advisor",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Field Scanner",
+      "short_name": "Scanner",
+      "description": "Upload a crop photo for instant AI diagnosis",
+      "url": "/#field-scan",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "SADC Map",
+      "short_name": "Map",
+      "description": "Live satellite intelligence across 16 SADC countries",
+      "url": "/#geo",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "abfAgri SADC Intelligence Dashboard"
+    }
+  ]
+}

@@ -2,8 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>abfAgri — Consequence-Aware Decision Intelligence for SADC Fertilizer Producers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>abfAgri — SADC Agricultural Intelligence</title>
+  <meta name="description" content="Consequence-aware AI for SADC agriculture — live SAFEX prices, satellite field monitoring, AI crop diagnosis and Omnia product recommendations."/>
+
+  <!-- PWA manifest + theme -->
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#10b981"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="abfAgri"/>
+  <link rel="apple-touch-icon" href="/icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+
+  <!-- Open Graph (looks good when shared on WhatsApp, LinkedIn etc.) -->
+  <meta property="og:title" content="abfAgri — SADC Agricultural Intelligence"/>
+  <meta property="og:description" content="AI crop diagnosis, live SAFEX prices and Omnia product recommendations for SADC farmers."/>
+  <meta property="og:image" content="https://abfagri.pages.dev/icon-512.png"/>
+  <meta property="og:url" content="https://abfagri.pages.dev"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -858,6 +878,34 @@
     .know-desc { font-size:.75rem; color:rgba(255,255,255,.42); line-height:1.75; flex:1; }
     .know-footer { display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.06); }
     .know-tag { font-size:.62rem; font-weight:600; color:rgba(255,255,255,.26); }
+    @media(max-width:640px) { .know-grid { grid-template-columns:1fr; } }
+
+    /* ── MOBILE NAV ─────────────────────────────────────── */
+    @media(max-width:900px) {
+      nav { padding:0 18px; height:60px; }
+      .nav-links { display:none; }
+      .brand-name { font-size:1.1rem; }
+    }
+    /* ── MOBILE HERO ─────────────────────────────────────── */
+    @media(max-width:640px) {
+      .hero { padding:56px 20px 0; }
+      .hero h1 { font-size:1.9rem; }
+      .hero-p { font-size:.88rem; }
+      .hero-grid { grid-template-columns:1fr; gap:28px; }
+      .hero-right { display:none; }
+      .hero-left { padding-bottom:40px; }
+    }
+    /* ── MOBILE OMNIA PITCH ───────────────────────────────── */
+    @media(max-width:700px) {
+      #omnia-ai > div > div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr !important; }
+      #omnia-ai > div > div[style*="grid-template-columns:repeat(4"] { grid-template-columns:repeat(2,1fr) !important; }
+      #omnia-ai > div > div[style*="grid-template-columns:1fr auto 1fr"] { grid-template-columns:1fr !important; }
+      #omnia-ai > div > div[style*="grid-template-columns:1fr auto 1fr"] > div:nth-child(2) { display:none; }
+    }
+    /* ── MOBILE OMNIA CTA INLINE STATS ───────────────────── */
+    @media(max-width:560px) {
+      #omnia-ai .sh > div[style*="display:inline-flex"] { flex-wrap:wrap; gap:12px; padding:12px 16px; }
+    }
 
     /* ── AI FIELD SCANNER ─────────────────────────────────── */
     .scan-section { background: var(--ink); padding: 80px 40px; position: relative; overflow: hidden; }
@@ -3808,6 +3856,61 @@ function scanReset() {
   scanUpdateFlow(1);
   document.getElementById('field-scan').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+/* ── PWA Service Worker registration ─────────────────────────────── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(reg) {
+      console.log('abfAgri SW registered:', reg.scope);
+    }).catch(function(err) {
+      console.log('SW registration failed:', err);
+    });
+  });
+}
+
+/* ── PWA Install prompt ───────────────────────────────────────────── */
+var _pwaPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _pwaPrompt = e;
+  // Show install banner after 6 seconds if not dismissed
+  setTimeout(function() {
+    var banner = document.getElementById('pwa-install-banner');
+    if (banner && _pwaPrompt) banner.style.display = 'flex';
+  }, 6000);
+});
+window.addEventListener('appinstalled', function() {
+  var banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'none';
+  _pwaPrompt = null;
+});
+function pwaInstall() {
+  if (!_pwaPrompt) return;
+  _pwaPrompt.prompt();
+  _pwaPrompt.userChoice.then(function(r) {
+    if (r.outcome === 'accepted') {
+      var banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.style.display = 'none';
+    }
+    _pwaPrompt = null;
+  });
+}
+function pwaDismiss() {
+  var banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'none';
+}
 </script>
+
+<!-- PWA install banner (shows when browser detects installable PWA) -->
+<div id="pwa-install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--ink-mid);border-top:1px solid rgba(16,185,129,.3);padding:14px 20px;align-items:center;gap:14px;box-shadow:0 -4px 24px rgba(4,13,26,.4);">
+  <img src="/icon-192.png" width="40" height="40" style="border-radius:9px;flex-shrink:0;" alt="abfAgri">
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:.85rem;font-weight:800;color:white;margin-bottom:2px;">Install abfAgri</div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.45);">Add to your home screen — free, works offline</div>
+  </div>
+  <button onclick="pwaInstall()" style="background:var(--emerald);color:white;border:none;padding:9px 20px;border-radius:8px;font-size:.8rem;font-weight:800;cursor:pointer;white-space:nowrap;">Install App</button>
+  <button onclick="pwaDismiss()" style="background:none;border:none;color:rgba(255,255,255,.35);font-size:1.2rem;cursor:pointer;padding:4px 6px;line-height:1;">✕</button>
+</div>
+
 </body>
 </html>
