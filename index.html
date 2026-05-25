@@ -787,6 +787,77 @@
       .ems-tabs-inner { padding: 0 16px; overflow-x: auto; }
       .ems-footer-inner { padding: 14px 24px; gap: 14px; }
     }
+    /* ── FIELD ADVISOR ──────────────────────────────────── */
+    .advisor-section { background: var(--ink-mid); padding: 80px 40px; }
+    .adv-inner { max-width: var(--max); margin: 0 auto; }
+    .adv-steps { display: flex; align-items: center; justify-content: center; margin: 48px 0 52px; }
+    .adv-step { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .adv-num { width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display: flex; align-items: center; justify-content: center; font-size: .92rem; font-weight: 900; color: rgba(255,255,255,.28); transition: all .3s; }
+    .adv-num.active { background: var(--emerald); border-color: var(--emerald); color: white; box-shadow: 0 0 22px rgba(16,185,129,.4); }
+    .adv-num.done { background: rgba(16,185,129,.18); border-color: var(--emerald); color: var(--emerald); }
+    .adv-lbl { font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.22); white-space: nowrap; transition: color .3s; }
+    .adv-lbl.active { color: var(--emerald); }
+    .adv-lbl.done { color: rgba(16,185,129,.6); }
+    .adv-connector { width: 90px; height: 2px; border-top: 2px dashed rgba(255,255,255,.1); margin: 0 14px; position: relative; top: -16px; transition: border-color .3s; }
+    .adv-connector.done { border-top-color: rgba(16,185,129,.35); }
+    .adv-crops { display: grid; grid-template-columns: repeat(6,1fr); gap: 14px; }
+    @media(max-width:768px) { .adv-crops { grid-template-columns: repeat(3,1fr); } }
+    .adv-crop-card { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08); border-radius: 14px; padding: 24px 12px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: all .2s; }
+    .adv-crop-card:hover { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.3); transform: translateY(-2px); }
+    .adv-crop-card.selected { background: rgba(16,185,129,.12); border-color: var(--emerald); box-shadow: 0 0 20px rgba(16,185,129,.15); }
+    .adv-crop-icon { font-size: 2.2rem; line-height: 1; }
+    .adv-crop-name { font-size: .78rem; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .02em; }
+    .adv-crop-card.selected .adv-crop-name { color: var(--emerald); }
+    @keyframes fadeSlideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    #adv-step2,#adv-step3 { animation: fadeSlideUp .35s ease; }
+    .adv-back-crop { background: none; border: none; color: rgba(255,255,255,.35); font-size: .78rem; cursor: pointer; margin-bottom: 24px; padding: 0; display: inline-flex; align-items: center; gap: 5px; transition: color .2s; }
+    .adv-back-crop:hover { color: var(--emerald); }
+    .adv-syms { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .adv-sym { background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.1); border-radius: 30px; padding: 9px 16px; font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.55); cursor: pointer; transition: all .2s; }
+    .adv-sym:hover { border-color: var(--emerald); color: var(--emerald); }
+    .adv-sym.selected { background: rgba(16,185,129,.12); border-color: var(--emerald); color: var(--emerald); }
+    .adv-textarea { width:100%; background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.1); border-radius:10px; padding:14px 16px; color:rgba(255,255,255,.7); font-size:.82rem; resize:vertical; min-height:76px; margin-bottom:20px; font-family:inherit; transition:border-color .2s; }
+    .adv-textarea:focus { outline:none; border-color:var(--emerald); }
+    .adv-textarea::placeholder { color:rgba(255,255,255,.22); }
+    .adv-analyse-btn { background:var(--emerald); border:none; border-radius:10px; padding:15px 38px; color:white; font-size:.9rem; font-weight:800; cursor:pointer; transition:all .2s; display:inline-flex; align-items:center; gap:8px; }
+    .adv-analyse-btn:hover { background:var(--emerald-dk); transform:translateY(-1px); box-shadow:0 8px 20px rgba(16,185,129,.3); }
+    .adv-analyse-btn:disabled { opacity:.5; transform:none; cursor:not-allowed; }
+    .adv-result-box { background:rgba(16,185,129,.04); border:1.5px solid rgba(16,185,129,.18); border-radius:16px; padding:28px; margin-bottom:20px; }
+    .adv-diag-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,.07); }
+    .adv-severity-badge { padding:4px 12px; border-radius:20px; font-size:.63rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; white-space:nowrap; flex-shrink:0; }
+    .adv-sev-high { background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.25); }
+    .adv-sev-med { background:rgba(245,158,11,.15); color:#fbbf24; border:1px solid rgba(245,158,11,.25); }
+    .adv-result-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px; }
+    .adv-rg-item { background:rgba(255,255,255,.04); border-radius:10px; padding:14px; }
+    .adv-rg-val { font-size:1.25rem; font-weight:900; line-height:1; margin-bottom:4px; }
+    .adv-rg-lbl { font-size:.61rem; font-weight:600; color:rgba(255,255,255,.28); text-transform:uppercase; letter-spacing:.06em; }
+    .adv-product-rec { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:18px; }
+    .adv-prod-header { font-size:.63rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:10px; }
+    .adv-prod-name { font-size:1.05rem; font-weight:900; color:var(--gold); margin-bottom:10px; }
+    .adv-prod-details { display:flex; flex-wrap:wrap; gap:8px; }
+    .adv-prod-pill { background:rgba(255,255,255,.06); border-radius:20px; padding:5px 12px; font-size:.67rem; font-weight:600; color:rgba(255,255,255,.5); }
+    .adv-prod-roi { font-size:.78rem; font-weight:700; color:var(--emerald); margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.07); }
+    .adv-reset-btn { background:none; border:1.5px solid rgba(255,255,255,.14); border-radius:8px; padding:10px 22px; color:rgba(255,255,255,.45); font-size:.8rem; cursor:pointer; transition:all .2s; }
+    .adv-reset-btn:hover { border-color:var(--emerald); color:var(--emerald); }
+    /* ── KNOWLEDGE HUB ──────────────────────────────────── */
+    .know-section { background: var(--ink); padding: 80px 40px; }
+    .know-inner { max-width: var(--max); margin: 0 auto; }
+    .know-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 48px; }
+    @media(max-width:900px) { .know-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:600px) { .know-grid { grid-template-columns:1fr; .advisor-section { padding:60px 24px; } } }
+    .know-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:10px; transition:all .2s; }
+    .know-card:hover { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.13); transform:translateY(-2px); }
+    .know-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; align-self:flex-start; }
+    .kb-nutrition { background:rgba(16,185,129,.12); color:var(--emerald); border:1px solid rgba(16,185,129,.2); }
+    .kb-pest { background:rgba(239,68,68,.1); color:#f87171; border:1px solid rgba(239,68,68,.15); }
+    .kb-market { background:rgba(245,158,11,.1); color:#fbbf24; border:1px solid rgba(245,158,11,.15); }
+    .kb-soil { background:rgba(96,165,250,.1); color:#93c5fd; border:1px solid rgba(96,165,250,.15); }
+    .kb-precision { background:rgba(167,139,250,.1); color:#c4b5fd; border:1px solid rgba(167,139,250,.15); }
+    .know-icon { font-size:1.7rem; }
+    .know-title { font-size:.9rem; font-weight:800; color:white; letter-spacing:-.02em; line-height:1.35; }
+    .know-desc { font-size:.75rem; color:rgba(255,255,255,.42); line-height:1.75; flex:1; }
+    .know-footer { display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.06); }
+    .know-tag { font-size:.62rem; font-weight:600; color:rgba(255,255,255,.26); }
   </style>
   <!-- Leaflet.js interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
@@ -816,6 +887,8 @@
     <li><a href="#stack">Decision Stack</a></li>
     <li><a href="#geo" class="on">SADC Map</a></li>
     <li><a href="#agents">AI Agents</a></li>
+    <li><a href="#advisor">Field Advisor</a></li>
+    <li><a href="#knowledge">Intel Hub</a></li>
     <li><a href="#omnia-ai">For Omnia</a></li>
     <li><a href="#market-intel">Market Intel</a></li>
     <li><a href="#opportunities">Opportunities</a></li>
@@ -1242,6 +1315,172 @@
           <span class="cap">Timing guidance</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ AI FIELD ADVISOR (mAgri-inspired) -->
+<section class="advisor-section" id="advisor">
+  <div class="adv-inner">
+
+    <div class="sh" style="text-align:center;">
+      <div class="sl">AI Field Advisor</div>
+      <h2 class="st">Detect crop stress.<br><span style="color:var(--emerald-dk)">Get the fix — in seconds.</span></h2>
+      <p class="ss" style="max-width:580px;margin:0 auto;">Select your crop, describe what you're seeing, and abfAgri's AI identifies the problem, quantifies yield risk in rands, and recommends the exact Omnia product — with ROI per hectare.</p>
+    </div>
+
+    <!-- 3-step indicator (mAgri-style) -->
+    <div class="adv-steps">
+      <div class="adv-step">
+        <div class="adv-num active" id="adv-n1">1</div>
+        <div class="adv-lbl active" id="adv-l1">Select Crop</div>
+      </div>
+      <div class="adv-connector" id="adv-con1"></div>
+      <div class="adv-step">
+        <div class="adv-num" id="adv-n2">2</div>
+        <div class="adv-lbl" id="adv-l2">Describe Issue</div>
+      </div>
+      <div class="adv-connector" id="adv-con2"></div>
+      <div class="adv-step">
+        <div class="adv-num" id="adv-n3">3</div>
+        <div class="adv-lbl" id="adv-l3">Get Recommendation</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Crop Selection -->
+    <div id="adv-step1">
+      <div class="adv-crops">
+        <div class="adv-crop-card" onclick="advSelectCrop('maize','🌽','Maize',this)">
+          <div class="adv-crop-icon">🌽</div>
+          <div class="adv-crop-name">Maize</div>
+        </div>
+        <div class="adv-crop-card" onclick="advSelectCrop('wheat','🌾','Wheat',this)">
+          <div class="adv-crop-icon">🌾</div>
+          <div class="adv-crop-name">Wheat</div>
+        </div>
+        <div class="adv-crop-card" onclick="advSelectCrop('soybean','🫘','Soybean',this)">
+          <div class="adv-crop-icon">🫘</div>
+          <div class="adv-crop-name">Soybean</div>
+        </div>
+        <div class="adv-crop-card" onclick="advSelectCrop('sunflower','🌻','Sunflower',this)">
+          <div class="adv-crop-icon">🌻</div>
+          <div class="adv-crop-name">Sunflower</div>
+        </div>
+        <div class="adv-crop-card" onclick="advSelectCrop('sugarcane','🎋','Sugarcane',this)">
+          <div class="adv-crop-icon">🎋</div>
+          <div class="adv-crop-name">Sugarcane</div>
+        </div>
+        <div class="adv-crop-card" onclick="advSelectCrop('sorghum','🌿','Sorghum',this)">
+          <div class="adv-crop-icon">🌿</div>
+          <div class="adv-crop-name">Sorghum</div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.2);margin-top:18px;">← Select your crop type to begin the analysis</p>
+    </div>
+
+    <!-- STEP 2: Symptom Selection -->
+    <div id="adv-step2" style="display:none">
+      <button class="adv-back-crop" onclick="advReset()">← Back to crop selection</button>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.48);margin-bottom:18px;">What are you observing in the field? Select all that apply:</p>
+      <div class="adv-syms">
+        <button class="adv-sym" onclick="advToggleSym(this,'yellowing leaves')">🟡 Yellowing leaves</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'stunted growth')">📉 Stunted growth</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'leaf spots or lesions')">🔴 Leaf spots / lesions</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'wilting')">🥀 Wilting</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'poor grain fill')">📦 Poor grain fill</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'pest damage or frass')">🐛 Pest damage</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'nutrient deficiency symptoms')">⚗️ Nutrient deficiency</button>
+        <button class="adv-sym" onclick="advToggleSym(this,'lodging or stem weakness')">💨 Lodging / stem weakness</button>
+      </div>
+      <textarea class="adv-textarea" id="adv-obs-text" placeholder="Or describe what you're seeing — growth stage, field location, weather, soil type…"></textarea>
+      <button class="adv-analyse-btn" id="adv-btn" onclick="advAnalyse()">🔬 Analyse Field →</button>
+    </div>
+
+    <!-- STEP 3: Result -->
+    <div id="adv-step3" style="display:none">
+      <div class="adv-result-box" id="adv-result-content"></div>
+      <button class="adv-reset-btn" onclick="advReset()">← New analysis</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ KNOWLEDGE HUB (mAgri-inspired cards) -->
+<section class="know-section" id="knowledge">
+  <div class="know-inner">
+    <div class="sh" style="text-align:center;">
+      <div class="sl">Agronomic Intelligence Hub</div>
+      <h2 class="st">SADC crop intelligence.<br><span style="color:var(--emerald-dk)">Built for commercial decisions.</span></h2>
+      <p class="ss" style="max-width:560px;margin:0 auto;">Evidence-based intelligence connecting live SAFEX prices, satellite field data, and SADC crop science into insights for Omnia's field teams.</p>
+    </div>
+    <div class="know-grid">
+
+      <div class="know-card">
+        <span class="know-badge kb-nutrition">Nutrition</span>
+        <div class="know-icon">🌽</div>
+        <div class="know-title">N-Economics in SADC Maize at R3,388/ton</div>
+        <div class="know-desc">Every 10 kg/ha of missing nitrogen costs ~0.6 t/ha of yield. At current SAFEX prices, that's R2,033 per hectare — making Omnia LAN 28% a 7:1 ROI input when applied at the right growth stage.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 Limpopo · Free State</span>
+          <span class="know-tag">🌽 Maize</span>
+        </div>
+      </div>
+
+      <div class="know-card">
+        <span class="know-badge kb-pest">Pest Alert</span>
+        <div class="know-icon">🐛</div>
+        <div class="know-title">Fall Armyworm 2026: The 48-Hour Response Window</div>
+        <div class="know-desc">FAW pressure is building across Zimbabwe and Zambia corridors. Every 72-hour delay adds 8–12% more yield loss. Satellite-based early detection cuts response time by 5–7 days vs traditional scouting — every day saved is money in the farmer's pocket.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 Zimbabwe · Zambia</span>
+          <span class="know-tag">🌽 Maize</span>
+        </div>
+      </div>
+
+      <div class="know-card">
+        <span class="know-badge kb-market">Market</span>
+        <div class="know-icon">📊</div>
+        <div class="know-title">Soybean at R6,935/ton: The Phosphorus ROI Case</div>
+        <div class="know-desc">Zambia's soybean expansion zone (1.1M ha) is 68% under-fertilised on phosphorus. A single MAP application of 100 kg/ha returns R8,400/ha net when yield lifts from 1.2 to 2.4 t/ha under optimal P at current SAFEX prices.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 Zambia Central Belt</span>
+          <span class="know-tag">🫘 Soybean</span>
+        </div>
+      </div>
+
+      <div class="know-card">
+        <span class="know-badge kb-soil">Soil Health</span>
+        <div class="know-icon">💧</div>
+        <div class="know-title">Feeding Drought-Stressed Crops: The SADC Playbook</div>
+        <div class="know-desc">In drought, nitrogen soil uptake efficiency drops 35–60%. Foliar N bypasses soil barriers with 80% efficiency. Omnia Nitrosol applied at critical stages recovers 55–70% of yield in moisture-stressed fields where conventional top-dress fails.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 SADC-wide</span>
+          <span class="know-tag">🌾 Wheat · 🌽 Maize</span>
+        </div>
+      </div>
+
+      <div class="know-card">
+        <span class="know-badge kb-market">Market Intel</span>
+        <div class="know-icon">💱</div>
+        <div class="know-title">USD/ZAR Volatility: Why Local Manufacture Wins</div>
+        <div class="know-desc">With diesel up 50% in 60 days and the rand under pressure, imported fertilizer costs have risen 22% vs 18 months ago. Omnia's local Sasolburg manufacturing locks in cost certainty — a genuine competitive moat in a market facing currency-driven margin destruction.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 South Africa</span>
+          <span class="know-tag">💰 Finance</span>
+        </div>
+      </div>
+
+      <div class="know-card">
+        <span class="know-badge kb-precision">Precision AI</span>
+        <div class="know-icon">🛰️</div>
+        <div class="know-title">Satellite → Soil → SKU: Closing the Commercial Loop</div>
+        <div class="know-desc">abfAgri converts a satellite NDVI anomaly into a specific Omnia SKU recommendation in under 5 seconds — without a soil lab or agronomist field visit. Each recommendation is fully traceable from satellite pixel to purchase order, enabling closed-loop revenue attribution.</div>
+        <div class="know-footer">
+          <span class="know-tag">📍 16 SADC Countries</span>
+          <span class="know-tag">🤖 AI Intelligence</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -3015,6 +3254,120 @@ window.addEventListener('DOMContentLoaded', () => {
   // Auto-refresh every 5 minutes
   setInterval(loadMarketData, 5 * 60 * 1000);
 });
+
+// ════════════════════════════════════════════════════════════════════
+//  AI FIELD ADVISOR  (mAgri-inspired 3-step interactive tool)
+// ════════════════════════════════════════════════════════════════════
+let _advCrop = null, _advCropEmoji = '', _advCropName = '';
+let _advSymptoms = new Set();
+
+const ADV_RESPONSES = {
+  maize: {
+    default: { diag:'Nitrogen Deficiency (N-gap)', severity:'high', sev_lbl:'High Severity', risk_ha:'R3,880', risk_tot:'R232,800', action:'48 hours', conf:'87%', product:'Omnia LAN 28%', sku:'OMN-LAN28-50KG', rate:'150 kg/ha top-dress', timing:'Apply within 48h — no rain forecast, ideal soil conditions', roi:'R4,900 net gain / ha (92% yield recovery)', rationale:'Severe N deficiency at V6 requires immediate top-dress. LAN 28% provides fast-acting ammonium nitrate. 92% yield recovery if treated within the 48-hour window.' },
+    'pest damage or frass': { diag:'Fall Armyworm (FAW) Infestation', severity:'high', sev_lbl:'Urgent — Act Now', risk_ha:'R2,660', risk_tot:'R159,600', action:'72 hours', conf:'93%', product:'Omnia Avisar 200 SC', sku:'OMN-AVS-200SC', rate:'300 mL/ha in 200 L water', timing:'Apply at dusk — FAW feeding is most active at night', roi:'R5,200 crop value protected / ha', rationale:'FAW damage confirmed at V8. Avisar 200 SC provides systemic and contact activity. Apply within 72 hours before larvae move into the protected whorl stage.' },
+    'leaf spots or lesions': { diag:'Grey Leaf Spot (Cercospora zeae-maydis)', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R1,710', risk_tot:'R102,600', action:'10 days', conf:'79%', product:'Omnia Bumper 250 EW', sku:'OMN-BMP-250EW', rate:'500 mL/ha', timing:'Apply at VT (tasseling) for maximum grain-fill protection', roi:'R2,800 yield value protected / ha', rationale:'GLS reduces photosynthetic area during grain-fill. Bumper 250 EW provides curative and protective action. VT timing captures the highest-value protection window.' },
+    'yellowing leaves': { diag:'Nitrogen Deficiency — Lower Canopy', severity:'high', sev_lbl:'High Severity', risk_ha:'R3,388', risk_tot:'R203,280', action:'48 hours', conf:'89%', product:'Omnia Nitrosol (foliar N)', sku:'OMN-NTS-20L', rate:'5 L/ha foliar + 150 kg/ha LAN', timing:'Foliar application for immediate uptake, follow with LAN top-dress', roi:'R4,600 net gain / ha combined', rationale:'Interveinal yellowing from lower leaves is classic N deficiency. Nitrosol provides fast foliar N for immediate correction while LAN top-dress addresses the soil N pool.' }
+  },
+  wheat: {
+    default: { diag:'Phosphorus Deficiency + Moisture Stress', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R2,560', risk_tot:'R153,600', action:'10 days', conf:'81%', product:'Omnia Bioplex MAP (12-52-0)', sku:'OMN-MAP-12-52', rate:'80 kg/ha broadcast + incorporate', timing:'Apply before tillering stage closes', roi:'R3,440 net gain / ha', rationale:'P deficiency at tillering limits root development and N uptake efficiency. MAP provides immediate P with starter N. Critical to apply before the tillering window closes for maximum tiller set.' },
+    'yellowing leaves': { diag:'Stripe Rust (Yellow Rust — Puccinia striiformis)', severity:'high', sev_lbl:'High Severity — Act Fast', risk_ha:'R3,200', risk_tot:'R192,000', action:'5 days', conf:'88%', product:'Omnia Prosaro 250 EC', sku:'OMN-PRO-250EC', rate:'750 mL/ha', timing:'Apply at flag leaf — protect the grain-fill stage immediately', roi:'R5,300 yield value protected / ha', rationale:'Stripe rust at flag leaf stage directly threatens grain fill. Prosaro provides both preventative and curative control. Treatment at this stage shows up to 94% disease suppression efficiency.' },
+    'stunted growth': { diag:'Root Rot Complex (Pythium/Rhizoctonia)', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R1,920', risk_tot:'R115,200', action:'14 days', conf:'74%', product:'Omnia Dividend 030 FS (seed treatment)', sku:'OMN-DVD-030FS', rate:'100 mL / 100 kg seed', timing:'Seed treatment at sowing — protects establishment phase', roi:'R3,100 yield value protected / ha', rationale:'Root rot at tillering causes poor nutrient uptake and stunted growth. Dividend 030 FS provides systemic seed treatment protection. For standing crop, soil drench with Ridomil Gold MZ at 1 L/ha.' }
+  },
+  soybean: {
+    default: { diag:'Potassium Deficiency + Drought Stress', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R4,160', risk_tot:'R249,600', action:'14 days', conf:'75%', product:'Omnia Nutri-Flo K (0-0-60)', sku:'OMN-NFK-60', rate:'50 kg/ha broadcast', timing:'Apply before pod fill stage for best response', roi:'R6,800 net gain / ha (at R6,935/ton SAFEX)', rationale:'K deficiency at pod-fill directly reduces oil content and seed weight. Nutri-Flo K corrects deficiency efficiently. At current SAFEX soybean price, ROI is compelling even at full input cost.' },
+    'wilting': { diag:'Phytophthora Root Rot + Water Stress', severity:'high', sev_lbl:'High Severity', risk_ha:'R5,200', risk_tot:'R312,000', action:'48 hours', conf:'82%', product:'Omnia Ridomil Gold MZ', sku:'OMN-RGZ-MZ', rate:'2.5 kg/ha soil drench', timing:'Drench root zone immediately — act before 50% wilting', roi:'Protects 100% of standing crop value: R6,935/ton', rationale:'Phytophthora infection under waterlogged conditions causes rapid wilt. Ridomil Gold provides systemic protection through root uptake. Act before 50% wilting to maximise recovery potential.' },
+    'poor grain fill': { diag:'Potassium + Sulphur Deficiency', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R3,640', risk_tot:'R218,400', action:'10 days', conf:'77%', product:'Omnia Polysulphate (K-S-Ca-Mg)', sku:'OMN-PSF-50KG', rate:'100 kg/ha broadcast', timing:'Apply at early pod development stage R3', roi:'R5,100 net gain / ha at full pod fill', rationale:'K-S deficiency at R3 reduces pod set and seed weight — the two biggest drivers of soybean yield. Polysulphate provides K, S, Ca, and Mg in a single application for efficient correction.' }
+  },
+  sunflower: {
+    default: { diag:'Boron Deficiency — Hollow Stem Syndrome', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R1,920', risk_tot:'R115,200', action:'18 days', conf:'72%', product:'Omnia Bortrac 150', sku:'OMN-BTR-150', rate:'1.5 L/ha foliar spray', timing:'Apply at 4–6 leaf stage before stem elongation', roi:'R3,140 seed oil yield protected / ha', rationale:'B deficiency causes hollow stems and poor achene set. Critical to apply before stem elongation — once symptoms appear, yield loss is already occurring. Bortrac 150 is the category standard.' },
+    'leaf spots or lesions': { diag:'Sclerotinia Head Rot (Sclerotinia sclerotiorum)', severity:'high', sev_lbl:'High Severity', risk_ha:'R3,800', risk_tot:'R228,000', action:'5 days', conf:'84%', product:'Omnia Ronilan DF', sku:'OMN-RNL-DF', rate:'1 kg/ha at 50% flowering', timing:'Apply at early flowering (single application at petal shed)', roi:'R5,400 crop value protected / ha', rationale:'Sclerotinia is the most economically significant sunflower disease in SADC. Ronilan DF at 50% flowering gives 80–90% disease suppression. Missing this timing window severely limits options.' }
+  },
+  sugarcane: {
+    default: { diag:'Nitrogen + Potassium Imbalance', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R2,800', risk_tot:'R168,000', action:'21 days', conf:'78%', product:'Omnia Cane Special (26-5-14)', sku:'OMN-CSP-26-5-14', rate:'400 kg/ha split application', timing:'Split: 60% at planting / 40% at tillering', roi:'R8,200 sucrose yield gain / ha over full season', rationale:'N-K balance is critical for sucrose synthesis and stalk elongation. Cane Special matches the nutrient uptake curve for SADC sugarcane varieties. Split application maximises NUE in deep soils.' }
+  },
+  sorghum: {
+    default: { diag:'Iron Chlorosis + Micronutrient Deficiency', severity:'medium', sev_lbl:'Moderate Severity', risk_ha:'R1,440', risk_tot:'R86,400', action:'14 days', conf:'69%', product:'Omnia Ferromanganese Chelate', sku:'OMN-FMC-10L', rate:'3 L/ha foliar', timing:'Apply at 4-leaf stage in cool, wet conditions', roi:'R2,680 grain yield value protected / ha', rationale:'Iron chlorosis is common in alkaline SADC soils. Chelated formulation ensures uptake at high pH. Early foliar application is most effective — soil applications at pH>7 are largely ineffective.' }
+  }
+};
+
+function advSelectCrop(crop, emoji, name, el) {
+  _advCrop = crop; _advCropEmoji = emoji; _advCropName = name;
+  _advSymptoms.clear();
+  document.querySelectorAll('.adv-crop-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('adv-n1').className = 'adv-num done';
+  document.getElementById('adv-l1').className = 'adv-lbl done';
+  document.getElementById('adv-n2').className = 'adv-num active';
+  document.getElementById('adv-l2').className = 'adv-lbl active';
+  document.getElementById('adv-con1').classList.add('done');
+  document.getElementById('adv-step1').style.display = 'none';
+  document.getElementById('adv-step2').style.display = 'block';
+  document.getElementById('adv-step3').style.display = 'none';
+}
+
+function advToggleSym(el, sym) {
+  if (_advSymptoms.has(sym)) { _advSymptoms.delete(sym); el.classList.remove('selected'); }
+  else { _advSymptoms.add(sym); el.classList.add('selected'); }
+}
+
+function advAnalyse() {
+  const btn = document.getElementById('adv-btn');
+  btn.disabled = true; btn.innerHTML = '⏳ Analysing field data…';
+  setTimeout(() => {
+    const cr = ADV_RESPONSES[_advCrop] || ADV_RESPONSES.maize;
+    let r = cr.default;
+    for (const sym of _advSymptoms) { if (cr[sym]) { r = cr[sym]; break; } }
+    document.getElementById('adv-n2').className = 'adv-num done';
+    document.getElementById('adv-l2').className = 'adv-lbl done';
+    document.getElementById('adv-n3').className = 'adv-num active';
+    document.getElementById('adv-l3').className = 'adv-lbl active';
+    document.getElementById('adv-con2').classList.add('done');
+    const box = document.getElementById('adv-result-content');
+    box.innerHTML = `
+      <div class="adv-diag-header">
+        <div>
+          <div style="font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:5px">${_advCropEmoji} ${_advCropName} · AI Field Analysis</div>
+          <div style="font-size:1.22rem;font-weight:900;color:white;letter-spacing:-.02em;line-height:1.25">${r.diag}</div>
+        </div>
+        <span class="adv-severity-badge ${r.severity === 'high' ? 'adv-sev-high' : 'adv-sev-med'}">${r.sev_lbl}</span>
+      </div>
+      <div class="adv-result-grid">
+        <div class="adv-rg-item"><div class="adv-rg-val" style="color:#f87171">${r.risk_ha}</div><div class="adv-rg-lbl">Revenue at risk / ha</div></div>
+        <div class="adv-rg-item"><div class="adv-rg-val" style="color:#fbbf24">${r.action}</div><div class="adv-rg-lbl">Act within</div></div>
+        <div class="adv-rg-item"><div class="adv-rg-val" style="color:#60a5fa">${r.risk_tot}</div><div class="adv-rg-lbl">60 ha field total risk</div></div>
+        <div class="adv-rg-item"><div class="adv-rg-val" style="color:var(--emerald)">${r.conf}</div><div class="adv-rg-lbl">AI confidence</div></div>
+      </div>
+      <div class="adv-product-rec">
+        <div class="adv-prod-header">⭐ Top Omnia Product Recommendation</div>
+        <div class="adv-prod-name">${r.product}</div>
+        <div class="adv-prod-details">
+          <span class="adv-prod-pill">📦 ${r.rate}</span>
+          <span class="adv-prod-pill">⏱ ${r.timing}</span>
+          <span class="adv-prod-pill">🏷 ${r.sku}</span>
+        </div>
+        <div class="adv-prod-roi">↑ ${r.roi}</div>
+      </div>
+      <p style="font-size:.7rem;color:rgba(255,255,255,.3);margin-top:14px;line-height:1.65"><strong style="color:rgba(255,255,255,.45)">Agronomic rationale:</strong> ${r.rationale}</p>`;
+    document.getElementById('adv-step2').style.display = 'none';
+    document.getElementById('adv-step3').style.display = 'block';
+    btn.disabled = false; btn.innerHTML = '🔬 Analyse Field →';
+  }, 1800);
+}
+
+function advReset() {
+  _advCrop = null; _advCropEmoji = ''; _advCropName = '';
+  _advSymptoms.clear();
+  ['adv-n1','adv-n2','adv-n3'].forEach((id,i) => { document.getElementById(id).className = i === 0 ? 'adv-num active' : 'adv-num'; });
+  ['adv-l1','adv-l2','adv-l3'].forEach((id,i) => { document.getElementById(id).className = i === 0 ? 'adv-lbl active' : 'adv-lbl'; });
+  document.getElementById('adv-con1').classList.remove('done');
+  document.getElementById('adv-con2').classList.remove('done');
+  document.querySelectorAll('.adv-sym').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.adv-crop-card').forEach(el => el.classList.remove('selected'));
+  const t = document.getElementById('adv-obs-text'); if (t) t.value = '';
+  document.getElementById('adv-step1').style.display = 'block';
+  document.getElementById('adv-step2').style.display = 'none';
+  document.getElementById('adv-step3').style.display = 'none';
+}
 </script>
 </body>
 </html>
