@@ -968,6 +968,191 @@
     .scan-spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,.28); border-top-color:white; border-radius:50%; animation:scan-spin .75s linear infinite; display:inline-block; }
     @keyframes scan-spin { to { transform:rotate(360deg); } }
     @media(max-width:640px) { .scan-cats { grid-template-columns:repeat(2,1fr); } .scan-fc { width:32px; } .scan-section { padding:60px 20px; } }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE APP-FRIENDLY LAYER
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Hamburger button ─────────────────────────────────────────── */
+    .mob-ham {
+      display: none;
+      background: none;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 9px;
+      width: 42px; height: 42px;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      transition: border-color .2s, background .2s;
+      flex-shrink: 0;
+    }
+    .mob-ham:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.28); }
+    .mob-ham span {
+      display: block;
+      width: 20px; height: 2px;
+      background: rgba(255,255,255,.7);
+      border-radius: 2px;
+      transition: all .25s;
+    }
+    .mob-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .mob-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .mob-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile drawer overlay ────────────────────────────────────── */
+    .mob-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(4,13,26,.72);
+      z-index: 8000;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    .mob-overlay.open { display: block; }
+
+    /* ── Mobile slide-in drawer ───────────────────────────────────── */
+    .mob-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(320px, 88vw);
+      height: 100dvh;
+      background: #040d1a;
+      border-left: 1px solid rgba(16,185,129,.14);
+      z-index: 8100;
+      transform: translateX(110%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .mob-drawer.open { transform: translateX(0); }
+    .mob-drawer-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+    }
+    .mob-drawer-brand { display: flex; align-items: center; gap: 10px; }
+    .mob-drawer-logo { width: 34px; height: 34px; background: var(--emerald); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .95rem; color: white; }
+    .mob-drawer-nm { font-size: .88rem; font-weight: 800; color: white; }
+    .mob-drawer-sub { font-size: .62rem; color: rgba(255,255,255,.35); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .mob-close { background: none; border: none; color: rgba(255,255,255,.38); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 4px 8px; }
+    .mob-close:hover { color: white; }
+    .mob-drawer-links { flex: 1; padding: 14px 0; }
+    .mob-drawer-links a {
+      display: flex; align-items: center; gap: 13px;
+      padding: 13px 22px;
+      color: rgba(255,255,255,.68);
+      text-decoration: none;
+      font-size: .9rem; font-weight: 600;
+      transition: all .18s;
+      border-left: 3px solid transparent;
+    }
+    .mob-drawer-links a:hover,
+    .mob-drawer-links a.mdl-on {
+      color: var(--emerald);
+      background: rgba(16,185,129,.07);
+      border-left-color: var(--emerald);
+    }
+    .mob-drawer-links a .mdl-ico { width: 22px; text-align: center; font-size: 1rem; flex-shrink: 0; }
+    .mob-drawer-sep { margin: 8px 20px; border: none; border-top: 1px solid rgba(255,255,255,.06); }
+    .mob-drawer-cta {
+      margin: 16px 18px 22px;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-dk) 100%);
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      font-size: .85rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .mob-drawer-cta:hover { opacity: .9; }
+
+    /* ── Bottom tab bar (mobile only) ─────────────────────────────── */
+    .mob-tab-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: calc(64px + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
+      background: rgba(4,13,26,.96);
+      border-top: 1px solid rgba(16,185,129,.14);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      z-index: 7500;
+      align-items: stretch;
+      box-shadow: 0 -4px 24px rgba(4,13,26,.6);
+    }
+    .mob-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 0 4px;
+      text-decoration: none;
+      transition: all .18s;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+      background: none;
+      min-height: 44px;
+    }
+    .mob-tab:active { background: rgba(255,255,255,.05); }
+    .mob-tab-ico {
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: transform .18s;
+    }
+    .mob-tab-lbl {
+      font-size: .55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: rgba(255,255,255,.32);
+      transition: color .18s;
+      white-space: nowrap;
+    }
+    .mob-tab.mt-on .mob-tab-ico { transform: translateY(-2px) scale(1.15); }
+    .mob-tab.mt-on .mob-tab-lbl { color: var(--emerald); }
+    .mob-tab-pip {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: transparent;
+      position: absolute;
+      bottom: calc(8px + env(safe-area-inset-bottom));
+      transition: background .18s;
+    }
+    .mob-tab.mt-on .mob-tab-pip { background: var(--emerald); }
+
+    /* ── Show mobile elements only on small screens ───────────────── */
+    @media (max-width: 900px) {
+      .mob-ham { display: flex !important; }
+      .mob-tab-bar { display: flex !important; }
+      body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+      #pwa-install-banner { bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
+    }
+
+    /* ── Touch-optimized tap targets ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .topbar { font-size: .68rem; padding: 9px 14px; }
+      nav { padding: 0 14px !important; height: 60px !important; }
+      .brand-name { font-size: 1.1rem !important; }
+      .brand-sub { display: none; }
+      .nav-links { display: none !important; }
+      .hero { padding: 52px 20px 20px !important; }
+      .hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+      .scan-cats { grid-template-columns: repeat(2,1fr) !important; }
+      .ekb-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      .ekb-grid { grid-template-columns: 1fr !important; }
+      .brand-sub { display: none !important; }
+    }
   </style>
   <!-- Leaflet.js interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
@@ -1006,7 +1191,44 @@
     <li><a href="#newsfeed">News Feed</a></li>
     <li><a href="#demo" class="nav-demo">Book Demo</a></li>
   </ul>
+  <!-- Hamburger (mobile) -->
+  <button class="mob-ham" id="mob-ham" onclick="toggleMobMenu()" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- ── Mobile drawer overlay ── -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobMenu()"></div>
+
+<!-- ── Mobile slide-in drawer ── -->
+<div class="mob-drawer" id="mob-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="mob-drawer-hd">
+    <div class="mob-drawer-brand">
+      <div class="mob-drawer-logo">A</div>
+      <div>
+        <div class="mob-drawer-nm">abfAgri</div>
+        <div class="mob-drawer-sub">SADC Intelligence</div>
+      </div>
+    </div>
+    <button class="mob-close" onclick="closeMobMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="mob-drawer-links">
+    <a href="#geo" onclick="closeMobMenu()"><span class="mdl-ico">🌍</span>SADC Map</a>
+    <a href="#agents" onclick="closeMobMenu()"><span class="mdl-ico">🤖</span>AI Agents</a>
+    <a href="#advisor" onclick="closeMobMenu()"><span class="mdl-ico">🔬</span>Field Advisor</a>
+    <a href="#field-scan" onclick="closeMobMenu()"><span class="mdl-ico">📷</span>Field Scanner</a>
+    <hr class="mob-drawer-sep">
+    <a href="#market-intel" onclick="closeMobMenu()"><span class="mdl-ico">📊</span>Market Intel</a>
+    <a href="#opportunities" onclick="closeMobMenu()"><span class="mdl-ico">💡</span>Opportunities</a>
+    <a href="#knowledge" onclick="closeMobMenu()"><span class="mdl-ico">📚</span>Intel Hub</a>
+    <a href="#newsfeed" onclick="closeMobMenu()"><span class="mdl-ico">📰</span>News Feed</a>
+    <hr class="mob-drawer-sep">
+    <a href="#omnia-ai" onclick="closeMobMenu()"><span class="mdl-ico">🏢</span>For Omnia</a>
+    <a href="#consequence" onclick="closeMobMenu()"><span class="mdl-ico">⚡</span>Consequence Models</a>
+    <a href="#stack" onclick="closeMobMenu()"><span class="mdl-ico">🗂️</span>Decision Stack</a>
+  </nav>
+  <a href="#demo" class="mob-drawer-cta" onclick="closeMobMenu()">📩 Book Omnia Executive Demo</a>
+</div>
 
 <!-- ═══════════════════ LIVE MARKET TICKER -->
 <div class="ticker-bar" id="ticker-bar">
@@ -3857,6 +4079,76 @@ function scanReset() {
   document.getElementById('field-scan').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE APP-FRIENDLY LAYER
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Hamburger / Mobile Drawer ───────────────────────────────────── */
+function toggleMobMenu() {
+  var ham = document.getElementById('mob-ham');
+  var drawer = document.getElementById('mob-drawer');
+  var overlay = document.getElementById('mob-overlay');
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    closeMobMenu();
+  } else {
+    ham.classList.add('open');
+    ham.setAttribute('aria-expanded','true');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeMobMenu() {
+  var ham = document.getElementById('mob-ham');
+  var drawer = document.getElementById('mob-drawer');
+  var overlay = document.getElementById('mob-overlay');
+  ham.classList.remove('open');
+  ham.setAttribute('aria-expanded','false');
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMobMenu();
+});
+
+/* ── Bottom tab bar active state ─────────────────────────────────── */
+var _mobTabMap = { map:'mbt-map', advisor:'mbt-advisor', scanner:'mbt-scanner', intel:'mbt-intel', demo:'mbt-demo' };
+function setMobTab(key) {
+  Object.keys(_mobTabMap).forEach(function(k) {
+    var el = document.getElementById(_mobTabMap[k]);
+    if (el) el.classList.toggle('mt-on', k === key);
+  });
+}
+
+// Scroll-based active tab detection
+(function() {
+  var sections = [
+    { id:'geo', key:'map' },
+    { id:'advisor', key:'advisor' },
+    { id:'field-scan', key:'scanner' },
+    { id:'market-intel', key:'intel' },
+    { id:'demo', key:'demo' }
+  ];
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() {
+      ticking = false;
+      var scrollY = window.scrollY + window.innerHeight / 3;
+      var active = 'map';
+      for (var i = sections.length - 1; i >= 0; i--) {
+        var el = document.getElementById(sections[i].id);
+        if (el && el.offsetTop <= scrollY) { active = sections[i].key; break; }
+      }
+      setMobTab(active);
+    });
+  }, { passive: true });
+})();
+
 /* ── PWA Service Worker registration ─────────────────────────────── */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
@@ -3900,6 +4192,35 @@ function pwaDismiss() {
   if (banner) banner.style.display = 'none';
 }
 </script>
+
+<!-- ── Bottom tab bar (mobile app nav) ── -->
+<div class="mob-tab-bar" id="mob-tab-bar" role="tablist">
+  <a href="#geo" class="mob-tab mt-on" id="mbt-map" onclick="setMobTab('map')" role="tab" aria-label="Map" style="position:relative;">
+    <span class="mob-tab-ico">🌍</span>
+    <span class="mob-tab-lbl">Map</span>
+    <span class="mob-tab-pip"></span>
+  </a>
+  <a href="#advisor" class="mob-tab" id="mbt-advisor" onclick="setMobTab('advisor')" role="tab" aria-label="Advisor" style="position:relative;">
+    <span class="mob-tab-ico">🔬</span>
+    <span class="mob-tab-lbl">Advisor</span>
+    <span class="mob-tab-pip"></span>
+  </a>
+  <a href="#field-scan" class="mob-tab" id="mbt-scanner" onclick="setMobTab('scanner')" role="tab" aria-label="Scanner" style="position:relative;">
+    <span class="mob-tab-ico">📷</span>
+    <span class="mob-tab-lbl">Scanner</span>
+    <span class="mob-tab-pip"></span>
+  </a>
+  <a href="#market-intel" class="mob-tab" id="mbt-intel" onclick="setMobTab('intel')" role="tab" aria-label="Market" style="position:relative;">
+    <span class="mob-tab-ico">📊</span>
+    <span class="mob-tab-lbl">Market</span>
+    <span class="mob-tab-pip"></span>
+  </a>
+  <a href="#demo" class="mob-tab" id="mbt-demo" onclick="setMobTab('demo')" role="tab" aria-label="Demo" style="position:relative;">
+    <span class="mob-tab-ico">📩</span>
+    <span class="mob-tab-lbl">Demo</span>
+    <span class="mob-tab-pip"></span>
+  </a>
+</div>
 
 <!-- PWA install banner (shows when browser detects installable PWA) -->
 <div id="pwa-install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--ink-mid);border-top:1px solid rgba(16,185,129,.3);padding:14px 20px;align-items:center;gap:14px;box-shadow:0 -4px 24px rgba(4,13,26,.4);">
