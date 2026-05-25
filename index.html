@@ -858,6 +858,68 @@
     .know-desc { font-size:.75rem; color:rgba(255,255,255,.42); line-height:1.75; flex:1; }
     .know-footer { display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.06); }
     .know-tag { font-size:.62rem; font-weight:600; color:rgba(255,255,255,.26); }
+
+    /* ── AI FIELD SCANNER ─────────────────────────────────── */
+    .scan-section { background: var(--ink); padding: 80px 40px; position: relative; overflow: hidden; }
+    .scan-section::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 65% 50% at 18% 70%, rgba(59,130,246,.05), transparent 65%), radial-gradient(ellipse 55% 55% at 88% 22%, rgba(16,185,129,.06), transparent 62%); pointer-events:none; }
+    .scan-inner { max-width:860px; margin:0 auto; position:relative; }
+    .scan-flow { display:flex; align-items:center; justify-content:center; margin:42px 0 50px; }
+    .scan-fs { display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .scan-fn { width:42px; height:42px; border-radius:50%; border:2px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:800; color:rgba(255,255,255,.25); transition:all .35s; }
+    .scan-fn.sf-a { border-color:var(--emerald); background:rgba(16,185,129,.18); color:var(--emerald); box-shadow:0 0 18px rgba(16,185,129,.22); }
+    .scan-fn.sf-d { border-color:var(--emerald-dk); background:var(--emerald-dk); color:white; }
+    .scan-fl { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:rgba(255,255,255,.25); white-space:nowrap; transition:color .35s; }
+    .scan-fl.sf-a { color:var(--emerald); }
+    .scan-fl.sf-d { color:rgba(255,255,255,.5); }
+    .scan-fc { width:72px; height:2px; background:rgba(255,255,255,.07); margin:0 6px 22px; transition:background .35s; flex-shrink:0; }
+    .scan-fc.sf-d { background:var(--emerald-dk); }
+    .scan-cats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+    .scan-cat { background:rgba(255,255,255,.04); border:2px solid rgba(255,255,255,.08); border-radius:14px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:all .22s; user-select:none; }
+    .scan-cat:hover { border-color:rgba(16,185,129,.38); background:rgba(16,185,129,.07); transform:translateY(-2px); }
+    .scan-cat.sc-on { border-color:var(--emerald); background:rgba(16,185,129,.13); box-shadow:0 0 22px rgba(16,185,129,.18); transform:translateY(-2px); }
+    .scan-cat-ico { font-size:2rem; }
+    .scan-cat-nm { font-size:.71rem; font-weight:800; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.06em; text-align:center; }
+    .scan-cat.sc-on .scan-cat-nm { color:var(--emerald); }
+    .scan-upload-zone { border:2px dashed rgba(255,255,255,.14); border-radius:16px; padding:46px 24px; text-align:center; cursor:pointer; transition:all .25s; background:rgba(255,255,255,.02); position:relative; }
+    .scan-upload-zone:hover,.scan-upload-zone.su-drag { border-color:var(--emerald); background:rgba(16,185,129,.06); }
+    .scan-upload-zone.su-drag { transform:scale(1.01); }
+    .su-ico { font-size:2.6rem; margin-bottom:12px; display:block; }
+    .su-ttl { font-size:.95rem; font-weight:700; color:rgba(255,255,255,.68); margin-bottom:7px; }
+    .su-hint { font-size:.72rem; color:rgba(255,255,255,.27); }
+    .scan-preview { display:none; margin-bottom:20px; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:var(--ink); position:relative; }
+    .scan-preview img { width:100%; max-height:260px; object-fit:contain; display:block; }
+    .scan-chg { position:absolute; top:10px; right:10px; background:rgba(4,13,26,.78); border:1px solid rgba(255,255,255,.14); color:rgba(255,255,255,.68); font-size:.68rem; font-weight:700; padding:5px 12px; border-radius:7px; cursor:pointer; transition:all .2s; }
+    .scan-chg:hover { background:rgba(4,13,26,.96); color:white; }
+    .scan-btn { width:100%; padding:15px; background:var(--emerald); border:none; border-radius:12px; color:white; font-size:.95rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:all .22s; letter-spacing:-.01em; margin-top:16px; }
+    .scan-btn:hover:not(:disabled) { background:var(--emerald-dk); transform:translateY(-2px); box-shadow:0 8px 24px rgba(16,185,129,.38); }
+    .scan-btn:disabled { opacity:.4; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+    .scan-res { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:16px; overflow:hidden; animation:fadeSlideUp .4s ease both; }
+    .scan-res-hd { padding:18px 22px; border-bottom:1px solid rgba(255,255,255,.07); display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+    .scan-res-ht { font-size:1rem; font-weight:800; color:white; letter-spacing:-.02em; margin-bottom:4px; }
+    .scan-res-sub { font-size:.75rem; color:rgba(255,255,255,.38); }
+    .scan-sev { padding:5px 14px; border-radius:20px; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; white-space:nowrap; flex-shrink:0; }
+    .sev-mild { background:rgba(16,185,129,.14); color:var(--emerald); border:1px solid rgba(16,185,129,.28); }
+    .sev-moderate { background:rgba(245,158,11,.13); color:#fbbf24; border:1px solid rgba(245,158,11,.28); }
+    .sev-severe { background:rgba(239,68,68,.13); color:#f87171; border:1px solid rgba(239,68,68,.28); }
+    .sev-critical { background:rgba(239,68,68,.22); color:#fca5a5; border:1px solid rgba(239,68,68,.38); animation:pulse-sev 1.5s ease-in-out infinite; }
+    @keyframes pulse-sev { 0%,100%{ box-shadow:0 0 0 0 rgba(239,68,68,.0); } 50%{ box-shadow:0 0 10px 3px rgba(239,68,68,.28); } }
+    .scan-res-body { padding:18px 22px; }
+    .scan-res-desc { font-size:.8rem; color:rgba(255,255,255,.54); line-height:1.84; margin-bottom:18px; }
+    .scan-action { background:rgba(16,185,129,.07); border:1px solid rgba(16,185,129,.15); border-radius:11px; padding:15px 17px; margin-bottom:14px; }
+    .scan-act-lbl { font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--emerald); margin-bottom:7px; }
+    .scan-act-prod { font-size:.88rem; font-weight:800; color:white; margin-bottom:3px; }
+    .scan-act-tim { font-size:.73rem; color:rgba(255,255,255,.4); }
+    .scan-act-roi { font-size:.73rem; color:#fbbf24; margin-top:5px; font-weight:600; }
+    .scan-res-ft { display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px solid rgba(255,255,255,.06); flex-wrap:wrap; gap:8px; }
+    .scan-conf { font-size:.7rem; color:rgba(255,255,255,.28); font-weight:600; }
+    .scan-src-badge { font-size:.6rem; padding:3px 9px; border-radius:8px; font-weight:700; }
+    .scan-src-demo { background:rgba(59,130,246,.12); color:#93c5fd; border:1px solid rgba(59,130,246,.2); }
+    .scan-src-live { background:rgba(16,185,129,.1); color:#6ee7b7; border:1px solid rgba(16,185,129,.2); }
+    .scan-reset { background:none; border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.38); font-size:.72rem; font-weight:700; padding:8px 18px; border-radius:9px; cursor:pointer; transition:all .2s; margin-top:14px; display:block; }
+    .scan-reset:hover { border-color:rgba(255,255,255,.28); color:rgba(255,255,255,.72); }
+    .scan-spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,.28); border-top-color:white; border-radius:50%; animation:scan-spin .75s linear infinite; display:inline-block; }
+    @keyframes scan-spin { to { transform:rotate(360deg); } }
+    @media(max-width:640px) { .scan-cats { grid-template-columns:repeat(2,1fr); } .scan-fc { width:32px; } .scan-section { padding:60px 20px; } }
   </style>
   <!-- Leaflet.js interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
@@ -889,6 +951,7 @@
     <li><a href="#agents">AI Agents</a></li>
     <li><a href="#advisor">Field Advisor</a></li>
     <li><a href="#knowledge">Intel Hub</a></li>
+    <li><a href="#field-scan">Field Scanner</a></li>
     <li><a href="#omnia-ai">For Omnia</a></li>
     <li><a href="#market-intel">Market Intel</a></li>
     <li><a href="#opportunities">Opportunities</a></li>
@@ -1482,6 +1545,86 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ AI FIELD SCANNER -->
+<section class="scan-section" id="field-scan">
+  <div class="scan-inner">
+
+    <div class="sh" style="text-align:center;">
+      <div class="sl">AI Field Scanner</div>
+      <h2 class="st">Detect Problems in Your Field<br><span style="color:var(--emerald)">Before They Spread</span></h2>
+      <p class="ss" style="max-width:560px;margin:0 auto;">Upload a crop or field photo — abfAgri's vision AI analyses it in seconds and delivers an agronomic diagnosis with targeted Omnia product recommendations.</p>
+    </div>
+
+    <!-- Step flow indicator -->
+    <div class="scan-flow">
+      <div class="scan-fs">
+        <div class="scan-fn sf-a" id="sfn-1">1</div>
+        <div class="scan-fl sf-a" id="sfl-1">Select Category</div>
+      </div>
+      <div class="scan-fc" id="sfc-1"></div>
+      <div class="scan-fs">
+        <div class="scan-fn" id="sfn-2">2</div>
+        <div class="scan-fl" id="sfl-2">Upload Photo</div>
+      </div>
+      <div class="scan-fc" id="sfc-2"></div>
+      <div class="scan-fs">
+        <div class="scan-fn" id="sfn-3">3</div>
+        <div class="scan-fl" id="sfl-3">Get AI Report</div>
+      </div>
+    </div>
+
+    <!-- Step 1 — Category selection -->
+    <div id="scan-s1">
+      <div class="scan-cats">
+        <div class="scan-cat" onclick="scanCat(this,'crops')">
+          <div class="scan-cat-ico">🌽</div>
+          <div class="scan-cat-nm">Crops</div>
+        </div>
+        <div class="scan-cat" onclick="scanCat(this,'vegetables')">
+          <div class="scan-cat-ico">🥦</div>
+          <div class="scan-cat-nm">Vegetables</div>
+        </div>
+        <div class="scan-cat" onclick="scanCat(this,'fruits')">
+          <div class="scan-cat-ico">🍊</div>
+          <div class="scan-cat-nm">Fruits</div>
+        </div>
+        <div class="scan-cat" onclick="scanCat(this,'livestock')">
+          <div class="scan-cat-ico">🐄</div>
+          <div class="scan-cat-nm">Livestock / Pasture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 — Upload (hidden until category selected) -->
+    <div id="scan-s2" style="display:none;">
+      <div class="scan-upload-zone" id="scan-drop"
+           onclick="document.getElementById('scan-fin').click()"
+           ondragover="scanDragOver(event)"
+           ondragleave="scanDragLeave(event)"
+           ondrop="scanDrop(event)">
+        <input type="file" id="scan-fin" accept="image/*" style="display:none" onchange="scanFile(this)">
+        <span class="su-ico">📷</span>
+        <div class="su-ttl">Drop your field photo here or click to browse</div>
+        <div class="su-hint">JPG · PNG · WEBP · HEIC &nbsp;·&nbsp; Max 5 MB</div>
+      </div>
+      <div class="scan-preview" id="scan-prev">
+        <img id="scan-prev-img" src="" alt="Field photo preview">
+        <span class="scan-chg" onclick="scanChangePic(event)">✏️ Change Photo</span>
+      </div>
+      <button class="scan-btn" id="scan-abtn" onclick="scanAnalyse()" disabled>
+        <span id="scan-btn-txt">🔍 Analyse Field Photo</span>
+      </button>
+    </div>
+
+    <!-- Step 3 — Result (hidden until analysis complete) -->
+    <div id="scan-s3" style="display:none;">
+      <div class="scan-res" id="scan-res"></div>
+      <button class="scan-reset" onclick="scanReset()">← Scan Another Photo</button>
+    </div>
+
   </div>
 </section>
 
@@ -3367,6 +3510,219 @@ function advReset() {
   document.getElementById('adv-step1').style.display = 'block';
   document.getElementById('adv-step2').style.display = 'none';
   document.getElementById('adv-step3').style.display = 'none';
+}
+
+/* ─────────────────────────────────────────────────────────────
+   AI FIELD SCANNER — Photo upload crop diagnosis
+───────────────────────────────────────────────────────────── */
+var _scat  = null;   // selected category string
+var _simgB64 = null; // resized JPEG as base64 string
+var _simgURL = null; // data URL for preview
+
+// Demo responses (used when API unreachable — local dev / deploy pending)
+const SCAN_DEMO = {
+  crops: {
+    condition: 'Fall Armyworm (Spodoptera frugiperda)',
+    severity: 'moderate',
+    description: 'Window-pane feeding patterns with characteristic frass deposits detected in leaf whorls. Young 2nd-instar larvae present on 20–30% of sampled plants. Warm, humid conditions are conducive to rapid population build-up — spread is expected to accelerate over the next 48 hours without intervention.',
+    product: 'Omnia Bravest 300 SC',
+    rate: '400 mL/ha',
+    timing: 'Apply at dusk within 48 hours — larvae are nocturnal feeders',
+    roi: 'Treatment cost ~R1,800/ha vs R12,000+/ha yield loss at current SAFEX maize price',
+    conf: 0.84
+  },
+  vegetables: {
+    condition: 'Powdery Mildew (Erysiphe spp.)',
+    severity: 'moderate',
+    description: 'White powdery fungal colonies coalescing on upper leaf surfaces across 35–45% of canopy coverage. Secondary chlorosis and premature leaf abscission observed on older foliage. Warm days with cool nights are creating optimal sporulation conditions for rapid spread.',
+    product: 'Omnia Funguran OH 50 WP',
+    rate: '200 g per 100 L water',
+    timing: 'Apply immediately — repeat every 7 days until conditions improve',
+    roi: 'Early intervention recovers 70–85% of marketable yield',
+    conf: 0.79
+  },
+  fruits: {
+    condition: 'Citrus Bacterial Canker (Xanthomonas citri subsp. citri)',
+    severity: 'severe',
+    description: 'Raised, corky lesions with water-soaked yellow halos observed on leaves and young fruit. Wind-driven spread confirmed across multiple canopy layers. 25–40% fruit surface damage visible — significant export-grade rejection risk at this progression stage.',
+    product: 'Omnia Copper Oxychloride 850 WP',
+    rate: '300 g per 100 L water',
+    timing: 'Apply within 24 hours and protect all new growth flushes',
+    roi: 'Copper spray at ~R900/ha vs R35,000/ha export quality crop loss',
+    conf: 0.78
+  },
+  livestock: {
+    condition: 'Tick-Borne Anaemia (Anaplasma marginale)',
+    severity: 'moderate',
+    description: 'Animals displaying pale mucous membranes, lethargy, and reduced grazing activity. Heavy tick burden visible on ears, inner thighs, and underbelly. Without immediate intervention, haemolytic anaemia will progress — mortality risk in calves is significant within 5–7 days.',
+    product: 'Acaricide Dip Treatment (consult veterinarian)',
+    rate: 'Per registered label',
+    timing: 'Immediate veterinary assessment required — initiate weekly dipping protocol',
+    roi: 'Early treatment prevents per-animal losses of R8,000–R22,000',
+    conf: 0.72
+  }
+};
+
+function scanUpdateFlow(step) {
+  [1,2,3].forEach(function(n) {
+    var numEl = document.getElementById('sfn-' + n);
+    var lblEl = document.getElementById('sfl-' + n);
+    if (!numEl) return;
+    numEl.className = n < step ? 'scan-fn sf-d' : n === step ? 'scan-fn sf-a' : 'scan-fn';
+    lblEl.className = n < step ? 'scan-fl sf-d' : n === step ? 'scan-fl sf-a' : 'scan-fl';
+  });
+  var c1 = document.getElementById('sfc-1');
+  var c2 = document.getElementById('sfc-2');
+  if (c1) c1.className = step > 1 ? 'scan-fc sf-d' : 'scan-fc';
+  if (c2) c2.className = step > 2 ? 'scan-fc sf-d' : 'scan-fc';
+}
+
+function scanCat(el, cat) {
+  _scat = cat;
+  document.querySelectorAll('.scan-cat').forEach(function(c) { c.classList.remove('sc-on'); });
+  el.classList.add('sc-on');
+  setTimeout(function() {
+    var s2 = document.getElementById('scan-s2');
+    s2.style.display = 'block';
+    s2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    scanUpdateFlow(2);
+  }, 300);
+}
+
+function scanDragOver(e) {
+  e.preventDefault();
+  document.getElementById('scan-drop').classList.add('su-drag');
+}
+function scanDragLeave(e) {
+  document.getElementById('scan-drop').classList.remove('su-drag');
+}
+function scanDrop(e) {
+  e.preventDefault();
+  document.getElementById('scan-drop').classList.remove('su-drag');
+  var files = e.dataTransfer && e.dataTransfer.files;
+  if (files && files[0]) scanLoadFile(files[0]);
+}
+function scanFile(input) {
+  if (input.files && input.files[0]) scanLoadFile(input.files[0]);
+}
+
+function scanLoadFile(file) {
+  if (!file.type.match(/^image\//)) { alert('Please select an image file (JPG, PNG, WEBP).'); return; }
+  if (file.size > 5 * 1024 * 1024) { alert('Image too large — please use a photo under 5 MB.'); return; }
+  var reader = new FileReader();
+  reader.onload = function(evt) {
+    var img = new Image();
+    img.onload = function() {
+      // Resize to max 800px to keep API payload reasonable
+      var MAX = 800, w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else        { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      var dataURL = canvas.toDataURL('image/jpeg', 0.85);
+      _simgURL = dataURL;
+      _simgB64 = dataURL.split(',')[1];
+      // Show preview, hide drop zone
+      document.getElementById('scan-prev-img').src = dataURL;
+      document.getElementById('scan-prev').style.display = 'block';
+      document.getElementById('scan-drop').style.display = 'none';
+      document.getElementById('scan-abtn').disabled = false;
+    };
+    img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function scanChangePic(e) {
+  if (e) e.stopPropagation();
+  _simgB64 = null; _simgURL = null;
+  document.getElementById('scan-prev').style.display = 'none';
+  document.getElementById('scan-drop').style.display = 'block';
+  document.getElementById('scan-abtn').disabled = true;
+  document.getElementById('scan-fin').value = '';
+}
+
+function scanAnalyse() {
+  if (!_scat || !_simgB64) return;
+  var btn    = document.getElementById('scan-abtn');
+  var btnTxt = document.getElementById('scan-btn-txt');
+  btn.disabled = true;
+  btnTxt.innerHTML = '<span class="scan-spinner"></span>&nbsp; Analysing field photo…';
+  scanUpdateFlow(3);
+
+  fetch('/api/photo-diagnose', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ category: _scat, image_data: _simgB64 })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) { scanRenderResult(data); })
+  .catch(function() {
+    // API unavailable (deployment pending) — use built-in demo fallback
+    setTimeout(function() {
+      var demo = Object.assign({}, SCAN_DEMO[_scat] || SCAN_DEMO.crops, { demo: true });
+      scanRenderResult(demo);
+    }, 1200);
+  });
+}
+
+function scanRenderResult(d) {
+  var sevMap = {
+    mild:     { cls: 'sev-mild',     lbl: 'Mild Stress' },
+    moderate: { cls: 'sev-moderate', lbl: 'Moderate Stress' },
+    severe:   { cls: 'sev-severe',   lbl: '⚠ Severe' },
+    critical: { cls: 'sev-critical', lbl: '🚨 Critical' }
+  };
+  var sev = sevMap[d.severity] || sevMap.moderate;
+  var catLabel = (_scat || 'Field').charAt(0).toUpperCase() + (_scat || 'field').slice(1);
+  var confPct  = Math.round(((d.conf || d.confidence || 0.80)) * 100);
+  var isDemo   = d.demo === true;
+
+  var html =
+    '<div class="scan-res-hd">' +
+      '<div>' +
+        '<div class="scan-res-ht">' + d.condition + '</div>' +
+        '<div class="scan-res-sub">AI Agronomic Diagnosis · ' + catLabel + '</div>' +
+      '</div>' +
+      '<span class="scan-sev ' + sev.cls + '">' + sev.lbl + '</span>' +
+    '</div>' +
+    '<div class="scan-res-body">' +
+      '<p class="scan-res-desc">' + d.description + '</p>' +
+      '<div class="scan-action">' +
+        '<div class="scan-act-lbl">⚡ Recommended Action</div>' +
+        '<div class="scan-act-prod">' + d.product + (d.rate ? ' &nbsp;—&nbsp; ' + d.rate : '') + '</div>' +
+        '<div class="scan-act-tim">🕐 ' + d.timing + '</div>' +
+        (d.roi ? '<div class="scan-act-roi">💰 ' + d.roi + '</div>' : '') +
+      '</div>' +
+      '<div class="scan-res-ft">' +
+        '<span class="scan-conf">AI Confidence: ' + confPct + '%</span>' +
+        '<span class="scan-src-badge ' + (isDemo ? 'scan-src-demo' : 'scan-src-live') + '">' +
+          (isDemo ? '⚡ Demo Mode' : '🛰 Live Vision AI') +
+        '</span>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('scan-res').innerHTML = html;
+  document.getElementById('scan-s2').style.display = 'none';
+  document.getElementById('scan-s3').style.display = 'block';
+  document.getElementById('scan-res').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function scanReset() {
+  _scat = null; _simgB64 = null; _simgURL = null;
+  document.querySelectorAll('.scan-cat').forEach(function(c) { c.classList.remove('sc-on'); });
+  document.getElementById('scan-s2').style.display = 'none';
+  document.getElementById('scan-s3').style.display = 'none';
+  document.getElementById('scan-prev').style.display = 'none';
+  document.getElementById('scan-drop').style.display = 'block';
+  var fin = document.getElementById('scan-fin'); if (fin) fin.value = '';
+  document.getElementById('scan-abtn').disabled = true;
+  document.getElementById('scan-btn-txt').innerHTML = '🔍 Analyse Field Photo';
+  scanUpdateFlow(1);
+  document.getElementById('field-scan').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 </body>
