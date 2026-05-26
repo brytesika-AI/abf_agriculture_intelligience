@@ -15,35 +15,40 @@
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "shortcuts": [
     {
       "name": "Field Advisor",
-      "short_name": "Advisor",
+      "short_name": "Field",
       "description": "AI crop diagnosis with Omnia product recommendations",
-      "url": "/#advisor",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Field Scanner",
-      "short_name": "Scanner",
-      "description": "Upload a crop photo for instant AI diagnosis",
-      "url": "/#field-scan",
+      "url": "/",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "SADC Map",
       "short_name": "Map",
       "description": "Live satellite intelligence across 16 SADC countries",
-      "url": "/#geo",
+      "url": "/",
       "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ],

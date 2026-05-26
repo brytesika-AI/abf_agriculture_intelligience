@@ -3,7 +3,7 @@
  * Enables offline access and fast repeat loads for the PWA
  */
 
-const CACHE_NAME = 'abfagri-v3';
+const CACHE_NAME = 'abfagri-v4';
 const CACHE_FIRST = [
   '/',
   '/index.html',
@@ -13,7 +13,7 @@ const CACHE_FIRST = [
 ];
 
 // External CDN assets to cache on first use
-const CDN_CACHE = 'abfagri-cdn-v3';
+const CDN_CACHE = 'abfagri-cdn-v4';
 
 // ── Install: pre-cache shell ───────────────────────────────────────────────
 self.addEventListener('install', event => {

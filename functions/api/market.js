@@ -55,9 +55,10 @@ export async function onRequestGet(context) {
   let usdZar = 16.46;
   let usdZarChangePct = -0.20;
   try {
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
     const [todayRes, yesterdayRes] = await Promise.all([
       fetch('https://api.frankfurter.app/latest?from=USD&to=ZAR'),
-      fetch('https://api.frankfurter.app/2026-05-24?from=USD&to=ZAR')
+      fetch(`https://api.frankfurter.app/${yesterday}?from=USD&to=ZAR`)
     ]);
     if (todayRes.ok) {
       const td = await todayRes.json();
