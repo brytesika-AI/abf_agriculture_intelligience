@@ -1324,6 +1324,10 @@
       .scan-section, .opp-section, .newsfeed-section,
       .exec-dash, .demo-section, section.alt { display: none !important; }
 
+      /* Mobile field page — hidden by default, shown as mob-page-on */
+      #mob-field { display: none !important; }
+      #mob-field.mob-page-on { display: flex !important; flex-direction: column; }
+
       /* Mobile home screen — shown by default */
       #mob-home {
         display: flex !important;
@@ -1504,10 +1508,69 @@
       flex-shrink: 0;
     }
 
-    /* Desktop: keep home screen hidden */
+    /* Desktop: keep mobile-only elements hidden */
     @media (min-width: 901px) {
-      #mob-home { display: none !important; }
+      #mob-home, #mob-field { display: none !important; }
     }
+
+    /* ── Mobile Field Diagnosis page styles ────────────────────────── */
+    .mf-step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.25);
+      font-size: .72rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .3s;
+    }
+    .mf-step-dot.mfsd-on { border-color: var(--emerald); background: rgba(16,185,129,.18); color: var(--emerald); }
+    .mf-step-dot.mfsd-done { border-color: var(--emerald-dk); background: var(--emerald-dk); color: white; }
+    .mf-step-lbl {
+      font-size: .62rem; font-weight: 700; color: rgba(255,255,255,.22);
+      white-space: nowrap; margin: 0 5px; transition: color .3s;
+    }
+    .mf-step-lbl.mfsl-on { color: var(--emerald); }
+    .mf-step-lbl.mfsl-done { color: rgba(255,255,255,.45); }
+    .mf-step-line { flex: 1; height: 2px; background: rgba(255,255,255,.07); margin: 0 4px; transition: background .3s; }
+    .mf-step-line.mfsl-done { background: var(--emerald-dk); }
+
+    /* Crop cards */
+    .mf-crop-card {
+      background: rgba(255,255,255,.04); border: 2px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 20px 14px; cursor: pointer;
+      transition: all .2s; -webkit-tap-highlight-color: transparent;
+      text-align: center;
+    }
+    .mf-crop-card:active, .mf-crop-card.mfc-on {
+      border-color: var(--emerald); background: rgba(16,185,129,.1);
+      transform: scale(.98);
+    }
+    .mfc-ico { font-size: 2rem; margin-bottom: 8px; }
+    .mfc-nm { font-size: .88rem; font-weight: 800; color: white; margin-bottom: 3px; }
+    .mfc-ex { font-size: .62rem; color: rgba(255,255,255,.32); }
+
+    /* Method cards */
+    .mf-method-card {
+      background: rgba(255,255,255,.04); border: 2px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 24px 16px;
+      cursor: pointer; text-align: center; transition: all .2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mf-method-card:active { transform: scale(.97); background: rgba(16,185,129,.08); border-color: var(--emerald); }
+
+    /* Symptom chips */
+    .mf-chip {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 7px 14px; font-size: .75rem;
+      font-weight: 600; color: rgba(255,255,255,.6);
+      cursor: pointer; transition: all .18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mf-chip.mfc-sel {
+      background: rgba(16,185,129,.14); border-color: var(--emerald);
+      color: var(--emerald); font-weight: 800;
+    }
+    .mf-chip:active { transform: scale(.96); }
   </style>
   <!-- Leaflet.js interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
@@ -1751,6 +1814,138 @@
   <!-- African proverb -->
   <div class="mob-proverb" id="mob-proverb-text">
     🌿 Umuntu ngumuntu ngabantu — A person is a person through other people (isiZulu)
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MOBILE FIELD DIAGNOSIS PAGE  (combined Advisor + Scanner)
+     Hidden on desktop — the desktop keeps both sections separately
+     ════════════════════════════════════════════════════════════════ -->
+<div id="mob-field" style="display:none; background:var(--ink);">
+
+  <!-- Header -->
+  <div style="padding:18px 18px 14px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;">
+    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--emerald);margin-bottom:4px;">🌿 Field Diagnosis</div>
+    <div style="font-size:1.1rem;font-weight:900;color:white;letter-spacing:-.02em;">Describe it or photograph it</div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:3px;">The AI will identify the problem and recommend the fix</div>
+  </div>
+
+  <!-- Progress steps -->
+  <div id="mf-steps" style="display:flex;align-items:center;padding:14px 18px;gap:0;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;">
+    <div class="mf-step-dot mfsd-on" id="mfsd-1">1</div>
+    <div class="mf-step-lbl mfsl-on" id="mfsl-1">Crop Type</div>
+    <div class="mf-step-line" id="mfsl-12"></div>
+    <div class="mf-step-dot" id="mfsd-2">2</div>
+    <div class="mf-step-lbl" id="mfsl-2">Input Method</div>
+    <div class="mf-step-line" id="mfsl-23"></div>
+    <div class="mf-step-dot" id="mfsd-3">3</div>
+    <div class="mf-step-lbl" id="mfsl-3">Diagnosis</div>
+  </div>
+
+  <!-- STEP 1: Crop type -->
+  <div id="mf-s1" style="padding:18px;flex:1;">
+    <p style="font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:14px;font-weight:600;">What type of crop or animal?</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="mf-crop-card" onclick="mfCrop(this,'crops')"><div class="mfc-ico">🌽</div><div class="mfc-nm">Crops</div><div class="mfc-ex">Maize, wheat, soya…</div></div>
+      <div class="mf-crop-card" onclick="mfCrop(this,'vegetables')"><div class="mfc-ico">🥦</div><div class="mfc-nm">Vegetables</div><div class="mfc-ex">Cabbage, tomato…</div></div>
+      <div class="mf-crop-card" onclick="mfCrop(this,'fruits')"><div class="mfc-ico">🍊</div><div class="mfc-nm">Fruits</div><div class="mfc-ex">Citrus, mango…</div></div>
+      <div class="mf-crop-card" onclick="mfCrop(this,'livestock')"><div class="mfc-ico">🐄</div><div class="mfc-nm">Livestock</div><div class="mfc-ex">Cattle, pasture…</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Input method (hidden until crop selected) -->
+  <div id="mf-s2" style="display:none;padding:18px;flex:1;">
+    <button style="background:none;border:none;color:rgba(255,255,255,.38);font-size:.75rem;font-weight:700;cursor:pointer;padding:0;margin-bottom:16px;" onclick="mfBackToCrop()">← Back</button>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:14px;font-weight:600;">How do you want to describe the problem?</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="mf-method-card" onclick="mfMethod('describe')">
+        <div style="font-size:2.2rem;margin-bottom:10px;">🎤</div>
+        <div style="font-size:.92rem;font-weight:800;color:white;margin-bottom:5px;">Describe</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.4);">Speak or type what you see</div>
+      </div>
+      <div class="mf-method-card" onclick="mfMethod('photo')">
+        <div style="font-size:2.2rem;margin-bottom:10px;">📷</div>
+        <div style="font-size:.92rem;font-weight:800;color:white;margin-bottom:5px;">Photo</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.4);">Take or upload a crop photo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3a: Describe (text + voice + symptom chips) -->
+  <div id="mf-s3a" style="display:none;padding:18px;flex:1;overflow-y:auto;">
+    <button style="background:none;border:none;color:rgba(255,255,255,.38);font-size:.75rem;font-weight:700;cursor:pointer;padding:0;margin-bottom:14px;" onclick="mfBackToMethod()">← Back</button>
+    <!-- Language bar -->
+    <div class="lang-bar" style="margin-bottom:16px;">
+      <span class="lang-bar-lbl">🌍 Language:</span>
+      <select id="mf-voice-lang" class="lang-sel">
+        <option value="en-ZA">🇿🇦 English (SA)</option>
+        <option value="zu-ZA">🇿🇦 isiZulu</option>
+        <option value="xh-ZA">🇿🇦 isiXhosa</option>
+        <option value="st-ZA">🇿🇦 Sesotho</option>
+        <option value="tn-ZA">🇿🇦 Setswana</option>
+        <option value="ts-ZA">🇿🇦 Xitsonga</option>
+        <option value="af-ZA">🇿🇦 Afrikaans</option>
+        <option value="sn">🇿🇼 ChiShona</option>
+        <option value="nd">🇿🇼 isiNdebele</option>
+        <option value="sw">🌍 Kiswahili</option>
+        <option value="ny">🇲🇼 Chichewa</option>
+        <option value="pt-MZ">🇲🇿 Português</option>
+        <option value="fr">🌍 Français</option>
+      </select>
+    </div>
+    <!-- Quick symptom chips -->
+    <p style="font-size:.72rem;color:rgba(255,255,255,.38);margin-bottom:10px;font-weight:600;">TAP what you see:</p>
+    <div id="mf-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+      <button class="mf-chip" onclick="mfToggleChip(this,'yellowing leaves')">🟡 Yellow leaves</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'stunted growth')">📉 Small / stunted</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'leaf spots or lesions')">🔴 Spots / lesions</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'wilting')">🥀 Wilting / drooping</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'poor grain fill')">📦 Poor grain fill</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'pest damage or frass')">🐛 Pest / worm damage</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'nutrient deficiency symptoms')">⚗️ Pale / nutrient poor</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'lodging or stem weakness')">💨 Falling over</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'white powdery coating')">⬜ White powder</button>
+      <button class="mf-chip" onclick="mfToggleChip(this,'brown spots or rot')">🟫 Brown spots / rot</button>
+    </div>
+    <!-- Voice textarea -->
+    <div class="voice-input-row" style="margin-bottom:14px;">
+      <textarea id="mf-obs-text" class="adv-textarea" placeholder="Or speak / type what you see… e.g. 'The leaves are turning yellow from the bottom and the plant looks small'"></textarea>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <button class="mic-btn" id="mf-mic-btn" onclick="startVoiceMF()" title="Tap to speak">🎤</button>
+        <div class="mic-hint">Tap mic</div>
+      </div>
+    </div>
+    <div class="mic-status" id="mf-mic-status"></div>
+    <button class="scan-btn" id="mf-desc-btn" onclick="mfAnalyseDescribe()" style="margin-top:6px;">🔬 Get AI Diagnosis →</button>
+  </div>
+
+  <!-- STEP 3b: Photo upload -->
+  <div id="mf-s3b" style="display:none;padding:18px;flex:1;overflow-y:auto;">
+    <button style="background:none;border:none;color:rgba(255,255,255,.38);font-size:.75rem;font-weight:700;cursor:pointer;padding:0;margin-bottom:14px;" onclick="mfBackToMethod()">← Back</button>
+    <div class="scan-upload-zone" id="mf-drop"
+         onclick="document.getElementById('mf-fin').click()"
+         ondragover="scanDragOver(event)"
+         ondragleave="scanDragLeave(event)"
+         ondrop="mfScanDrop(event)">
+      <input type="file" id="mf-fin" accept="image/*" capture="environment" style="display:none" onchange="mfLoadFile(this)">
+      <span class="su-ico">📷</span>
+      <div class="su-ttl">Take a photo or choose from gallery</div>
+      <div class="su-hint">JPG · PNG · WEBP · Max 5 MB</div>
+    </div>
+    <div class="scan-preview" id="mf-prev">
+      <img id="mf-prev-img" src="" alt="Field photo preview">
+      <span class="scan-chg" onclick="mfChangePic(event)">✏️ Change</span>
+    </div>
+    <button class="scan-btn" id="mf-photo-btn" onclick="mfAnalysePhoto()" disabled style="margin-top:14px;">
+      <span id="mf-photo-btn-txt">📷 Analyse Photo →</span>
+    </button>
+  </div>
+
+  <!-- STEP 4: Result -->
+  <div id="mf-s4" style="display:none;padding:18px;overflow-y:auto;">
+    <div id="mf-result"></div>
+    <button class="scan-reset" onclick="mfReset()" style="margin-top:14px;width:100%;text-align:center;">← New Diagnosis</button>
   </div>
 
 </div>
@@ -4241,6 +4436,13 @@ window.addEventListener('DOMContentLoaded', () => {
 //  AI FIELD ADVISOR  (mAgri-inspired 3-step interactive tool)
 // ════════════════════════════════════════════════════════════════════
 let _advCrop = null, _advCropEmoji = '', _advCropName = '';
+/* Expose for combined field page (maps category → advisor symptom db) */
+window.ADV_DB = {
+  crops:     ADV_RESPONSES.maize,     /* most common SADC staple */
+  vegetables: null,                   /* falls back to SCAN_DEMO */
+  fruits:    null,
+  livestock: null
+};
 let _advSymptoms = new Set();
 
 const ADV_RESPONSES = {
@@ -4805,76 +5007,322 @@ document.addEventListener('keydown', function(e) {
    MOBILE APP PAGE SYSTEM
    ══════════════════════════════════════════════════════════════════ */
 
-/* Tab → section IDs to show as pages */
-var _appPageMap = {
-  home:    ['mob-home'],
-  map:     ['geo'],
-  advisor: ['advisor'],
-  scanner: ['field-scan'],
-  intel:   ['market-intel'],
-  demo:    ['mob-home']   // demo = home screen + scroll to form
-};
-var _tabIds = { home:'mbt-home', map:'mbt-map', advisor:'mbt-advisor', scanner:'mbt-scanner', intel:'mbt-intel' };
+/* ═══════════════════════════════════════════════════════════════════
+   APP PAGE SYSTEM  — top-level to low-level nav
+   Hierarchy: Home (overview) → Map (regional) → Field (diagnosis)
+              → Market (prices) → Demo (commercial)
+   ═══════════════════════════════════════════════════════════════════ */
 
+var _tabIds = { home:'mbt-home', map:'mbt-map', field:'mbt-field', intel:'mbt-intel', demo:'mbt-demo' };
 var _currentPage = 'home';
 
 function showPage(name) {
   var isMobile = window.innerWidth <= 900;
 
-  /* ── Desktop: just scroll to the section ── */
+  /* ── Desktop: smooth scroll to relevant section ── */
   if (!isMobile) {
-    var destMap = { map:'geo', advisor:'advisor', scanner:'field-scan', intel:'market-intel', demo:'demo' };
-    var destId = destMap[name] || name;
-    var el = document.getElementById(destId);
+    var destMap = { home:'hero', map:'geo', field:'advisor', intel:'market-intel', demo:'demo' };
+    var el = document.getElementById(destMap[name] || name);
     if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
     return;
   }
 
-  /* ── Mobile: full-screen page switch ── */
   _currentPage = name;
 
   /* 1. Hide home screen */
   var homeEl = document.getElementById('mob-home');
   if (homeEl) homeEl.classList.toggle('mob-hidden', name !== 'home');
 
-  /* 2. Remove mob-page-on from all sections */
-  document.querySelectorAll('.mob-page-on').forEach(function(s) {
-    s.classList.remove('mob-page-on');
+  /* 2. Hide combined field page */
+  var fieldEl = document.getElementById('mob-field');
+  if (fieldEl) fieldEl.classList.toggle('mob-page-on', name === 'field');
+
+  /* 3. Remove mob-page-on from all other elements */
+  document.querySelectorAll('.mob-page-on:not(#mob-field)').forEach(function(s) {
+    if (s.id !== 'mob-field') s.classList.remove('mob-page-on');
   });
 
-  /* 3. Show target section(s) */
-  if (name !== 'home') {
-    var ids = _appPageMap[name] || [];
-    ids.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.classList.add('mob-page-on');
-        /* Scroll each page to top when opened */
-        el.scrollTop = 0;
-      }
-    });
+  /* 4. Show target section for map / intel */
+  var sectionMap = { map:'geo', intel:'market-intel' };
+  if (sectionMap[name]) {
+    var secEl = document.getElementById(sectionMap[name]);
+    if (secEl) { secEl.classList.add('mob-page-on'); secEl.scrollTop = 0; }
   }
 
-  /* 4. Special: map needs resize */
+  /* 5. Map resize */
   if (name === 'map' && window._sadcMap) {
-    setTimeout(function() { window._sadcMap.invalidateSize(); }, 100);
+    setTimeout(function() { window._sadcMap.invalidateSize(); }, 120);
   }
 
-  /* 5. Demo tab → show home, scroll to form */
+  /* 6. Demo: show home + scroll to CTA */
   if (name === 'demo') {
     if (homeEl) homeEl.classList.remove('mob-hidden');
+    if (fieldEl) fieldEl.classList.remove('mob-page-on');
+    document.querySelectorAll('.mob-page-on').forEach(function(s) { s.classList.remove('mob-page-on'); });
     setTimeout(function() {
       var cta = document.querySelector('.mob-demo-cta');
       if (cta) cta.scrollIntoView({ behavior:'smooth', block:'center' });
-    }, 100);
-    name = 'home'; /* treat as home for tab highlight */
+    }, 120);
+    name = 'home';
   }
 
-  /* 6. Update tab highlight */
+  /* 7. Highlight active tab */
   Object.keys(_tabIds).forEach(function(k) {
     var el = document.getElementById(_tabIds[k]);
-    if (el) el.classList.toggle('mt-on', k === name);
+    if (el) el.classList.toggle('mt-on', k === (name === 'demo' ? 'home' : name));
   });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   COMBINED FIELD DIAGNOSIS  (mobile only)
+   ═══════════════════════════════════════════════════════════════════ */
+
+var _mfCrop = null;
+var _mfMethod = null;
+var _mfChips = [];
+var _mfImgB64 = null;
+
+function _mfStep(n) {
+  [1,2,3].forEach(function(i) {
+    var dot = document.getElementById('mfsd-' + i);
+    var lbl = document.getElementById('mfsl-' + i);
+    if (!dot) return;
+    if (i < n)      { dot.className = 'mf-step-dot mfsd-done'; lbl.className = 'mf-step-lbl mfsl-done'; }
+    else if (i === n){ dot.className = 'mf-step-dot mfsd-on';   lbl.className = 'mf-step-lbl mfsl-on'; }
+    else            { dot.className = 'mf-step-dot';             lbl.className = 'mf-step-lbl'; }
+  });
+  var l12 = document.getElementById('mfsl-12');
+  var l23 = document.getElementById('mfsl-23');
+  if (l12) l12.className = 'mf-step-line' + (n > 1 ? ' mfsl-done' : '');
+  if (l23) l23.className = 'mf-step-line' + (n > 2 ? ' mfsl-done' : '');
+}
+
+function _mfShow(sId) {
+  ['mf-s1','mf-s2','mf-s3a','mf-s3b','mf-s4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = id === sId ? '' : 'none';
+  });
+}
+
+function mfCrop(el, cat) {
+  _mfCrop = cat;
+  document.querySelectorAll('.mf-crop-card').forEach(function(c) { c.classList.remove('mfc-on'); });
+  if (el) el.classList.add('mfc-on');
+  setTimeout(function() { _mfShow('mf-s2'); _mfStep(2); }, 150);
+}
+
+function mfBackToCrop() {
+  _mfMethod = null; _mfChips = []; _mfImgB64 = null;
+  _mfShow('mf-s1'); _mfStep(1);
+}
+
+function mfMethod(method) {
+  _mfMethod = method;
+  _mfStep(3);
+  if (method === 'describe') {
+    _mfShow('mf-s3a');
+    document.getElementById('mf-obs-text').value = '';
+    _mfChips = [];
+    document.querySelectorAll('.mf-chip').forEach(function(c) { c.classList.remove('mfc-sel'); });
+  } else {
+    _mfShow('mf-s3b');
+    _mfImgB64 = null;
+    document.getElementById('mf-prev').style.display = 'none';
+    document.getElementById('mf-drop').style.display = 'block';
+    document.getElementById('mf-photo-btn').disabled = true;
+    document.getElementById('mf-photo-btn-txt').textContent = '📷 Analyse Photo →';
+  }
+}
+
+function mfBackToMethod() { _mfShow('mf-s2'); _mfStep(2); }
+
+function mfToggleChip(el, val) {
+  el.classList.toggle('mfc-sel');
+  var idx = _mfChips.indexOf(val);
+  if (idx >= 0) _mfChips.splice(idx, 1);
+  else _mfChips.push(val);
+}
+
+/* ── Voice for combined field ── */
+function startVoiceMF() {
+  var langEl = document.getElementById('mf-voice-lang');
+  if (langEl) document.getElementById('voice-lang') && (document.getElementById('voice-lang').value = langEl.value);
+  /* Temporarily swap lang selector reference then call shared startVoice */
+  var origLang = document.getElementById('voice-lang');
+  if (origLang && langEl) origLang.value = langEl.value;
+  startVoice('mf-obs-text', 'mf-mic-btn');
+  /* wire status to mf-mic-status */
+}
+
+/* ── Describe → diagnose ── */
+function mfAnalyseDescribe() {
+  var text = (document.getElementById('mf-obs-text') || {}).value || '';
+  var combined = _mfChips.join(', ') + (text ? ((_mfChips.length ? '. ' : '') + text) : '');
+  if (!combined.trim()) { alert('Please tap what you see or type/speak a description first.'); return; }
+
+  _mfShow('mf-s4');
+  document.getElementById('mf-result').innerHTML =
+    '<div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,.4);">' +
+    '<div class="scan-spinner" style="width:32px;height:32px;border-width:3px;margin:0 auto 16px;"></div>' +
+    '<div style="font-size:.82rem;">Analysing your field…</div></div>';
+
+  /* Use the existing advisor logic + render */
+  var cat = _mfCrop || 'crops';
+  var lower = combined.toLowerCase();
+  var advData = window.ADV_DB && window.ADV_DB[cat];
+  var result = null;
+  if (advData) {
+    var keys = Object.keys(advData);
+    for (var i = 0; i < keys.length; i++) {
+      if (lower.indexOf(keys[i]) >= 0) { result = advData[keys[i]]; break; }
+    }
+  }
+
+  setTimeout(function() {
+    if (result) {
+      /* Map advisor result to scan result format */
+      var mapped = {
+        condition: result.diag || result.condition,
+        severity: (result.severity || 'moderate').replace(/high/,'severe').replace(/medium/,'moderate'),
+        description: result.rationale || result.description || combined,
+        cause: null,
+        urgency: result.sev_lbl ? 'Severity: ' + result.sev_lbl + '. Recommended action window: ' + (result.action || '—') : null,
+        product: result.product,
+        rate: result.rate,
+        timing: result.timing,
+        how_to_apply: null,
+        roi: result.roi,
+        conf: parseFloat(result.conf) / 100 || 0.82,
+        demo: true
+      };
+      mfShowResult(mapped);
+    } else {
+      /* Fall back to SCAN_DEMO for the category */
+      var demo = Object.assign({}, SCAN_DEMO[cat] || SCAN_DEMO.crops, { demo: true });
+      mfShowResult(demo);
+    }
+  }, 900);
+}
+
+/* ── Photo → diagnose ── */
+function mfLoadFile(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    /* Show preview */
+    var prev = document.getElementById('mf-prev');
+    var prevImg = document.getElementById('mf-prev-img');
+    var drop = document.getElementById('mf-drop');
+    if (prev && prevImg) { prevImg.src = e.target.result; prev.style.display = 'block'; }
+    if (drop) drop.style.display = 'none';
+    /* Resize to ≤800px via canvas */
+    var img = new Image();
+    img.onload = function() {
+      var MAX = 800;
+      var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+      var canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      var b64 = canvas.toDataURL('image/jpeg', 0.82).split(',')[1];
+      _mfImgB64 = b64;
+      document.getElementById('mf-photo-btn').disabled = false;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function mfScanDrop(e) {
+  e.preventDefault();
+  var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) { var fin = document.getElementById('mf-fin'); fin.files = e.dataTransfer.files; mfLoadFile(fin); }
+  var dz = document.getElementById('mf-drop');
+  if (dz) dz.classList.remove('su-drag');
+}
+
+function mfChangePic(e) {
+  e.stopPropagation();
+  _mfImgB64 = null;
+  document.getElementById('mf-prev').style.display = 'none';
+  document.getElementById('mf-drop').style.display = 'block';
+  document.getElementById('mf-photo-btn').disabled = true;
+  var fin = document.getElementById('mf-fin'); if (fin) fin.value = '';
+}
+
+function mfAnalysePhoto() {
+  if (!_mfImgB64) return;
+  _mfShow('mf-s4');
+  document.getElementById('mf-result').innerHTML =
+    '<div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,.4);">' +
+    '<div class="scan-spinner" style="width:32px;height:32px;border-width:3px;margin:0 auto 16px;"></div>' +
+    '<div style="font-size:.82rem;">AI is analysing your photo…</div></div>';
+
+  fetch('/api/photo-diagnose', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ category: _mfCrop || 'crops', image_data: _mfImgB64 })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) { mfShowResult(data); })
+  .catch(function() {
+    var demo = Object.assign({}, SCAN_DEMO[_mfCrop || 'crops'] || SCAN_DEMO.crops, { demo: true });
+    mfShowResult(demo);
+  });
+}
+
+/* ── Shared result renderer for combined field ── */
+function mfShowResult(d) {
+  /* Reuse scanRenderResult logic but write to mf-result */
+  var sevMap = {
+    mild:     { cls:'sev-mild',     lbl:'🟢 Mild' },
+    moderate: { cls:'sev-moderate', lbl:'🟡 Moderate' },
+    severe:   { cls:'sev-severe',   lbl:'🔴 Severe' },
+    critical: { cls:'sev-critical', lbl:'🚨 Critical' }
+  };
+  var sev = sevMap[(d.severity||'').toLowerCase()] || sevMap.moderate;
+  var confPct = Math.round((d.conf || d.confidence || 0.80) * 100);
+  var isDemo  = d.demo === true;
+
+  function blk(ico, lbl, txt, bg, bdr) {
+    if (!txt) return '';
+    return '<div style="margin-bottom:13px;padding:13px 15px;background:' + (bg||'rgba(255,255,255,.04)') + ';border-radius:12px;border:1px solid ' + (bdr||'rgba(255,255,255,.07)') + ';">' +
+      '<div style="font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.35);margin-bottom:7px;">' + ico + ' ' + lbl + '</div>' +
+      '<div style="font-size:.8rem;color:rgba(255,255,255,.78);line-height:1.75;">' + txt + '</div>' +
+    '</div>';
+  }
+
+  var html =
+    '<div class="scan-res-hd"><div>' +
+      '<div class="scan-res-ht">' + (d.condition||'Diagnosis') + '</div>' +
+      '<div class="scan-res-sub">AI Field Diagnosis · ' + (_mfCrop||'Field') + '</div>' +
+    '</div><span class="scan-sev ' + sev.cls + '">' + sev.lbl + '</span></div>' +
+    '<div class="scan-res-body">' +
+      blk('👁️','What You Are Seeing', d.description, 'rgba(255,255,255,.03)', 'rgba(255,255,255,.07)') +
+      blk('🔍','What Is Causing It', d.cause, 'rgba(59,130,246,.06)', 'rgba(59,130,246,.12)') +
+      (d.urgency ? '<div style="margin-bottom:13px;padding:12px 15px;background:rgba(239,68,68,.07);border-radius:12px;border:1px solid rgba(239,68,68,.18);"><div style="font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#f87171;margin-bottom:7px;">⚠️ ACT NOW</div><div style="font-size:.8rem;color:rgba(255,255,255,.78);line-height:1.75;">' + d.urgency + '</div></div>' : '') +
+      '<div style="margin-bottom:13px;padding:14px 15px;background:rgba(16,185,129,.08);border-radius:12px;border:1px solid rgba(16,185,129,.2);"><div style="font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--emerald);margin-bottom:9px;">⚡ YOUR OMNIA SOLUTION</div>' +
+        '<div style="font-size:.95rem;font-weight:900;color:white;margin-bottom:5px;">' + (d.product||'—') + '</div>' +
+        '<div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:4px;line-height:1.5;">📐 ' + (d.rate||'—') + '</div>' +
+        '<div style="font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.5;">🕐 ' + (d.timing||'—') + '</div>' +
+      '</div>' +
+      blk('📋','How To Apply — Step By Step', d.how_to_apply ? d.how_to_apply.replace(/\n/g,'<br>') : null, 'rgba(124,58,237,.06)', 'rgba(124,58,237,.15)') +
+      (d.roi ? '<div style="margin-bottom:13px;padding:12px 15px;background:rgba(245,158,11,.07);border-radius:12px;border:1px solid rgba(245,158,11,.18);"><div style="font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#fbbf24;margin-bottom:7px;">💰 YOUR PROFIT PROTECTION</div><div style="font-size:.8rem;color:rgba(255,255,255,.78);line-height:1.75;">' + d.roi + '</div></div>' : '') +
+      '<div class="scan-res-ft"><span class="scan-conf">AI Confidence: ' + confPct + '%</span>' +
+        '<span class="scan-src-badge ' + (isDemo?'scan-src-demo':'scan-src-live') + '">' + (isDemo?'⚡ Demo':'🛰 Live AI') + '</span>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('mf-result').innerHTML = html;
+}
+
+function mfReset() {
+  _mfCrop = null; _mfMethod = null; _mfChips = []; _mfImgB64 = null;
+  document.querySelectorAll('.mf-crop-card').forEach(function(c) { c.classList.remove('mfc-on'); });
+  document.querySelectorAll('.mf-chip').forEach(function(c) { c.classList.remove('mfc-sel'); });
+  var ta = document.getElementById('mf-obs-text'); if (ta) ta.value = '';
+  _mfShow('mf-s1'); _mfStep(1);
 }
 
 /* ── Time-based greeting ─────────────────────────────────────────── */
@@ -4950,6 +5398,7 @@ function pwaDismiss() {
 </script>
 
 <!-- ── Bottom tab bar (mobile app nav) ── -->
+<!-- Bottom tab bar: Home → Map → Field → Market → Demo (top to low level) -->
 <div class="mob-tab-bar" id="mob-tab-bar" role="tablist">
   <button class="mob-tab mt-on" id="mbt-home" onclick="showPage('home')" role="tab" aria-label="Home" style="position:relative;">
     <span class="mob-tab-ico">🏠</span>
@@ -4961,19 +5410,19 @@ function pwaDismiss() {
     <span class="mob-tab-lbl">Map</span>
     <span class="mob-tab-pip"></span>
   </button>
-  <button class="mob-tab" id="mbt-advisor" onclick="showPage('advisor')" role="tab" aria-label="Advisor" style="position:relative;">
-    <span class="mob-tab-ico">🔬</span>
-    <span class="mob-tab-lbl">Advisor</span>
-    <span class="mob-tab-pip"></span>
-  </button>
-  <button class="mob-tab" id="mbt-scanner" onclick="showPage('scanner')" role="tab" aria-label="Scanner" style="position:relative;">
-    <span class="mob-tab-ico">📷</span>
-    <span class="mob-tab-lbl">Scanner</span>
+  <button class="mob-tab" id="mbt-field" onclick="showPage('field')" role="tab" aria-label="Field" style="position:relative;">
+    <span class="mob-tab-ico">🌿</span>
+    <span class="mob-tab-lbl">Field</span>
     <span class="mob-tab-pip"></span>
   </button>
   <button class="mob-tab" id="mbt-intel" onclick="showPage('intel')" role="tab" aria-label="Market" style="position:relative;">
     <span class="mob-tab-ico">📊</span>
     <span class="mob-tab-lbl">Market</span>
+    <span class="mob-tab-pip"></span>
+  </button>
+  <button class="mob-tab" id="mbt-demo" onclick="showPage('demo')" role="tab" aria-label="Demo" style="position:relative;">
+    <span class="mob-tab-ico">📩</span>
+    <span class="mob-tab-lbl">Demo</span>
     <span class="mob-tab-pip"></span>
   </button>
 </div>
