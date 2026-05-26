@@ -74,8 +74,8 @@
     .brand-name { font-size: 1.25rem; font-weight: 900; letter-spacing: -.03em; color: white; }
     .brand-name em { color: var(--emerald); font-style: normal; }
     .brand-sub { font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-top: 1px; }
-    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,.6); font-size: .85rem; font-weight: 500; transition: color .2s; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.55); font-size: .88rem; font-weight: 600; transition: color .2s; letter-spacing: -.01em; }
     .nav-links a:hover, .nav-links a.on { color: white; }
     .nav-links a.on { font-weight: 700; }
     .nav-demo { background: var(--emerald) !important; color: white !important; padding: 8px 20px; border-radius: 8px; font-weight: 700 !important; transition: background .2s !important; }
@@ -1596,17 +1596,10 @@
     </div>
   </div>
   <ul class="nav-links">
-    <li><a href="#consequence">Consequence Models</a></li>
-    <li><a href="#stack">Decision Stack</a></li>
-    <li><a href="#geo" class="on">SADC Map</a></li>
-    <li><a href="#agents">AI Agents</a></li>
-    <li><a href="#advisor">Field Advisor</a></li>
-    <li><a href="#knowledge">Intel Hub</a></li>
-    <li><a href="#field-scan">Field Scanner</a></li>
+    <li><a href="#geo">Map</a></li>
+    <li><a href="#advisor">Field</a></li>
+    <li><a href="#market-intel">Market</a></li>
     <li><a href="#omnia-ai">For Omnia</a></li>
-    <li><a href="#market-intel">Market Intel</a></li>
-    <li><a href="#opportunities">Opportunities</a></li>
-    <li><a href="#newsfeed">News Feed</a></li>
     <li><a href="#demo" class="nav-demo">Book Demo</a></li>
   </ul>
   <!-- Hamburger (mobile) -->
@@ -1631,19 +1624,15 @@
     <button class="mob-close" onclick="closeMobMenu()" aria-label="Close menu">✕</button>
   </div>
   <nav class="mob-drawer-links">
-    <a href="#geo" onclick="closeMobMenu()"><span class="mdl-ico">🌍</span>SADC Map</a>
-    <a href="#agents" onclick="closeMobMenu()"><span class="mdl-ico">🤖</span>AI Agents</a>
-    <a href="#advisor" onclick="closeMobMenu()"><span class="mdl-ico">🔬</span>Field Advisor</a>
-    <a href="#field-scan" onclick="closeMobMenu()"><span class="mdl-ico">📷</span>Field Scanner</a>
-    <hr class="mob-drawer-sep">
-    <a href="#market-intel" onclick="closeMobMenu()"><span class="mdl-ico">📊</span>Market Intel</a>
-    <a href="#opportunities" onclick="closeMobMenu()"><span class="mdl-ico">💡</span>Opportunities</a>
-    <a href="#knowledge" onclick="closeMobMenu()"><span class="mdl-ico">📚</span>Intel Hub</a>
-    <a href="#newsfeed" onclick="closeMobMenu()"><span class="mdl-ico">📰</span>News Feed</a>
-    <hr class="mob-drawer-sep">
+    <a href="#geo" onclick="closeMobMenu();showPage('map')"><span class="mdl-ico">🌍</span>Map</a>
+    <a href="#" onclick="closeMobMenu();showPage('field')"><span class="mdl-ico">🌿</span>Field Diagnosis</a>
+    <a href="#market-intel" onclick="closeMobMenu();showPage('intel')"><span class="mdl-ico">📊</span>Market Intel</a>
     <a href="#omnia-ai" onclick="closeMobMenu()"><span class="mdl-ico">🏢</span>For Omnia</a>
+    <hr class="mob-drawer-sep">
     <a href="#consequence" onclick="closeMobMenu()"><span class="mdl-ico">⚡</span>Consequence Models</a>
-    <a href="#stack" onclick="closeMobMenu()"><span class="mdl-ico">🗂️</span>Decision Stack</a>
+    <a href="#knowledge" onclick="closeMobMenu()"><span class="mdl-ico">📚</span>Intel Hub</a>
+    <a href="#opportunities" onclick="closeMobMenu()"><span class="mdl-ico">💡</span>Opportunities</a>
+    <a href="#newsfeed" onclick="closeMobMenu()"><span class="mdl-ico">📰</span>News Feed</a>
   </nav>
   <a href="#demo" class="mob-drawer-cta" onclick="closeMobMenu()">📩 Book Omnia Executive Demo</a>
 </div>
