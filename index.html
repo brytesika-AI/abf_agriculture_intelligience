@@ -2124,27 +2124,17 @@
     <div class="inner">
       <div class="ems-header-grid">
         <div>
-          <div class="sl inv" style="color:#60a5fa;margin-bottom:10px">🛰️ Live Geospatial Intelligence</div>
-          <h2 class="st inv" style="margin-bottom:12px">The entire SADC in one view.<br><span style="color:#60a5fa">Click any country to drill through.</span></h2>
-          <p class="ss inv">Satellite-derived field intelligence across all 16 SADC member states — stress detection, revenue opportunity sizing, and Omnia product recommendations. Click any country or pulsing opportunity zone for full intelligence.</p>
+          <div class="sl inv" style="color:#60a5fa;margin-bottom:10px">🌍 SADC Field Map</div>
+          <h2 class="st inv" style="margin-bottom:12px">See what's happening<br><span style="color:#60a5fa">across SADC — tap any country.</span></h2>
+          <p class="ss inv">Active crop alerts, recommended Omnia products, and revenue opportunities — click any country for details.</p>
         </div>
         <div class="ems-header-kpis">
-          <div class="ems-kpi"><div class="ems-kpi-val" style="color:var(--gold)">R2.3B</div><div class="ems-kpi-lbl">Addressable TAM</div></div>
-          <div class="ems-kpi"><div class="ems-kpi-val" style="color:var(--emerald)">4,287</div><div class="ems-kpi-lbl">Fields Monitored</div></div>
-          <div class="ems-kpi"><div class="ems-kpi-val" style="color:#60a5fa">16</div><div class="ems-kpi-lbl">SADC Countries</div></div>
-          <div class="ems-kpi"><div class="ems-kpi-val" style="color:#f87171">142</div><div class="ems-kpi-lbl">Active Alerts</div></div>
+          <div class="ems-kpi"><div class="ems-kpi-val" style="color:var(--gold)">R2.3B</div><div class="ems-kpi-lbl">Opportunity</div></div>
+          <div class="ems-kpi"><div class="ems-kpi-val" style="color:var(--emerald)">4,287</div><div class="ems-kpi-lbl">Fields</div></div>
+          <div class="ems-kpi"><div class="ems-kpi-val" style="color:#60a5fa">16</div><div class="ems-kpi-lbl">Countries</div></div>
+          <div class="ems-kpi"><div class="ems-kpi-val" style="color:#f87171">142</div><div class="ems-kpi-lbl">Alerts</div></div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- View mode tabs -->
-  <div class="ems-tabs-bar">
-    <div class="ems-tabs-inner">
-      <button class="emt active" data-mode="opportunity" onclick="setMapMode('opportunity')">💰 Revenue Opportunity</button>
-      <button class="emt" data-mode="stress" onclick="setMapMode('stress')">⚠️ Crop Stress</button>
-      <button class="emt" data-mode="demand" onclick="setMapMode('demand')">📦 Product Demand</button>
-      <button class="emt" data-mode="coverage" onclick="setMapMode('coverage')">🗺️ Full Coverage</button>
     </div>
   </div>
 
@@ -2744,426 +2734,108 @@
   </div>
 </section>
 
-<!-- ═══════════════════ MARKET INTELLIGENCE EXECUTIVE DASHBOARD -->
+<!-- ═══════════════════ MARKET PRICES & ALERTS -->
 <section class="s exec-dash" id="market-intel">
   <div class="inner">
     <div class="sh">
-      <div class="sl">Executive Market Intelligence</div>
-      <h2 class="st">SADC Fertilizer Industry —<br><span style="color:var(--gold)">Competitive Landscape &amp; Strategic Opportunity</span></h2>
-      <p class="ss">Real data from public annual reports, JSE filings, FASA Fertilizer Reviews, and FAO statistics. No fabricated market share figures — cited per source.</p>
+      <div class="sl">Live Market</div>
+      <h2 class="st">Today's Prices &amp; Alerts</h2>
+      <p class="ss">SAFEX commodity prices updated daily — know when to sell and when to plant.</p>
     </div>
 
-    <!-- DASHBOARD CHROME HEADER -->
-    <div class="dash-chrome">
-      <div class="dash-chrome-title">
-        <div class="dash-live-dot"></div>
-        SADC Fertilizer Market Intelligence Board
-      </div>
-      <div class="dash-meta">
-        <span>Period: <b>FY2023/24</b></span>
-        <span>Coverage: <b>16 SADC States</b></span>
-        <span>Players: <b>4 major + abfAgri</b></span>
-        <span class="dash-badge">📄 Real data · Annual reports</span>
-      </div>
-    </div>
+    <!-- PRICE GRID -->
+    <style>
+      .mkt-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 32px; }
+      @media(max-width:600px){ .mkt-grid { grid-template-columns: repeat(2,1fr); } }
+      .mkt-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 18px 16px; }
+      .mkt-crop { font-size: .68rem; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+      .mkt-price { font-size: 1.35rem; font-weight: 900; color: white; line-height: 1; margin-bottom: 5px; }
+      .mkt-price span { font-size: .68rem; font-weight: 600; color: rgba(255,255,255,.35); }
+      .mkt-up { font-size: .72rem; font-weight: 800; color: var(--emerald); }
+      .mkt-dn { font-size: .72rem; font-weight: 800; color: #f87171; }
+      .mkt-hint { font-size: .64rem; color: rgba(255,255,255,.28); margin-top: 4px; }
+      .mkt-alerts-title { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; color: rgba(255,255,255,.3); margin-bottom: 14px; }
+      .mkt-alert { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.04); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border-left: 3px solid; }
+      .mkt-alert.red  { border-color: #ef4444; }
+      .mkt-alert.orange { border-color: #f97316; }
+      .mkt-alert.yellow { border-color: var(--gold); }
+      .mkt-alert.green { border-color: var(--emerald); }
+      .mkt-alert-ico { font-size: 1.3rem; flex-shrink: 0; }
+      .mkt-alert-head { font-size: .82rem; font-weight: 800; color: white; line-height: 1.3; margin-bottom: 3px; }
+      .mkt-alert-sub  { font-size: .68rem; color: rgba(255,255,255,.4); line-height: 1.4; }
+    </style>
 
-    <!-- BOARD BRIEF -->
-    <div class="board-brief" style="margin-top:0;border:1px solid rgba(255,255,255,.07);border-top:none;border-radius:0 0 14px 14px;padding:20px;background:rgba(255,255,255,.02);margin-bottom:36px;">
-      <div style="display:flex;align-items:flex-start;gap:16px;">
-        <div style="background:rgba(16,185,129,.12);border-radius:9px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🌱</div>
-        <div><div style="font-size:.68rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Market Opportunity</div><div style="font-size:.88rem;font-weight:800;color:white;line-height:1.35;">SADC consumes ~3.5M tonnes/year at only 12 kg/ha intensity vs 135 kg/ha global average — the region is structurally under-fertilized.</div><div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:5px;">FASA Fertilizer Review 2023 · FAO STAT 2022</div></div>
+    <div class="mkt-grid">
+      <div class="mkt-card">
+        <div class="mkt-crop">🌽 White Maize</div>
+        <div class="mkt-price">R 3,388<span>/ton</span></div>
+        <div class="mkt-up">▲ +1.39% today</div>
+        <div class="mkt-hint">Good time to sell</div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:16px;">
-        <div style="background:rgba(245,158,11,.12);border-radius:9px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🏭</div>
-        <div><div style="font-size:.68rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Omnia vs The Rest</div><div style="font-size:.88rem;font-weight:800;color:white;line-height:1.35;">Omnia Holdings (R14.3B, JSE: OMN) is SA's benchmark — the integrated leader. Yara, Foskor &amp; ICL follow. Not one deploys consequence-aware field AI or SKU-level ROI recommendation.</div><div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:5px;">Annual Reports: Omnia 2024 · Yara 2023 · ICL 2023 · IDC 2023</div></div>
+      <div class="mkt-card">
+        <div class="mkt-crop">🟡 Yellow Maize</div>
+        <div class="mkt-price">R 3,290<span>/ton</span></div>
+        <div class="mkt-up">▲ +1.29% today</div>
+        <div class="mkt-hint">Strong demand</div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:16px;">
-        <div style="background:rgba(59,130,246,.12);border-radius:9px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">⚡</div>
-        <div><div style="font-size:.68rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Strategic White Space</div><div style="font-size:.88rem;font-weight:800;color:white;line-height:1.35;">0 of 4 major SADC producers offer consequence modelling or SKU-level AI recommendation. abfAgri is positioned as the intelligence layer across all 16 SADC countries.</div><div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:5px;">Verified from company digital product inventories · 2024</div></div>
+      <div class="mkt-card">
+        <div class="mkt-crop">🫘 Soybean</div>
+        <div class="mkt-price">R 6,935<span>/ton</span></div>
+        <div class="mkt-dn">▼ −0.64% today</div>
+        <div class="mkt-hint">Watch before selling</div>
       </div>
-    </div>
-
-    <!-- MARKET KPIs -->
-    <div class="kpi-strip">
-      <div class="kpi-card kc-e">
-        <div class="kpi-n e">~3.5M t</div>
-        <div class="kpi-l">SADC region annual fertilizer consumption</div>
-        <div class="kpi-src">FASA Fertilizer Review 2023 · FAO STAT 2022</div>
+      <div class="mkt-card">
+        <div class="mkt-crop">🌾 Wheat</div>
+        <div class="mkt-price">R 5,480<span>/ton</span></div>
+        <div class="mkt-up">▲ +0.55% today</div>
+        <div class="mkt-hint">Recovering</div>
       </div>
-      <div class="kpi-card kc-g">
-        <div class="kpi-n g">12 kg/ha</div>
-        <div class="kpi-l">SADC avg vs 135 kg/ha global — structurally under-served market</div>
-        <div class="kpi-src">FAO World Fertilizer Trends &amp; Outlook 2022</div>
+      <div class="mkt-card">
+        <div class="mkt-crop">🌻 Sunflower</div>
+        <div class="mkt-price">R 8,720<span>/ton</span></div>
+        <div class="mkt-dn">▼ −0.91% today</div>
+        <div class="mkt-hint">Hold if possible</div>
       </div>
-      <div class="kpi-card kc-b">
-        <div class="kpi-n b">R14.3B</div>
-        <div class="kpi-l">Omnia Holdings FY2024 group revenue — SA's largest domestic fertilizer producer</div>
-        <div class="kpi-src">Omnia Holdings Annual Report 2024 (JSE: OMN)</div>
-      </div>
-      <div class="kpi-card kc-v">
-        <div class="kpi-n v">~4.2%</div>
-        <div class="kpi-l">SADC fertilizer market projected CAGR through 2028</div>
-        <div class="kpi-src">IFA Medium-Term Fertilizer Outlook 2023–2027</div>
-      </div>
-    </div>
-
-    <!-- REVENUE SCALE -->
-    <div class="rev-section">
-      <div class="rev-title">
-        <span>Annual Revenue — Public Filings &amp; Annual Reports</span>
-        <span class="rev-badge">Real data only · Sources cited per company</span>
-      </div>
-
-      <div class="rev-row">
-        <div class="rev-co">
-          <div class="rev-icon" style="background:#1d6f42">O</div>
-          <div><div class="rev-name">Omnia Holdings</div><div class="rev-type">JSE: OMN · SA domestic producer</div></div>
-        </div>
-        <div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#1d6f42,#22c55e)">
-              <span>Agriculture segment R8.9B · Total group R14.3B · Operates across SADC</span>
-            </div>
-          </div>
-        </div>
-        <div class="rev-meta"><div class="rev-val">R14.3B</div><div class="rev-sub">FY2024 · Annual Report</div></div>
-      </div>
-
-      <div class="rev-row">
-        <div class="rev-co">
-          <div class="rev-icon" style="background:#b45309">F</div>
-          <div><div class="rev-name">Foskor (Pty) Ltd</div><div class="rev-type">IDC-owned · SA phosphate specialist</div></div>
-        </div>
-        <div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:30%;background:linear-gradient(90deg,#92400e,#f59e0b)">
-              <span>Phosphate producer — Phalaborwa mine + Richards Bay plant</span>
-            </div>
-          </div>
-        </div>
-        <div class="rev-meta"><div class="rev-val">~R4.2B</div><div class="rev-sub">FY2022/23 · IDC portfolio</div></div>
-      </div>
-
-      <div class="rev-row">
-        <div class="rev-co">
-          <div class="rev-icon" style="background:#003087">Y</div>
-          <div><div class="rev-name">Yara International</div><div class="rev-type">Oslo: YAR · Global MNC in SADC</div></div>
-        </div>
-        <div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:87%;background:linear-gradient(90deg,#003087,#3b82f6)">
-              <span>Global NOK 130.3B (~$12.4B) · SADC portion not separately reported</span>
-            </div>
-          </div>
-        </div>
-        <div class="rev-meta"><div class="rev-val">$12.4B</div><div class="rev-sub">2023 Global · Annual Report</div></div>
-      </div>
-
-      <div class="rev-row">
-        <div class="rev-co">
-          <div class="rev-icon" style="background:#0070b9">I</div>
-          <div><div class="rev-name">ICL Group</div><div class="rev-type">NYSE: ICL · Specialty global</div></div>
-        </div>
-        <div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:55%;background:linear-gradient(90deg,#0070b9,#38bdf8)">
-              <span>Global $6.8B · SA presence via specialty fertilizer range</span>
-            </div>
-          </div>
-        </div>
-        <div class="rev-meta"><div class="rev-val">$6.8B</div><div class="rev-sub">2023 Global · Annual Report</div></div>
-      </div>
-
-      <div class="rev-note">⚠ Notes: Omnia and Foskor revenues are South Africa–reported figures. Yara and ICL are global multinationals — SADC represents a subset of their total revenue; Africa segments are not separately disclosed. Bar widths show global revenue scale only, not SADC market share. Sources: Omnia Holdings Annual Report 2024 (JSE SENS); Foskor via IDC Annual Report 2023; Yara International Annual Report 2023 (Oslo Børs); ICL Group Annual Report 2023 (NYSE/TASE filing).</div>
-    </div>
-
-    <!-- COMPETITOR SCORECARDS -->
-    <div class="matrix-label" style="margin-bottom:14px;">Competitor Intelligence — Capability Profiles (sourced from public annual reports)</div>
-    <div class="score-grid">
-
-      <!-- Omnia — Market Leader -->
-      <div class="score-card" style="border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.04);">
-        <div class="sc-head" style="border-color:rgba(245,158,11,.15);">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-            <div class="sc-icon" style="background:#1d6f42">O</div>
-            <span style="font-size:.57rem;font-weight:700;background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.3);padding:2px 7px;border-radius:4px;white-space:nowrap;">★ SADC Market Leader</span>
-          </div>
-          <div class="sc-name">Omnia Holdings</div>
-          <div class="sc-hq">JSE: OMN · Johannesburg, RSA</div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-row"><span class="sc-k">Revenue (FY2024)</span><span class="sc-g">R14.3B</span></div>
-          <div class="sc-row"><span class="sc-k">Agri segment</span><span class="sc-g">R8.9B</span></div>
-          <div class="sc-row"><span class="sc-k">N · P · K · Specialty</span><span class="sc-g">✓ ✓ ✓ ✓</span></div>
-          <div class="sc-row"><span class="sc-k">SA manufacturing</span><span class="sc-g">Yes (Sasolburg)</span></div>
-          <div class="sc-row"><span class="sc-k">SADC countries</span><span class="sc-y">8 active</span></div>
-          <div class="sc-row"><span class="sc-k">Consequence AI</span><span class="sc-r">None</span></div>
-          <div class="sc-row"><span class="sc-k">Field-level SKU rec.</span><span class="sc-r">None</span></div>
-        </div>
-        <div class="sc-score-wrap">
-          <div class="sc-score-hdr">
-            <span class="sc-score-lbl">Digital Readiness</span>
-            <span class="sc-score-val" style="color:#f87171">2 / 10</span>
-          </div>
-          <div class="sc-bar-track"><div class="sc-bar-fill" style="width:20%;background:#ef4444;"></div></div>
-        </div>
-      </div>
-
-      <!-- Yara -->
-      <div class="score-card">
-        <div class="sc-head">
-          <div class="sc-icon" style="background:#003087">Y</div>
-          <div class="sc-name">Yara International</div>
-          <div class="sc-hq">Oslo: YAR · Norway (global MNC)</div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-row"><span class="sc-k">Revenue (2023)</span><span class="sc-g">$12.4B global</span></div>
-          <div class="sc-row"><span class="sc-k">SADC portion</span><span class="sc-n">Not disclosed</span></div>
-          <div class="sc-row"><span class="sc-k">N · P · K · Specialty</span><span class="sc-g">✓ ✓ ✓ ✓</span></div>
-          <div class="sc-row"><span class="sc-k">SA manufacturing</span><span class="sc-r">No (importer)</span></div>
-          <div class="sc-row"><span class="sc-k">SADC countries</span><span class="sc-y">6 active</span></div>
-          <div class="sc-row"><span class="sc-k">Consequence AI</span><span class="sc-r">None</span></div>
-          <div class="sc-row"><span class="sc-k">Digital tools</span><span class="sc-y">YaraConnect (basic)</span></div>
-        </div>
-        <div class="sc-score-wrap">
-          <div class="sc-score-hdr">
-            <span class="sc-score-lbl">Digital Readiness</span>
-            <span class="sc-score-val" style="color:var(--gold)">3 / 10</span>
-          </div>
-          <div class="sc-bar-track"><div class="sc-bar-fill" style="width:30%;background:var(--gold);"></div></div>
-        </div>
-      </div>
-
-      <!-- Foskor -->
-      <div class="score-card">
-        <div class="sc-head">
-          <div class="sc-icon" style="background:#b45309">F</div>
-          <div class="sc-name">Foskor (Pty) Ltd</div>
-          <div class="sc-hq">IDC-owned SOE · Phalaborwa, RSA</div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-row"><span class="sc-k">Revenue (FY2022/23)</span><span class="sc-g">~R4.2B</span></div>
-          <div class="sc-row"><span class="sc-k">Focus</span><span class="sc-y">Phosphate only</span></div>
-          <div class="sc-row"><span class="sc-k">N · P · K · Specialty</span><span class="sc-n">– ✓ – –</span></div>
-          <div class="sc-row"><span class="sc-k">SA manufacturing</span><span class="sc-g">Yes (Richards Bay)</span></div>
-          <div class="sc-row"><span class="sc-k">SADC countries</span><span class="sc-r">2 (mainly SA)</span></div>
-          <div class="sc-row"><span class="sc-k">Consequence AI</span><span class="sc-r">None</span></div>
-          <div class="sc-row"><span class="sc-k">Field-level SKU rec.</span><span class="sc-r">None</span></div>
-        </div>
-        <div class="sc-score-wrap">
-          <div class="sc-score-hdr">
-            <span class="sc-score-lbl">Digital Readiness</span>
-            <span class="sc-score-val" style="color:#f87171">1 / 10</span>
-          </div>
-          <div class="sc-bar-track"><div class="sc-bar-fill" style="width:10%;background:#ef4444;"></div></div>
-        </div>
-      </div>
-
-      <!-- ICL -->
-      <div class="score-card">
-        <div class="sc-head">
-          <div class="sc-icon" style="background:#0070b9">I</div>
-          <div class="sc-name">ICL Group</div>
-          <div class="sc-hq">NYSE: ICL · Tel Aviv, Israel</div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-row"><span class="sc-k">Revenue (2023)</span><span class="sc-g">$6.8B global</span></div>
-          <div class="sc-row"><span class="sc-k">SADC portion</span><span class="sc-n">Not disclosed</span></div>
-          <div class="sc-row"><span class="sc-k">N · P · K · Specialty</span><span class="sc-n">– ✓ ✓ ✓</span></div>
-          <div class="sc-row"><span class="sc-k">SA manufacturing</span><span class="sc-r">No (importer)</span></div>
-          <div class="sc-row"><span class="sc-k">SADC countries</span><span class="sc-r">3 active</span></div>
-          <div class="sc-row"><span class="sc-k">Consequence AI</span><span class="sc-r">None</span></div>
-          <div class="sc-row"><span class="sc-k">Field-level SKU rec.</span><span class="sc-r">None</span></div>
-        </div>
-        <div class="sc-score-wrap">
-          <div class="sc-score-hdr">
-            <span class="sc-score-lbl">Digital Readiness</span>
-            <span class="sc-score-val" style="color:#f87171">2 / 10</span>
-          </div>
-          <div class="sc-bar-track"><div class="sc-bar-fill" style="width:20%;background:#ef4444;"></div></div>
-        </div>
-      </div>
-
-      <!-- abfAgri -->
-      <div class="score-card sc-abf">
-        <div class="sc-head" style="border-color:rgba(16,185,129,.15)">
-          <div class="sc-icon" style="background:var(--emerald)">A</div>
-          <div class="sc-name" style="color:var(--emerald)">abfAgri</div>
-          <div class="sc-hq">Intelligence layer · 16 SADC countries</div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-row"><span class="sc-k">Model</span><span class="sc-g">Intelligence layer</span></div>
-          <div class="sc-row"><span class="sc-k">Integrates</span><span class="sc-g">Any producer catalogue</span></div>
-          <div class="sc-row"><span class="sc-k">Satellite intelligence</span><span class="sc-g">Live · field-level · daily</span></div>
-          <div class="sc-row"><span class="sc-k">Intelligence engine</span><span class="sc-g">5-layer consequence stack</span></div>
-          <div class="sc-row"><span class="sc-k">SADC countries</span><span class="sc-g">All 16</span></div>
-          <div class="sc-row"><span class="sc-k">Consequence model</span><span class="sc-g">ZAR/USD quantified</span></div>
-          <div class="sc-row"><span class="sc-k">Field SKU + ROI rec.</span><span class="sc-g">Yes — per field in &lt;5s</span></div>
-        </div>
-        <div class="sc-score-wrap" style="border-color:rgba(16,185,129,.15)">
-          <div class="sc-score-hdr">
-            <span class="sc-score-lbl">Digital Readiness</span>
-            <span class="sc-score-val" style="color:var(--emerald)">9 / 10</span>
-          </div>
-          <div class="sc-bar-track"><div class="sc-bar-fill" style="width:90%;background:var(--emerald);"></div></div>
-        </div>
+      <div class="mkt-card">
+        <div class="mkt-crop">💱 USD/ZAR</div>
+        <div class="mkt-price">R 16.46</div>
+        <div class="mkt-dn">▼ −0.20% today</div>
+        <div class="mkt-hint">Rand strengthening</div>
       </div>
     </div>
 
-    <!-- COMPETITIVE POSITIONING QUADRANT + INSIGHTS -->
-    <div class="quad-section">
+    <!-- KEY ALERTS -->
+    <div class="mkt-alerts-title">⚠️ Key Alerts</div>
+
+    <div class="mkt-alert red">
+      <div class="mkt-alert-ico">🌧️</div>
       <div>
-        <div class="quad-head">Competitive Positioning Map — SADC Intelligence Readiness</div>
-        <div class="quad-chart">
-          <div class="quad-inner">
-            <div class="quad-hline"></div>
-            <div class="quad-vline"></div>
-            <!-- Quadrant labels -->
-            <div class="quad-q" style="top:6px;left:6px;">Narrow · Emerging</div>
-            <div class="quad-q" style="top:6px;right:6px;text-align:right;">Broad · Consequence-Aware</div>
-            <div class="quad-q" style="bottom:6px;left:6px;">Narrow · Traditional</div>
-            <div class="quad-q" style="bottom:6px;right:6px;text-align:right;">Broad · Traditional</div>
-            <!-- Axis labels -->
-            <div class="quad-x-lbl">SADC Geographic Reach →</div>
-            <div class="quad-y-lbl">↑ Decision Intelligence</div>
-            <!-- Players -->
-            <div class="quad-player" style="left:18%;top:88%">
-              <div class="quad-circle" style="background:#b45309;width:28px;height:28px;font-size:.65rem;">F</div>
-              <div class="quad-plbl">Foskor</div>
-            </div>
-            <div class="quad-player" style="left:33%;top:84%">
-              <div class="quad-circle" style="background:#0070b9;width:28px;height:28px;font-size:.65rem;">I</div>
-              <div class="quad-plbl">ICL Group</div>
-            </div>
-            <div class="quad-player" style="left:68%;top:80%">
-              <div class="quad-circle" style="background:#1d6f42;width:32px;height:32px;font-size:.7rem;">O</div>
-              <div class="quad-plbl">Omnia</div>
-            </div>
-            <div class="quad-player" style="left:57%;top:68%">
-              <div class="quad-circle" style="background:#003087;width:30px;height:30px;font-size:.68rem;">Y</div>
-              <div class="quad-plbl">Yara</div>
-            </div>
-            <!-- abfAgri — top right -->
-            <div class="quad-player" style="left:83%;top:13%">
-              <div class="quad-circle abf" style="background:var(--emerald);">A</div>
-              <div class="quad-plbl" style="color:var(--emerald);font-weight:800;">abfAgri ✦</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="quad-insights">
-        <div class="qi">
-          <div class="qi-tag" style="color:var(--gold);">⚡ Strategic Insight 1</div>
-          <h5>Incumbents cluster in the low-intelligence zone</h5>
-          <p>Omnia and Yara have broad SADC distribution but operate with traditional sales models — no consequence modelling, no field-level AI recommendations. Their scale is a distribution advantage, not a digital moat.</p>
-        </div>
-        <div class="qi">
-          <div class="qi-tag" style="color:#60a5fa;">📍 Strategic Insight 2</div>
-          <h5>Yara is the closest digital competitor — still far behind</h5>
-          <p>YaraConnect provides basic weather alerts and crop calendars. It does not model yield loss, quantify financial risk in ZAR, or generate SKU-specific ROI recommendations. The capability gap to abfAgri's 5-layer stack is substantial.</p>
-        </div>
-        <div class="qi">
-          <div class="qi-tag" style="color:var(--emerald);">🎯 Strategic Insight 3 — Primary Target</div>
-          <h5>Omnia is abfAgri's #1 commercial partnership target</h5>
-          <p>Omnia's R8.9B agriculture segment serves the exact farmer base abfAgri's consequence engine addresses. Licensing abfAgri into Omnia's co-op and retail network turns every agronomist visit into a ZAR-quantified consequence conversation — driving product pull-through at scale across 8 SADC countries.</p>
-        </div>
+        <div class="mkt-alert-head">SADC Drought — 68M people need food aid</div>
+        <div class="mkt-alert-sub">Demand for staple crops remains high — WFP/SADC 2026</div>
       </div>
     </div>
-
-    <!-- GEOGRAPHIC PRESENCE -->
-    <div class="matrix-label" style="margin-bottom:14px;">SADC Geographic Presence — Public Annual Reports &amp; Company Websites</div>
-    <div class="geo-presence">
-      <div class="geo-header-row">
-        <div class="gh-lbl">Company</div>
-        <div class="gh-lbl">ZA · RSA</div>
-        <div class="gh-lbl">ZW · Zim</div>
-        <div class="gh-lbl">ZM · Zambia</div>
-        <div class="gh-lbl">MZ · Moz</div>
-        <div class="gh-lbl">TZ · Tanzania</div>
-        <div class="gh-lbl">MW · Malawi</div>
-      </div>
-      <div class="geo-data-row">
-        <div class="geo-co-nm">Omnia Holdings</div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-      </div>
-      <div class="geo-data-row">
-        <div class="geo-co-nm">Yara International</div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-      </div>
-      <div class="geo-data-row">
-        <div class="geo-co-nm">Foskor</div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-      </div>
-      <div class="geo-data-row">
-        <div class="geo-co-nm">ICL Group</div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-g"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-y"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-        <div style="text-align:center"><div class="gdot gdot-n"></div></div>
-      </div>
-      <div class="geo-data-row" style="background:rgba(16,185,129,.04)">
-        <div class="geo-co-nm" style="color:var(--emerald)">abfAgri (all 16)</div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-        <div style="text-align:center"><div class="gdot" style="background:var(--emerald);width:10px;height:10px;border-radius:50%;margin:0 auto;"></div></div>
-      </div>
-      <div class="geo-legend">🟢 Active — operations documented in public annual reports &nbsp;·&nbsp; 🟡 Partial / export or distribution only &nbsp;·&nbsp; ⬤ No documented SADC presence &nbsp;·&nbsp; Sources: Omnia AR 2024 · Yara AR 2023 · IDC AR 2023 · ICL AR 2023</div>
-    </div>
-
-    <!-- EXECUTIVE CONCLUSION -->
-    <div class="gap-banner">
+    <div class="mkt-alert orange">
+      <div class="mkt-alert-ico">🐄</div>
       <div>
-        <div class="gap-tag">Board Conclusion — The Strategic Opportunity</div>
-        <div class="gap-h">R billions in SADC fertilizer revenue.<br>Zero consequence-aware AI in the market.</div>
-        <p class="gap-p">The four major SADC producers — Omnia (R14.3B), Yara ($12.4B), Foskor (~R4.2B), and ICL ($6.8B) — collectively move billions in product annually. Not one offers farmers a ZAR-quantified consequence model, field-level AI diagnosis, or SKU-specific ROI recommendation. abfAgri is the intelligence layer positioned to license into their existing farmer and distributor networks — turning product sales relationships into consequence-aware commercial intelligence partnerships.</p>
+        <div class="mkt-alert-head">FMD confirmed in all 9 SA provinces</div>
+        <div class="mkt-alert-sub">Livestock movement restrictions in place — DALRRD Feb 2026</div>
       </div>
-      <div class="gap-right">
-        <div class="gap-stat">
-          <div class="gap-stat-n">0 of 4</div>
-          <div class="gap-stat-l">Major SADC producers with consequence AI</div>
-        </div>
-        <div class="gap-stat">
-          <div class="gap-stat-n">16</div>
-          <div class="gap-stat-l">SADC countries — abfAgri coverage from launch</div>
-        </div>
-        <div class="gap-stat">
-          <div class="gap-stat-n">&lt; 5s</div>
-          <div class="gap-stat-l">Consequence model + SKU recommendation</div>
-        </div>
+    </div>
+    <div class="mkt-alert yellow">
+      <div class="mkt-alert-ico">⛽</div>
+      <div>
+        <div class="mkt-alert-head">Diesel up 50% in 60 days</div>
+        <div class="mkt-alert-sub">Farming costs are at a multi-year high — plan your inputs carefully</div>
+      </div>
+    </div>
+    <div class="mkt-alert green">
+      <div class="mkt-alert-ico">📈</div>
+      <div>
+        <div class="mkt-alert-head">Omnia H1 2026 — strong input demand</div>
+        <div class="mkt-alert-sub">Agriculture segment R458M · HEPS +11% — product availability good</div>
       </div>
     </div>
 
-    <!-- DATA SOURCES -->
-    <div class="data-sources">
-      <span class="ds-pill">📄 Omnia Holdings Annual Report 2024 (JSE SENS)</span>
-      <span class="ds-pill">📄 Yara International Annual Report 2023 (Oslo Børs)</span>
-      <span class="ds-pill">📄 ICL Group Annual Report 2023 (NYSE/TASE)</span>
-      <span class="ds-pill">📄 IDC Annual Report 2023 (Foskor portfolio)</span>
-      <span class="ds-pill">📊 FASA Fertilizer Review 2023</span>
-      <span class="ds-pill">📊 FAO World Fertilizer Trends &amp; Outlook 2022</span>
-      <span class="ds-pill">📊 IFA Medium-Term Fertilizer Outlook 2023–2027</span>
-      <span class="ds-pill">📊 FAO STAT Agricultural Data 2022</span>
-    </div>
   </div>
 </section>
 
